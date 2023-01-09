@@ -130,6 +130,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SongGenresController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DTOs\SongGenreDTO.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -143,7 +148,6 @@
     <Compile Include="Models\EFModels\Admin.cs" />
     <Compile Include="Models\EFModels\Admin_Role_Metadata.cs" />
     <Compile Include="Models\EFModels\Album.cs" />
-    <Compile Include="Models\EFModels\Album_Artist_Metadata.cs" />
     <Compile Include="Models\EFModels\Album_Song_Metadata.cs" />
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\ArticlePunishemt.cs" />
@@ -195,6 +199,10 @@
     <Compile Include="Models\EFModels\SubscriptionRecord.cs" />
     <Compile Include="Models\EFModels\Tag.cs" />
     <Compile Include="Models\EFModels\TagPunishment.cs" />
+    <Compile Include="Models\Infrastructures\Extensions\SongGenreExts.cs" />
+    <Compile Include="Models\Infrastructures\Repositories\SongGenreRepository.cs" />
+    <Compile Include="Models\Services\Interfaces\ISongGenreRepository.cs" />
+    <Compile Include="Models\Services\SongGenreService.cs" />
     <Compile Include="Models\Infrastructures\Extensions\MemberExts.cs" />
     <Compile Include="Models\Infrastructures\HashUtility.cs" />
     <Compile Include="Models\Infrastructures\Repositories\MemberRepository.cs" />
@@ -276,8 +284,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\ViewModels\" />
     <Folder Include="Uploads\Covers\" />
     <Folder Include="Uploads\Songs\" />
+    <Folder Include="Views\SongMainPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
