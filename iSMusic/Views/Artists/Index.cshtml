@@ -1,0 +1,64 @@
+﻿@model IEnumerable<iSMusic.Models.EFModels.Artist>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.artistName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.artistGender)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.isBand == true)
+                {
+                    <span>樂團</span>
+                }
+                else
+                {
+                    <span>單人</span>
+                }
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.artistName)
+            </td>
+
+            <td>
+                @if (item.artistGender == true)
+                {
+                    <span>男</span>
+                }
+                else if (item.artistGender == false)
+                {
+                    <span>女</span>
+                }
+                else
+                {
+                }
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
+

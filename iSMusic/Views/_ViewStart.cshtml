@@ -1,7 +1,11 @@
 ﻿@{
     string CurrentName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+
     switch (CurrentName)
     {
+        case "Artists":
+            Layout = "/Views/Shared/_SongLayout.cshtml";
+            break;
         case "SongGenres":
             Layout = "/Views/Shared/_SongLayout.cshtml";
             break;

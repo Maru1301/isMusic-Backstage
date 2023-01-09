@@ -21,14 +21,18 @@ namespace iSMusic.Models.EFModels
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "演出者名稱")]
         public string artistName { get; set; }
 
-        public bool isBand { get; set; }
+		[Display(Name = "是否為樂團?")]
+		public bool isBand { get; set; }
 
-        public bool? artistGender { get; set; }
+		[Display(Name = "性別")]
+		public bool? artistGender { get; set; }
 
         [Required]
         [StringLength(500)]
+        [Display(Name = "關於")]
         public string artistAbout { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
