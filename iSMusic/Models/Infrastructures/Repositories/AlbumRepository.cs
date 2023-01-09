@@ -1,6 +1,7 @@
 ﻿using iSMusic.Models.DTOs;
 using iSMusic.Models.EFModels;
 using iSMusic.Models.Infrastructures.Extensions;
+using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web;
 
 namespace iSMusic.Models.Infrastructures.Repositories
 {
-	public class AlbumRepository
+	public class AlbumRepository: IAlbumRepository
 	{
 		private AppDbContext db;
 
