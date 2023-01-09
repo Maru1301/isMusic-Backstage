@@ -172,6 +172,7 @@ namespace iSMusic.Models.Services
 			if (song == null) throw new Exception("查無此歌");
 
 			//if this song is in any album, this song is not able to be deleted the song
+			if (IsInAlbum(dto.id) == true) throw new Exception("有一張專輯包含了此歌");
 
 			SongMetadataRepository metadataRepository = new SongMetadataRepository();
 			foreach(int artistId in song.artistIdList)
@@ -180,6 +181,14 @@ namespace iSMusic.Models.Services
 			}
 			
 			repository.DeleteSong(song.ToDTO());
+		}
+
+		private bool IsInAlbum(int id)
+		{
+			var albumRepo = new AlbumRepository();
+			var album = albumRepo.FindById(id);
+
+			return album != null;
 		}
 
 		private bool dupArtist(List<int> artistIdList)
