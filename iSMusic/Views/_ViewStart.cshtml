@@ -1,3 +1,12 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    string CurrentName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+
+    if(CurrentName == "Songs" || CurrentName == "Artists" || CurrentName == "SongGenres" || CurrentName == "Albums")
+    {
+        Layout = "~/Views/Shared/_SongLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Shared/_Layout.cshtml";
+    }
 }

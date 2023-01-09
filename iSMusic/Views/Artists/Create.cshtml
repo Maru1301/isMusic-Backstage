@@ -1,0 +1,103 @@
+﻿@model iSMusic.Models.EFModels.Artist
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Artist</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.artistName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.artistName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.artistName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isBand, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButtonFor(model => model.isBand, true, new
+                {
+                    id = "TrueValueID",
+                    @class = "btn band"
+                }) 樂團
+
+                @Html.RadioButtonFor(model => model.isBand, false, new
+                {
+                    id = "FalseValueID",
+                    @class = "btn band"
+                }) 單人
+                @Html.ValidationMessageFor(model => model.isBand, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.artistGender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButtonFor(model => model.artistGender, true, new
+                {
+                    id = "TrueValueID",
+                    @class = "btn gender"
+                }) 男
+
+                @Html.RadioButtonFor(model => model.artistGender, false, new
+                {
+                    id = "FalseValueID",
+                    @class = "btn gender"
+                }) 女
+                @Html.ValidationMessageFor(model => model.artistGender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.artistAbout, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.artistAbout, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.artistAbout, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        let isBands = document.querySelectorAll(".band");
+        for (let isBand of isBands) {
+            isBand.addEventListener("change", function () {
+                let genders = document.querySelectorAll(".gender");
+                if (this.value == "True") {
+                    for (let gender of genders) {
+                        gender.setAttribute("disabled", "");
+                    }
+                } else {
+                    for (let gender of genders) {
+                        gender.removeAttribute("disabled");
+                    }
+                }
+            })
+        }
+    </script>
+}
+
+

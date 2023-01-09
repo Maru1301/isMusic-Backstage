@@ -1,0 +1,73 @@
+﻿@model IEnumerable<iSMusic.Models.ViewModels.SongIndexVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.songName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.artistList)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.genreName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.language)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.released)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <audio controls>
+                    <source src=@item.songPath type="audio/mp3" />
+                </audio>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.songName)
+            </td>
+            <td>
+                @foreach (var name in item.artistList)
+                {
+                    @Html.DisplayFor(modelItem => name)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genreName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.language)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.released)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
