@@ -28,6 +28,18 @@ namespace iSMusic.Controllers
 			return View(data);
 		}
 
+		// launch a song
+		public ActionResult LaunchSong(int songId)
+		{
+			return Index();
+		}
+
+		// recall a song
+		public ActionResult RecallSong(int songId)
+		{
+			return Index();
+		}
+
 		// GET: Songs/Create
 		public ActionResult Create()
 		{
