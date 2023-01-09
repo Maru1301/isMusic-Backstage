@@ -132,10 +132,12 @@
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SongGenresController.cs" />
+    <Compile Include="Controllers\SongsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\ArtistDTO.cs" />
+    <Compile Include="Models\DTOs\SongDTO.cs" />
     <Compile Include="Models\DTOs\SongGenreDTO.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Global.asax.cs">
@@ -202,13 +204,18 @@
     <Compile Include="Models\EFModels\Tag.cs" />
     <Compile Include="Models\EFModels\TagPunishment.cs" />
     <Compile Include="Models\Infrastructures\Extensions\ArtistExts.cs" />
+    <Compile Include="Models\Infrastructures\Extensions\SongExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongGenreExts.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ArtistRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongGenreRepository.cs" />
+    <Compile Include="Models\Infrastructures\Repositories\SongMetadataRepository.cs" />
+    <Compile Include="Models\Infrastructures\Repositories\SongRepository.cs" />
     <Compile Include="Models\Services\ArtistService.cs" />
     <Compile Include="Models\Services\Interfaces\IArtistRepository.cs" />
     <Compile Include="Models\Services\Interfaces\ISongGenreRepository.cs" />
+    <Compile Include="Models\Services\Interfaces\ISongRepository.cs" />
     <Compile Include="Models\Services\SongGenreService.cs" />
+    <Compile Include="Models\Services\SongService.cs" />
     <Compile Include="Models\Infrastructures\Extensions\MemberExts.cs" />
     <Compile Include="Models\Infrastructures\HashUtility.cs" />
     <Compile Include="Models\Infrastructures\Repositories\MemberRepository.cs" />
@@ -290,7 +297,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ViewModels\" />
     <Folder Include="Uploads\Covers\" />
     <Folder Include="Uploads\Songs\" />
     <Folder Include="Views\SongMainPage\" />
