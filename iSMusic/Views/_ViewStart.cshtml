@@ -1,17 +1,12 @@
 ﻿@{
     string CurrentName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
 
-    switch (CurrentName)
+    if(CurrentName == "Songs" || CurrentName == "Artists" || CurrentName == "SongGenres")
     {
-        case "Artists":
-            Layout = "/Views/Shared/_SongLayout.cshtml";
-            break;
-        case "SongGenres":
-            Layout = "/Views/Shared/_SongLayout.cshtml";
-            break;
-        default:
-            //Admin layout
-            Layout = "/Views/Shared/_Layout.cshtml";
-            break;
+        Layout = "~/Views/Shared/_SongLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Shared/_Layout.cshtml";
     }
 }
