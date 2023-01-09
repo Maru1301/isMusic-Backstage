@@ -277,7 +277,7 @@
     <Content Include="Views\Albums\Create.cshtml" />
     <Content Include="Views\Albums\Edit.cshtml" />
     <Content Include="Views\Albums\Delete.cshtml" />
-    <Content Include="Views\Shared\Editor Templates\DateTimePicker.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTimePicker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
