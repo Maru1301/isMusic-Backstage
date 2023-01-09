@@ -21,12 +21,18 @@ namespace iSMusic.Models.EFModels
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "�t�X�̦W��")]
         public string artistName { get; set; }
 
-        public bool artistGender { get; set; }
+		[Display(Name = "�O�_���ֹ�?")]
+		public bool isBand { get; set; }
+
+		[Display(Name = "�ʧO")]
+		public bool? artistGender { get; set; }
 
         [Required]
         [StringLength(500)]
+        [Display(Name = "����")]
         public string artistAbout { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
