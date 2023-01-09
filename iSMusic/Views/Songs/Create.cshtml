@@ -1,0 +1,242 @@
+﻿@model iSMusic.Models.ViewModels.SongCreateVM
+
+@{
+    ViewBag.Title = "Create";
+}
+<script src="~/scripts/jquery-3.4.1.js" type="text/javascript"></script>
+<script src="~/scripts/jquery.validate.js" type="text/javascript"></script>
+<h2>新增歌曲</h2>
+
+
+@using (Html.BeginForm("Create", "Songs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>*必填</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-md-6">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input data-val="true" data-val-required="請選一張圖片" type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
+                    @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
+                </div>
+                <img id="preview" style="max-height:200px;" />
+            </div>
+            <script>
+            const myImg = document.querySelector("#myImg");
+            myImg.addEventListener("change", function (e) {
+                const file = this.files[0];
+                const objectURL = URL.createObjectURL(file);
+                let preview = document.querySelector("#preview");
+                preview.src = objectURL;
+            })
+            </script>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.songName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.songName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.songName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2"><label>主表演者</label></div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.artistIdList, (IEnumerable<SelectListItem>)ViewBag.ArtistList, new { @class = "form-control col-md-7" })
+                    @Html.ValidationMessageFor(model => model.artistIdList, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" id="artistList">
+                <div class="col-md-2"><label>其他表演者</label></div>
+                <button id="add" class="btn btn-default col-md-offset-1 col-md-4" type="button">新增表演者</button>
+            </div>
+            <script>
+            var listNum = 0;
+            $(".btn").on("click", function () {
+                let outerBtn = $(this);
+                    let div = $("<div>");
+                    if (listNum >= 1) {
+                        outerBtn.removeClass("col-md-offset-1");
+                        outerBtn.addClass("col-md-offset-3");
+                    }
+                    if (listNum >= 2) {
+                        div.attr("class", "col-md-10 col-md-offset-2");
+                    } else {
+                        div.attr("class", "col-md-10")
+                    }
+                    let droplist = `@Html.DropDownListFor(model => model.artistIdList, (IEnumerable<SelectListItem>)ViewBag.ArtistList, new { @class = "form-control col-md-7" })`;
+                    let validation = `@Html.ValidationMessageFor(model => model.artistIdList, "", new { @class = "text-danger" })`;
+                    let delBtn = $("<button>");
+
+                    delBtn.attr("class", "btn btn-control col-md-2")
+                    delBtn.text("Delete")
+                    delBtn.on("click", function () {
+                        div.remove();
+                        listNum--;
+                        if (listNum < 2) {
+                            outerBtn.removeClass("col-md-offset-3");
+                            outerBtn.addClass("col-md-offset-1");
+                        }
+                    })
+                    div.append(droplist);
+                    div.append(delBtn);
+                    div.append(validation);
+
+                    $("#add").before(div);
+                    listNum++;
+                })
+            </script>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.genreId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.genreId, (IEnumerable<SelectListItem>)ViewBag.GenreList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.genreId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.duration, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "form-control hidden" } })
+                    @Html.ValidationMessageFor(model => model.duration, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.isInstrumental, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.RadioButtonFor(model => model.isInstrumental, true, new
+                        {
+                            @class = "isInstrumental",
+                            id = "isInstrumentalTrue"
+                        }) 是
+                    @Html.RadioButtonFor(model => model.isInstrumental, false, new
+                        {
+                            @class = "isInstrumental",
+                            id = "isInstrumentalFalse"
+                        }) 否
+                    @Html.ValidationMessageFor(model => model.isInstrumental, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.language, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.language, (IEnumerable<SelectListItem>)ViewBag.LanguageList, new { @class = "form-control", @id = "language" })
+                    @Html.ValidationMessageFor(model => model.language, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.isExplicit, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.RadioButtonFor(model => model.isExplicit, true, new
+                       {
+                           @class = "isExplicit",
+                           id = "isExplicitTrue"
+                       }) 是
+                    @Html.RadioButtonFor(model => model.isExplicit, false, new
+                       {
+                           @class = "isExplicit",
+                           id = "isExplicitFalse"
+                       }) 否
+                    @Html.ValidationMessageFor(model => model.isExplicit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.released, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.released, "DateTimePicker")
+                    @Html.ValidationMessageFor(model => model.released, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.songWriter, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.songWriter, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.songWriter, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SongFile, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-9">
+                    <input data-val="true" data-val-required="請選擇一首歌" type="file" name="SongFile" id="mySong" accept="audio/*" />
+                    @Html.ValidationMessageFor(model => model.SongFile, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <audio id="audio_player" controls />
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $("#mySong").on("change", function (e) {
+                        const files = this.files;
+                        const file = URL.createObjectURL(files[0]);
+
+                        $("#audio_player").on("loadedmetadata", function () {
+                            let duration = Math.floor(this.duration);
+                            $("#duration").val(duration);
+                            console.log($("#duration").val());
+                        })
+                        $("#audio_player")[0].src = file;
+
+                    })
+                })
+            </script>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.lyric, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.lyric, new { @class = "form-control", @rows = "20" })
+                    @Html.ValidationMessageFor(model => model.lyric, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default col-md-1" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            let lyric = $("#lyric");
+            let language = $("#language");
+            let isExplicit = $(".isExplicit");
+
+            $(".isInstrumental").on("change", function () {
+                console.log($(this).val());
+                if ($(this).val() == "True") {
+                    language.attr("disabled", "");
+                    lyric.attr("disabled", "");
+                    isExplicit.attr("disabled", "");
+                } else {
+                    lyric.removeAttr("disabled");
+                    language.removeAttr("disabled");
+                    isExplicit.removeAttr("disabled");
+                }
+            })
+        })
+    </script>
+}
+

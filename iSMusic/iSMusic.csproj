@@ -131,10 +131,12 @@
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SongGenresController.cs" />
+    <Compile Include="Controllers\SongsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\ArtistDTO.cs" />
+    <Compile Include="Models\DTOs\SongDTO.cs" />
     <Compile Include="Models\DTOs\SongGenreDTO.cs" />
     <Compile Include="Models\EFModels\Activity.cs" />
     <Compile Include="Models\EFModels\ActivityFollow.cs" />
@@ -194,13 +196,22 @@
     <Compile Include="Models\EFModels\Tag.cs" />
     <Compile Include="Models\EFModels\TagPunishment.cs" />
     <Compile Include="Models\Infrastructures\Extensions\ArtistExts.cs" />
+    <Compile Include="Models\Infrastructures\Extensions\SongExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongGenreExts.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ArtistRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongGenreRepository.cs" />
+    <Compile Include="Models\Infrastructures\Repositories\SongMetadataRepository.cs" />
+    <Compile Include="Models\Infrastructures\Repositories\SongRepository.cs" />
     <Compile Include="Models\Services\ArtistService.cs" />
     <Compile Include="Models\Services\Interfaces\IArtistRepository.cs" />
     <Compile Include="Models\Services\Interfaces\ISongGenreRepository.cs" />
+    <Compile Include="Models\Services\Interfaces\ISongRepository.cs" />
     <Compile Include="Models\Services\SongGenreService.cs" />
+    <Compile Include="Models\Services\SongService.cs" />
+    <Compile Include="Models\ViewModels\SongCreateVM.cs" />
+    <Compile Include="Models\ViewModels\SongEditVM.cs" />
+    <Compile Include="Models\ViewModels\SongIndexVM.cs" />
+    <Compile Include="Models\ViewModels\SongListItemVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,10 +259,13 @@
     <Content Include="Views\Artists\Create.cshtml" />
     <Content Include="Views\Artists\Edit.cshtml" />
     <Content Include="Views\Artists\Delete.cshtml" />
+    <Content Include="Views\Songs\Index.cshtml" />
+    <Content Include="Views\Songs\Create.cshtml" />
+    <Content Include="Views\Songs\Edit.cshtml" />
+    <Content Include="Views\Songs\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ViewModels\" />
     <Folder Include="Uploads\Covers\" />
     <Folder Include="Uploads\Songs\" />
     <Folder Include="Views\SongMainPage\" />
