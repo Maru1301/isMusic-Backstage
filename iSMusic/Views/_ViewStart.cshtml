@@ -1,3 +1,13 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    string CurrentName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    switch (CurrentName)
+    {
+        case "SongGenres":
+            Layout = "/Views/Shared/_SongLayout.cshtml";
+            break;
+        default:
+            //Admin layout
+            Layout = "/Views/Shared/_Layout.cshtml";
+            break;
+    }
 }
