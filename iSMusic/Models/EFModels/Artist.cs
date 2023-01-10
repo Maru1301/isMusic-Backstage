@@ -11,7 +11,8 @@ namespace iSMusic.Models.EFModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Artist()
         {
-            Album_Artist_Metadata = new HashSet<Album_Artist_Metadata>();
+            
+            Albums = new HashSet<Album>();
             ArtistFollows = new HashSet<ArtistFollow>();
             Library_Artist_Metadata = new HashSet<Library_Artist_Metadata>();
             Song_Artist_Metadata = new HashSet<Song_Artist_Metadata>();
@@ -36,7 +37,8 @@ namespace iSMusic.Models.EFModels
         public string artistAbout { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Album_Artist_Metadata> Album_Artist_Metadata { get; set; }
+       
+        public virtual ICollection<Album> Albums { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArtistFollow> ArtistFollows { get; set; }

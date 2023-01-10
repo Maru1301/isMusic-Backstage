@@ -11,7 +11,7 @@ namespace iSMusic.Models.EFModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Album()
         {
-            Album_Artist_Metadata = new HashSet<Album_Artist_Metadata>();
+            
             Album_Song_Metadata = new HashSet<Album_Song_Metadata>();
             Library_Album_Metadata = new HashSet<Library_Album_Metadata>();
             LikedAlbums = new HashSet<LikedAlbum>();
@@ -28,20 +28,25 @@ namespace iSMusic.Models.EFModels
         [StringLength(50)]
         public string albumCoverPath { get; set; }
 
+        public int albumTypeId { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime released { get; set; }
 
-        public DateTime created { get; set; }
-
+        
         [Required]
         [StringLength(3000)]
         public string description { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Album_Artist_Metadata> Album_Artist_Metadata { get; set; }
+        
+        public int mainArtistId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Album_Song_Metadata> Album_Song_Metadata { get; set; }
+
+        public virtual AlbumType AlbumType { get; set; }
+
+        public virtual Artist Artist { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Library_Album_Metadata> Library_Album_Metadata { get; set; }

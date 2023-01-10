@@ -48,16 +48,18 @@ namespace iSMusic.Models.Infrastructures.Repositories
 
 		public IEnumerable<AlbumIndexVM> GetAlbumIndexVMs()
 		{
-			return db.Albums.Include("Artist").Select(a => new
+			return db.Albums.Include("Artist").Include("AlbumType").Select(a => new
 			{
 				a.id,
 				a.albumName,
+				typeName = a.AlbumType.typeName,
 				a.released,
 				mainArtistName = a.Artist.artistName,
 			}).Select(a => new AlbumIndexVM
 			{
 				id = a.id,
 				albumName = a.albumName,
+				typeName = a.typeName,
 				released = a.released,
 				mainArtistName = a.mainArtistName
 			});

@@ -154,6 +154,7 @@
     <Compile Include="Models\EFModels\Admin.cs" />
     <Compile Include="Models\EFModels\Admin_Role_Metadata.cs" />
     <Compile Include="Models\EFModels\Album.cs" />
+    <Compile Include="Models\EFModels\AlbumType.cs" />
     <Compile Include="Models\EFModels\Album_Song_Metadata.cs" />
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\ArticlePunishemt.cs" />
@@ -295,6 +296,7 @@
     <Content Include="Views\Albums\Create.cshtml" />
     <Content Include="Views\Albums\Edit.cshtml" />
     <Content Include="Views\Albums\Delete.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
     <Content Include="Views\Shared\Editor Templates\DateTimePicker.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
