@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />
+    <Compile Include="Controllers\CreatorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SongGenresController.cs" />
     <Compile Include="Controllers\SongsController.cs" />
@@ -288,6 +289,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\Covers\" />
     <Folder Include="Uploads\Songs\" />
+    <Folder Include="Views\Creators\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

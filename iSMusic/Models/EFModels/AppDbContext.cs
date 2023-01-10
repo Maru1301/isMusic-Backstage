@@ -8,7 +8,7 @@ namespace iSMusic.Models.EFModels
 	public partial class AppDbContext : DbContext
 	{
 		public AppDbContext()
-			: base("name=AppConnStr")
+			: base("name=AppDbContext")
 		{
 		}
 
@@ -354,6 +354,11 @@ namespace iSMusic.Models.EFModels
 
 			modelBuilder.Entity<Member>()
 				.HasMany(e => e.CommentPunishments)
+				.WithRequired(e => e.Member)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Member>()
+				.HasMany(e => e.Creators)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
 
