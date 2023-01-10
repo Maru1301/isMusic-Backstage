@@ -45,6 +45,7 @@ namespace iSMusic.Models.EFModels
 
         public virtual Member Member { get; set; }
 
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Product_Metadata> Order_Product_Metadata { get; set; }
     }
