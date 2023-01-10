@@ -8,10 +8,6 @@ namespace iSMusic.Models.DTOs
 {
 	public class RegisterDTO
 	{
-		public RegisterDTO()
-		{
-			this.created= DateTime.Now;
-		}
 		public const string SALT = "!@#$$DGTEGYT";
 		public string Account { get; set; }
 
@@ -38,6 +34,5 @@ namespace iSMusic.Models.DTOs
 		public string NickName { get; set; }
 				
 		public string ConfirmCode { get; set; }
-		public DateTime created { get; set; }
-	}
+		}
 }

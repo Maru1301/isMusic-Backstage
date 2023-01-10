@@ -1,4 +1,5 @@
-﻿using iSMusic.Models.Infrastructures.Repositories;
+﻿using iSMusic.Models.DTOs;
+using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services;
 using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
@@ -7,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.Services.Description;
+using System.Web.UI.WebControls;
 
 namespace iSMusic.Controllers
 {
@@ -52,6 +56,46 @@ namespace iSMusic.Controllers
 			else
 			{
 				ModelState.AddModelError(string.Empty, response.ErrorMessage);
+				return View(model);
+			}
+		}
+
+		public ActionResult EditProfile()
+		{
+			string currentUserAccount = User.Identity.Name;
+
+			MemberDTO entity = repo.GetByAccount(currentUserAccount);
+			EditProfileVM model = entity.ToEditProfileVM();
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public ActionResult EditProfile(EditProfileVM model)
+		{
+			string currentUserAccount = User.Identity.Name;
+
+			if (ModelState.IsValid == false)
+			{
+				return View(model);
+			}
+
+			UpdateProfileDTO request = model.ToDTO(currentUserAccount);
+			try
+			{
+				memberService.UpdateProfile(request);
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError(string.Empty, ex.Message);
+			}
+
+			if (ModelState.IsValid == true)
+			{
+				return RedirectToAction("Index");
+			}
+			else
+			{
 				return View(model);
 			}
 		}

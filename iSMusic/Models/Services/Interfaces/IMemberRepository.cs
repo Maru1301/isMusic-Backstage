@@ -13,5 +13,7 @@ namespace iSMusic.Models.Services.Interfaces
 		IEnumerable<MemberVM> GetAll();
 		bool IsExist(string account);
 		void Create(RegisterDTO dto);
+		MemberDTO GetByAccount(string account);
+		void Update(MemberDTO entity);
 	}
 }

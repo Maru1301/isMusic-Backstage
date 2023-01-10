@@ -402,11 +402,6 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Member>()
-				.HasMany(e => e.SubscriptionRecords)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
 				.HasMany(e => e.TagPunishments)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
@@ -514,11 +509,6 @@ namespace iSMusic.Models.EFModels
 				.HasPrecision(7, 0);
 
 			modelBuilder.Entity<SubscriptionPlan>()
-				.HasMany(e => e.Members)
-				.WithOptional(e => e.SubscriptionPlan)
-				.HasForeignKey(e => e.memberSubscriptionPlanId);
-
-			modelBuilder.Entity<SubscriptionPlan>()
 				.HasMany(e => e.SubscriptionRecords)
 				.WithRequired(e => e.SubscriptionPlan)
 				.HasForeignKey(e => e.subscraptionPlanId)
@@ -534,5 +524,7 @@ namespace iSMusic.Models.EFModels
 				.WithRequired(e => e.Tag)
 				.WillCascadeOnDelete(false);
 		}
-	}
+
+        public System.Data.Entity.DbSet<iSMusic.Models.ViewModels.EditProfileVM> EditProfileVMs { get; set; }
+    }
 }

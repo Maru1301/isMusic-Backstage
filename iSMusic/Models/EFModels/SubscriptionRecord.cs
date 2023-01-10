@@ -16,8 +16,6 @@ namespace iSMusic.Models.EFModels
 
         public DateTime subscribedTime { get; set; }
 
-        public virtual Member Member { get; set; }
-
         public virtual SubscriptionPlan SubscriptionPlan { get; set; }
     }
 }

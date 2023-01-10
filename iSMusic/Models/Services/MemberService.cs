@@ -1,4 +1,5 @@
 ﻿using iSMusic.Models.DTOs;
+using iSMusic.Models.Infrastructures;
 using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
 using System;
@@ -42,6 +43,45 @@ namespace iSMusic.Models.Services
 			#endregion
 
 			return (true, null);
+		}
+		public (bool IsSuccess, string ErrorMessage) Login(string account, string password)
+		{
+			MemberDTO member = _repository.GetByAccount(account);
+
+			if (member == null)
+			{
+				return (false, "帳密有誤");
+			}
+
+			//if (member.IsConfirmed.HasValue == false || member.IsConfirmed.HasValue && member.IsConfirmed.Value == false)
+			//{
+			//	return (false, "會員資格尚未確認");
+			//}
+
+			string encryptedPwd = HashUtility.ToSHA256(password, RegisterDTO.SALT);
+
+			return (String.CompareOrdinal(member.EncryptedPassword, encryptedPwd) == 0)
+				? (true, null)
+				: (false, "帳密有誤");
+		}
+		public void UpdateProfile(UpdateProfileDTO request)
+		{
+			// todo 驗證傳入的屬性值是否正確
+
+			// 取得在db裡的原始記錄
+			MemberDTO entity = _repository.GetByAccount(request.Account);
+			if (entity == null) throw new Exception("找不到要修改的會員記錄");
+
+			// 更新記錄
+			entity.NickName = request.NickName;
+			entity.Email = request.Email;
+			entity.Cellphone = request.Cellphone;
+			entity.Account = request.Account;
+			entity.Address = request.Address;
+			
+
+			_repository.Update(entity);
+
 		}
 	}
 }

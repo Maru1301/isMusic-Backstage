@@ -1,5 +1,6 @@
 ﻿using iSMusic.Models.DTOs;
 using iSMusic.Models.EFModels;
+using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
 using System;
@@ -27,7 +28,7 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				memberEncryptedPassword = dto.EncryptedPassword,
 				memberEmail = dto.Email,
 				memberNickName = dto.NickName,
-				created=dto.created,
+				
 				isConfirmed = false, //預設是未確認的會員
 				confirmCode = dto.ConfirmCode
 			};
@@ -41,6 +42,21 @@ namespace iSMusic.Models.Infrastructures.Repositories
 
 			return (entity != null);
 
+		}
+		public MemberDTO GetByAccount(string account)
+		{
+			return db.Members
+				.SingleOrDefault(x => x.memberAccount == account)
+				.ToDto();
+		}
+		public void Update(MemberDTO entity)
+		{
+			Member member = db.Members.Find(entity.id);
+
+			member.memberEmail = entity.Email;
+			member.memberNickName = entity.NickName;
+			member.memberCellphone = entity.Cellphone;
+			db.SaveChanges();
 		}
 	}
 }
