@@ -65,6 +65,11 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			});
 		}
 
+		public IQueryable<Album> GetQuery()
+		{
+			return db.Albums;
+		}
+
 		public Album Search(AlbumDTO dto, int albumId = 0)
 		{
 			if (albumId == 0)

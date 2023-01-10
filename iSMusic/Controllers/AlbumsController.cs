@@ -1,4 +1,5 @@
-﻿using iSMusic.Models.Infrastructures.Extensions;
+﻿using iSMusic.Models.EFModels;
+using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services;
 using iSMusic.Models.Services.Interfaces;
@@ -8,11 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using static iSMusic.Controllers.ArtistsController;
 
 namespace iSMusic.Controllers
 {
-    public class AlbumsController : Controller
-    {
+	public class AlbumsController : Controller
+	{
 		IAlbumRepository repository;
 
 		public AlbumsController()
@@ -21,13 +24,21 @@ namespace iSMusic.Controllers
 		}
 
 		// GET: Albums
-		public ActionResult Index()
+		public ActionResult Index(AlbumCriteria criteria, string columnName, string direction, int pageNumber = 1)
 		{
-			// 處理篩選功能
+			IQueryable<Album> query = repository.GetQuery();
 
-			// 處理分頁功能
+			// 處理篩選功能
+			ViewBag.Criteria = criteria;
+			query = criteria.ApplyCriteria(query);
 
 			// 加入排序
+			var sortInfo = new SortInfo(columnName, direction);
+			sortInfo.UrlTemplate = "/P111/Index01?{0}" + "&" + criteria.GetQueryString();
+			ViewBag.SortInfo = sortInfo;
+
+			query = sortInfo.ApplySort(query);
+			// 處理分頁功能
 
 			var service = new AlbumService(repository);
 			var data = service.Index();
@@ -186,6 +197,79 @@ namespace iSMusic.Controllers
 			}
 
 			return artistList;
+		}
+
+		public class AlbumCriteria
+		{
+			public int TypeId { get; set; }
+			public string input { get; set; }
+
+			public string GetQueryString()
+			{
+				return $"TypeId={TypeId}&input={HttpUtility.UrlEncode(input)}";
+			}
+
+			public IQueryable<Album> ApplyCriteria(IQueryable<Album> query)
+			{
+				if (TypeId > 0)
+				{
+					query = query.Where(t => t.albumTypeId == TypeId);
+				}
+
+				if (!string.IsNullOrWhiteSpace(input))
+				{
+					query = query.Where(t => t.albumName.Contains(input));
+				}
+
+				return query;
+			}
+
+		}
+
+		public class SortInfo
+		{
+			public SortInfo(string columnName, string direction) : base(columnName, direction, "CityDisplayOrder")
+			{
+
+			}
+
+			public override IQueryable<Album> ApplySort(IQueryable<Album> data)
+			{
+				bool result = Enum.TryParse(this.ColumnName, out EnumColumn enumColumnName);
+				if (!result)
+				{
+					enumColumnName = EnumColumn.CityDisplayOrder;
+				}
+
+				switch (enumColumnName)
+				{
+					case EnumColumn.CityDisplayOrder:
+						return (IsAsc())
+							? data.OrderBy(t => t.City.DisplayOrder).ThenBy(t => t.DisplayOrder)
+							: data.OrderByDescending(t => t.City.DisplayOrder).ThenBy(t => t.DisplayOrder);
+
+					case EnumColumn.TownshipDisplayOrder:
+						return (IsAsc())
+							? data.OrderBy(t => t.City.DisplayOrder).ThenBy(t => t.DisplayOrder)
+							: data.OrderBy(t => t.City.DisplayOrder).ThenByDescending(t => t.DisplayOrder);
+
+					case EnumColumn.TownShipName:
+						return (IsAsc())
+							? data.OrderBy(t => t.TownShipName)
+							: data.OrderByDescending(t => t.TownShipName);
+
+					case EnumColumn.CityName:
+						return (IsAsc())
+							? data.OrderBy(t => t.City.CityName).ThenBy(t => t.DisplayOrder)
+							: data.OrderByDescending(t => t.City.CityName).ThenBy(t => t.DisplayOrder);
+				}
+
+				return data;
+			}
+		}
+		public enum EnumColumn
+		{
+			CityName, CityDisplayOrder, TownShipName, TownshipDisplayOrder
 		}
 	}
 }
