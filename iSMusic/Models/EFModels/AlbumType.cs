@@ -6,30 +6,21 @@ namespace iSMusic.Models.EFModels
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("SubscriptionPlan")]
-    public partial class SubscriptionPlan
+    public partial class AlbumType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SubscriptionPlan()
+        public AlbumType()
         {
-            SubscriptionRecords = new HashSet<SubscriptionRecord>();
+            Albums = new HashSet<Album>();
         }
 
         public int id { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string planName { get; set; }
-
-        public decimal price { get; set; }
-
-        public byte numberOfUsers { get; set; }
-
-        [Required]
-        [StringLength(500)]
-        public string description { get; set; }
+        [StringLength(10)]
+        public string typeName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubscriptionRecord> SubscriptionRecords { get; set; }
+        public virtual ICollection<Album> Albums { get; set; }
     }
 }

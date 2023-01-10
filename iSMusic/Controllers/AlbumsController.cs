@@ -23,6 +23,12 @@ namespace iSMusic.Controllers
 		// GET: Albums
 		public ActionResult Index()
 		{
+			// 處理篩選功能
+
+			// 處理分頁功能
+
+			// 加入排序
+
 			var service = new AlbumService(repository);
 			var data = service.Index();
 
@@ -32,24 +38,23 @@ namespace iSMusic.Controllers
 		// GET: Albums/Create
 		public ActionResult Create()
 		{
-			var artists = new ArtistRepository().FindAll();
-			var artistList = new List<SelectListItem>()
-			{
-				new SelectListItem{Text = "請選擇", Value = string.Empty}
-			};
-			for (int i = 0; i < artists.Count; i++)
-			{
-				artistList.Add(new SelectListItem { Text = artists[i].artistName, Value = artists[i].id.ToString() });
-			}
-
-			ViewBag.ArtistList = artistList;
+			ViewBag.ArtistList = GetArtistList();
 
 			var songList = new List<SelectListItem>()
 			{
 				new SelectListItem{Text = "請選擇", Value = string.Empty}
 			};
-
 			ViewBag.SongList = songList;
+
+			var typeList = new List<SelectListItem>()
+			{
+				new SelectListItem{Text = "請選擇", Value = string.Empty},
+				new SelectListItem{Text = "專輯", Value = "1"},
+				new SelectListItem{Text = "EP", Value = "2"},
+				new SelectListItem{Text = "單曲", Value = "3"}
+			};
+			ViewBag.TypeList = typeList;
+
 			return View();
 		}
 
@@ -87,8 +92,16 @@ namespace iSMusic.Controllers
 			{
 				new SelectListItem{Text = "請選擇", Value = string.Empty}
 			};
-
 			ViewBag.SongList = songList;
+
+			var typeList = new List<SelectListItem>()
+			{
+				new SelectListItem{Text = "請選擇", Value = string.Empty},
+				new SelectListItem{Text = "專輯", Value = "1"},
+				new SelectListItem{Text = "EP", Value = "2"},
+				new SelectListItem{Text = "單曲", Value = "3"}
+			};
+			ViewBag.TypeList = typeList;
 
 			var data = repository.FindById(id);
 			data.albumCoverPath = "/Uploads/Covers/" + data.albumCoverPath;

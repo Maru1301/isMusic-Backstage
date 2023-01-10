@@ -27,6 +27,8 @@ namespace iSMusic.Models.EFModels
         [StringLength(50)]
         public string albumCoverPath { get; set; }
 
+        public int albumTypeId { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime released { get; set; }
 
@@ -38,6 +40,8 @@ namespace iSMusic.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Album_Song_Metadata> Album_Song_Metadata { get; set; }
+
+        public virtual AlbumType AlbumType { get; set; }
 
         public virtual Artist Artist { get; set; }
 

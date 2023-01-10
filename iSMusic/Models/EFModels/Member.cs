@@ -35,7 +35,6 @@ namespace iSMusic.Models.EFModels
             TagPunishments = new HashSet<TagPunishment>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]

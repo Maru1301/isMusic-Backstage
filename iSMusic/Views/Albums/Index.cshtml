@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.typeName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.albumName)
         </th>
         <th>
@@ -27,6 +30,9 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.typeName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.albumName)
             </td>
             <td>
@@ -37,7 +43,6 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
