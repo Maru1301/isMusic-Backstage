@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -46,12 +47,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -131,6 +135,8 @@
     <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SongGenresController.cs" />
     <Compile Include="Controllers\SongsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -138,6 +144,8 @@
     </Compile>
     <Compile Include="Models\DTOs\AlbumDTO.cs" />
     <Compile Include="Models\DTOs\ArtistDTO.cs" />
+    <Compile Include="Models\DTOs\CategoryDTO.cs" />
+    <Compile Include="Models\DTOs\ProductDTO.cs" />
     <Compile Include="Models\DTOs\SongDTO.cs" />
     <Compile Include="Models\DTOs\SongGenreDTO.cs" />
     <Compile Include="Models\EFModels\Activity.cs" />
@@ -204,6 +212,7 @@
     <Compile Include="Models\Infrastructures\Repositories\AlbumMetadataRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ArtistRepository.cs" />
+    <Compile Include="Models\Infrastructures\Repositories\ProductRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongGenreRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongMetadataRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongRepository.cs" />
@@ -211,13 +220,16 @@
     <Compile Include="Models\Services\ArtistService.cs" />
     <Compile Include="Models\Services\Interfaces\IAlbumRepository.cs" />
     <Compile Include="Models\Services\Interfaces\IArtistRepository.cs" />
+    <Compile Include="Models\Services\Interfaces\IProductRepository.cs" />
     <Compile Include="Models\Services\Interfaces\ISongGenreRepository.cs" />
     <Compile Include="Models\Services\Interfaces\ISongRepository.cs" />
+    <Compile Include="Models\Services\ProductService.cs" />
     <Compile Include="Models\Services\SongGenreService.cs" />
     <Compile Include="Models\Services\SongService.cs" />
     <Compile Include="Models\ViewModels\AlbumCreateVM.cs" />
     <Compile Include="Models\ViewModels\AlbumEditVM.cs" />
     <Compile Include="Models\ViewModels\AlbumIndexVM.cs" />
+    <Compile Include="Models\ViewModels\ProductVM.cs" />
     <Compile Include="Models\ViewModels\SongCreateVM.cs" />
     <Compile Include="Models\ViewModels\SongEditVM.cs" />
     <Compile Include="Models\ViewModels\SongIndexVM.cs" />
@@ -278,6 +290,16 @@
     <Content Include="Views\Albums\Edit.cshtml" />
     <Content Include="Views\Albums\Delete.cshtml" />
     <Content Include="Views\Shared\Editor Templates\DateTimePicker.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -330,7 +352,10 @@
       <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
