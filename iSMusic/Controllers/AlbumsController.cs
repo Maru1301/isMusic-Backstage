@@ -17,19 +17,23 @@ namespace iSMusic.Controllers
 {
 	public class AlbumsController : Controller
 	{
-		IAlbumRepository repository;
+		private IAlbumRepository repository;
+
+		public int PageSize { get; set; }
 
 		public AlbumsController()
 		{
 			repository = new AlbumRepository();
+			this.PageSize = 10;
 		}
 
 		// GET: Albums
-		public ActionResult Index(AlbumCriteria criteria, string columnName, string direction, int pageNumber = 1)
+		public ActionResult Index(string columnName, string direction, int pageNumber = 1)
 		{
 			IQueryable<AlbumIndexVM> query = repository.GetQuery();
 
 			// 處理篩選功能
+			var criteria = PrepareCriteria();
 			ViewBag.Criteria = criteria;
 			query = criteria.ApplyCriteria(query);
 
@@ -45,10 +49,18 @@ namespace iSMusic.Controllers
 			var paginationInfo = new Models.Infrastructures.PaginationInfo(totalRecords, this.PageSize, pageNumber);
 			ViewBag.Pagination = paginationInfo;
 
-			var service = new AlbumService(repository);
-			var data = service.Index();
+			var typeList = new List<SelectListItem>()
+			{
+				new SelectListItem{Text = "請選擇", Value = string.Empty},
+				new SelectListItem{Text = "專輯", Value = "1"},
+				new SelectListItem{Text = "EP", Value = "2"},
+				new SelectListItem{Text = "單曲", Value = "3"}
+			};
+			ViewBag.TypeList = typeList;
 
-			return View(data);
+			var list = paginationInfo.GetPagedData(query).ToList();
+
+			return View(list);
 		}
 
 		// GET: Albums/Create
@@ -204,9 +216,21 @@ namespace iSMusic.Controllers
 			return artistList;
 		}
 
+		private AlbumCriteria PrepareCriteria()
+		{
+			var criteria = new AlbumCriteria { input = Request["input"] };
+			criteria.TypeId = null;
+			if (int.TryParse(Request["albumTypeId"], out int value))
+			{
+				criteria.TypeId = value;
+			}
+
+			return criteria;
+		}
+
 		public class AlbumCriteria
 		{
-			public int TypeId { get; set; }
+			public int? TypeId { get; set; }
 			public string input { get; set; }
 
 			public string GetQueryString()

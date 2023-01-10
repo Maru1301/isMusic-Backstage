@@ -198,10 +198,12 @@
     <Compile Include="Models\EFModels\SubscriptionRecord.cs" />
     <Compile Include="Models\EFModels\Tag.cs" />
     <Compile Include="Models\EFModels\TagPunishment.cs" />
+    <Compile Include="Models\Infrastructures\BaseSortInfo.cs" />
     <Compile Include="Models\Infrastructures\Extensions\AlbumExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\ArtistExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongGenreExts.cs" />
+    <Compile Include="Models\Infrastructures\PaginationInfo.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumMetadataRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ArtistRepository.cs" />
@@ -280,6 +282,7 @@
     <Content Include="Views\Albums\Delete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTimePicker.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Duration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -47,22 +47,28 @@
                 @Html.DisplayFor(modelItem => item.songName)
             </td>
             <td>
-                @foreach (var name in item.artistList)
-                {
-                    @Html.DisplayFor(modelItem => name)
-                }
+                <table>
+                    @foreach (var name in item.artistList)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => name)
+                            </td>
+                        </tr>
+                    }
+                </table>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.genreName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.duration)
+                @Html.DisplayFor(modelItem => item.duration, "duration")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.language)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.released)
+                @Html.DisplayFor(modelItem => item.released, "Date")
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.id })

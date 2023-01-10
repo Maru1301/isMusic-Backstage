@@ -43,44 +43,9 @@ namespace iSMusic.Controllers
 		// GET: Songs/Create
 		public ActionResult Create()
 		{
-			var artists = new ArtistRepository().FindAll();
-			var genres = new SongGenreRepository().GetAll().ToList();
-
-			var artistList = new List<SelectListItem>()
-		{
-			new SelectListItem{Text = "請選擇", Value = string.Empty}
-		};
-			for (int i = 0; i < artists.Count; i++)
-			{
-				artistList.Add(new SelectListItem { Text = artists[i].artistName, Value = artists[i].id.ToString() });
-			}
-
-			ViewBag.ArtistList = artistList;
-
-			var genreList = new List<SelectListItem>()
-		{
-			new SelectListItem{Text = "請選擇", Value = string.Empty}
-		};
-			for (int i = 0; i < genres.Count; i++)
-			{
-				genreList.Add(new SelectListItem { Text = genres[i].genreName, Value = genres[i].id.ToString() });
-			}
-
-			ViewBag.GenreList = genreList;
-
-			var languageList = new List<SelectListItem>()
-		{
-			new SelectListItem{Text = "---請選擇---", Value = string.Empty},
-			new SelectListItem { Text = "English", Value = "English" },
-			new SelectListItem { Text = "Español", Value = "Español" },
-			new SelectListItem { Text = "中文", Value = "中文" },
-			new SelectListItem { Text = "Français", Value = "Français" },
-			new SelectListItem { Text = "Deutsch", Value = "Deutsch" },
-			new SelectListItem { Text = "日本語", Value = "日本語" },
-			new SelectListItem { Text = "Português", Value = "Português" },
-		};
-
-			ViewBag.LanguageList = languageList;
+			ViewBag.ArtistList = GetArtistList();
+			ViewBag.GenreList = GetGenreList();
+			ViewBag.LanguageList = GetLanguageList();
 
 			return View();
 		}
@@ -136,9 +101,9 @@ namespace iSMusic.Controllers
 
 			var list = new List<SelectListItem>();
 			var genreList = new List<SelectListItem>()
-		{
-			new SelectListItem{Text = "請選擇", Value = "0"}
-		};
+			{
+				new SelectListItem{Text = "請選擇", Value = "0"}
+			};
 			for (int i = 0; i < genres.Count; i++)
 			{
 				genreList.Add(new SelectListItem { Text = genres[i].genreName, Value = genres[i].id.ToString() });
@@ -152,7 +117,6 @@ namespace iSMusic.Controllers
 			return new List<SelectListItem>()
 		{
 			new SelectListItem{Text = "---請選擇---"},
-			new SelectListItem { Text = "No Lyric" },
 			new SelectListItem { Text = "English" },
 			new SelectListItem { Text = "Español" },
 			new SelectListItem { Text = "中文" },
