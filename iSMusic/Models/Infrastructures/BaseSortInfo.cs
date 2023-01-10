@@ -10,7 +10,7 @@ namespace iSMusic.Models.Infrastructures
 {
 	public abstract class BaseSortInfo<T> where T : class
 	{
-		protected string[] columnNames = new string[] { "CityName", "CityDisplayOrder", "TownShipName", "TownshipDisplayOrder" };
+		protected string[] columnNames = new string[] { "albumName", "released", "mainArtistName" };
 
 		protected string[] directionNames = new string[] { "Asc", "Desc" };
 
@@ -67,13 +67,13 @@ namespace iSMusic.Models.Infrastructures
 			if (this.ColumnName == column && this.Direction == direction)
 			{
 				return (direction == EnumDirection.Asc)
-					? "<i class=\"fas fa-caret-up \" style='color:red;'></i>"
-					: "<i class=\"fas fa-caret-down \" style='color:red;'></i>";
+					? "<i style='color:red;'>↑</i>"
+					: "<i style='color:red;'>↓</i>";
 			}
 
 			return (direction == EnumDirection.Asc)
-				? "<i class=\"fas fa-caret-up\"></i>"
-				: "<i class=\"fas fa-caret-down\"></i>";
+				? "<i>↑</i>"
+				: "<i>↓</i>";
 		}
 
 		private string GetUrl(string column, EnumDirection direction)

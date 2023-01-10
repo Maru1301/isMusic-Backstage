@@ -30,6 +30,7 @@ namespace iSMusic.Models.Infrastructures.Extensions
 			{
 				id = source.id,
 				albumName = source.albumName,
+				typeId = source.typeId,
 				songIdList = source.songIdList,
 				description = source.description,
 				mainArtistId = source.mainArtistId,

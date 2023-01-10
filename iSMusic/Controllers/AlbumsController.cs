@@ -28,12 +28,12 @@ namespace iSMusic.Controllers
 		}
 
 		// GET: Albums
-		public ActionResult Index(string columnName, string direction, int pageNumber = 1)
+		public ActionResult Index(AlbumCriteria criteria, string columnName, string direction, int pageNumber = 1)
 		{
 			IQueryable<AlbumIndexVM> query = repository.GetQuery();
 
 			// 處理篩選功能
-			var criteria = PrepareCriteria();
+			//var criteria = PrepareCriteria();
 			ViewBag.Criteria = criteria;
 			query = criteria.ApplyCriteria(query);
 
@@ -216,33 +216,33 @@ namespace iSMusic.Controllers
 			return artistList;
 		}
 
-		private AlbumCriteria PrepareCriteria()
-		{
-			var criteria = new AlbumCriteria { input = Request["input"] };
-			criteria.TypeId = null;
-			if (int.TryParse(Request["albumTypeId"], out int value))
-			{
-				criteria.TypeId = value;
-			}
+		//private AlbumCriteria PrepareCriteria()
+		//{
+		//	var criteria = new AlbumCriteria { input = Request["input"] };
+		//	criteria.TypeId = null;
+		//	if (int.TryParse(Request["albumTypeId"], out int value))
+		//	{
+		//		criteria.TypeId = value;
+		//	}
 
-			return criteria;
-		}
+		//	return criteria;
+		//}
 
 		public class AlbumCriteria
 		{
-			public int? TypeId { get; set; }
+			public int? AlbumTypeId { get; set; }
 			public string input { get; set; }
 
 			public string GetQueryString()
 			{
-				return $"TypeId={TypeId}&input={HttpUtility.UrlEncode(input)}";
+				return $"TypeId={AlbumTypeId}&input={HttpUtility.UrlEncode(input)}";
 			}
 
 			public IQueryable<AlbumIndexVM> ApplyCriteria(IQueryable<AlbumIndexVM> query)
 			{
-				if (TypeId > 0)
+				if (AlbumTypeId > 0)
 				{
-					query = query.Where(t => t.albumTypeId == TypeId);
+					query = query.Where(t => t.albumTypeId == AlbumTypeId);
 				}
 
 				if (!string.IsNullOrWhiteSpace(input))
@@ -279,8 +279,8 @@ namespace iSMusic.Controllers
 
 					case EnumColumn.released:
 						return (IsAsc())
-							? data.OrderBy(t => t.albumName).ThenBy(t => t.released)
-							: data.OrderBy(t => t.albumName).ThenByDescending(t => t.released);
+							? data.OrderBy(t => t.released).ThenBy(t => t.albumName)
+							: data.OrderByDescending(t => t.released).ThenBy(t => t.albumName);
 
 					case EnumColumn.mainArtistName:
 						return (IsAsc())

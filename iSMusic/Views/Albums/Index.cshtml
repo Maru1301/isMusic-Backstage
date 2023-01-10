@@ -76,3 +76,15 @@
 
 </table>
 @pagedInfo.RenderPager(page => "/P111_2/Index01?PageNumber=" + page + "&" + sortInfo.GetQueryString() + "&" + criteria.GetQueryString())
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+        @if (criteria.AlbumTypeId.HasValue)
+            {
+                @:$("#albumTypeId").val("@criteria.AlbumTypeId")
+            }
+        })
+    </script>
+}
