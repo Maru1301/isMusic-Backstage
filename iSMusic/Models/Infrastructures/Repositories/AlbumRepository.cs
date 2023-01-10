@@ -65,6 +65,19 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			});
 		}
 
+		public IQueryable<AlbumIndexVM> GetQuery()
+		{
+			return db.Albums.Include("Artist").Select(a=> new AlbumIndexVM
+			{
+				id = a.id,
+				albumName = a.albumName,
+				released= a.released,
+				mainArtistName = a.Artist.artistName,
+				typeName = a.AlbumType.typeName,
+				albumTypeId = a.albumTypeId
+			});
+		}
+
 		public Album Search(AlbumDTO dto, int albumId = 0)
 		{
 			if (albumId == 0)

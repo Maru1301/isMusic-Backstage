@@ -1,4 +1,6 @@
-﻿using iSMusic.Models.Infrastructures.Extensions;
+﻿using iSMusic.Models.EFModels;
+using iSMusic.Models.Infrastructures;
+using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services;
 using iSMusic.Models.Services.Interfaces;
@@ -8,11 +10,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using static iSMusic.Controllers.ArtistsController;
 
 namespace iSMusic.Controllers
 {
-    public class AlbumsController : Controller
-    {
+	public class AlbumsController : Controller
+	{
 		IAlbumRepository repository;
 
 		public AlbumsController()
@@ -21,13 +25,25 @@ namespace iSMusic.Controllers
 		}
 
 		// GET: Albums
-		public ActionResult Index()
+		public ActionResult Index(AlbumCriteria criteria, string columnName, string direction, int pageNumber = 1)
 		{
-			// 處理篩選功能
+			IQueryable<AlbumIndexVM> query = repository.GetQuery();
 
-			// 處理分頁功能
+			// 處理篩選功能
+			ViewBag.Criteria = criteria;
+			query = criteria.ApplyCriteria(query);
 
 			// 加入排序
+			var sortInfo = new SortInfo(columnName, direction);
+			sortInfo.UrlTemplate = "/Albums/Index?{0}" + "&" + criteria.GetQueryString();
+			ViewBag.SortInfo = sortInfo;
+
+			query = sortInfo.ApplySort(query);
+			// 處理分頁功能
+			int totalRecords = query.Count();
+
+			var paginationInfo = new Models.Infrastructures.PaginationInfo(totalRecords, this.PageSize, pageNumber);
+			ViewBag.Pagination = paginationInfo;
 
 			var service = new AlbumService(repository);
 			var data = service.Index();
@@ -186,6 +202,78 @@ namespace iSMusic.Controllers
 			}
 
 			return artistList;
+		}
+
+		public class AlbumCriteria
+		{
+			public int TypeId { get; set; }
+			public string input { get; set; }
+
+			public string GetQueryString()
+			{
+				return $"TypeId={TypeId}&input={HttpUtility.UrlEncode(input)}";
+			}
+
+			public IQueryable<AlbumIndexVM> ApplyCriteria(IQueryable<AlbumIndexVM> query)
+			{
+				if (TypeId > 0)
+				{
+					query = query.Where(t => t.albumTypeId == TypeId);
+				}
+
+				if (!string.IsNullOrWhiteSpace(input))
+				{
+					query = query.Where(t => t.albumName.Contains(input));
+				}
+
+				return query;
+			}
+
+		}
+
+		public class SortInfo : BaseSortInfo<Album>
+		{
+			public SortInfo(string columnName, string direction) : base(columnName, direction, "albumName")
+			{
+
+			}
+
+			public override IQueryable<AlbumIndexVM> ApplySort(IQueryable<AlbumIndexVM> data)
+			{
+				bool result = Enum.TryParse(this.ColumnName, out EnumColumn enumColumnName);
+				if (!result)
+				{
+					enumColumnName = EnumColumn.albumName;
+				}
+
+				switch (enumColumnName)
+				{
+					case EnumColumn.albumName:
+						return (IsAsc())
+							? data.OrderBy(t => t.albumName).ThenBy(t => t.released)
+							: data.OrderByDescending(t => t.albumName).ThenBy(t => t.released);
+
+					case EnumColumn.released:
+						return (IsAsc())
+							? data.OrderBy(t => t.albumName).ThenBy(t => t.released)
+							: data.OrderBy(t => t.albumName).ThenByDescending(t => t.released);
+
+					case EnumColumn.mainArtistName:
+						return (IsAsc())
+							? data.OrderBy(t => t.mainArtistName)
+							: data.OrderByDescending(t => t.mainArtistName);
+				}
+
+				return data;
+			}
+			public MvcHtmlString RenderItem(EnumColumn column)
+			{
+				return base.RenderItem(column.ToString());
+			}
+		}
+		public enum EnumColumn
+		{
+			albumName, released, mainArtistName
 		}
 	}
 }
