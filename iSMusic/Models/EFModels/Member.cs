@@ -35,7 +35,6 @@ namespace iSMusic.Models.EFModels
             TagPunishments = new HashSet<TagPunishment>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]
@@ -47,7 +46,7 @@ namespace iSMusic.Models.EFModels
         public string memberAccount { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string memberEncryptedPassword { get; set; }
 
         [Required]
@@ -63,7 +62,7 @@ namespace iSMusic.Models.EFModels
         [Column(TypeName = "date")]
         public DateTime? memberDateOfBirth { get; set; }
 
-        public int avatarId { get; set; }
+        public int? avatarId { get; set; }
 
         public bool memberReceivedMessage { get; set; }
 
@@ -73,12 +72,19 @@ namespace iSMusic.Models.EFModels
 
         public bool calenderPrivacy { get; set; }
 
+        public int? memberSubscriptionPlanId { get; set; }
+
         public int? creditCardId { get; set; }
 
         public bool isConfirmed { get; set; }
 
         [StringLength(50)]
         public string confirmCode { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime created { get; set; }
+
+        public DateTime? subscriptionTime { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> Activities { get; set; }
@@ -140,6 +146,8 @@ namespace iSMusic.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LikedSong> LikedSongs { get; set; }
+
+        public virtual SubscriptionPlan SubscriptionPlan { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }

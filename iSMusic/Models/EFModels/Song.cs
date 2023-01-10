@@ -28,7 +28,7 @@ namespace iSMusic.Models.EFModels
 
         public int genreId { get; set; }
 
-        public int duration { get; set; }
+        public TimeSpan duration { get; set; }
 
         public bool isInstrumental { get; set; }
 

@@ -12,7 +12,7 @@ namespace iSMusic.Models.EFModels
 
         public int memberId { get; set; }
 
-        public int subscriptionPlanId { get; set; }
+        public int subscraptionPlanId { get; set; }
 
         public DateTime subscribedTime { get; set; }
 

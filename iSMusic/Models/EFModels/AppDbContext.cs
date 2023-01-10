@@ -17,6 +17,7 @@ namespace iSMusic.Models.EFModels
 		public virtual DbSet<ActivityType> ActivityTypes { get; set; }
 		public virtual DbSet<Admin_Role_Metadata> Admin_Role_Metadata { get; set; }
 		public virtual DbSet<Admin> Admins { get; set; }
+		public virtual DbSet<Album_Artist_Metadata> Album_Artist_Metadata { get; set; }
 		public virtual DbSet<Album_Song_Metadata> Album_Song_Metadata { get; set; }
 		public virtual DbSet<Album> Albums { get; set; }
 		public virtual DbSet<Article_Tag_Metadata> Article_Tag_Metadata { get; set; }
@@ -125,6 +126,11 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Album>()
+				.HasMany(e => e.Album_Artist_Metadata)
+				.WithRequired(e => e.Album)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Album>()
 				.HasMany(e => e.Album_Song_Metadata)
 				.WithRequired(e => e.Album)
 				.WillCascadeOnDelete(false);
@@ -145,9 +151,8 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Artist>()
-				.HasMany(e => e.Albums)
+				.HasMany(e => e.Album_Artist_Metadata)
 				.WithRequired(e => e.Artist)
-				.HasForeignKey(e => e.mainArtistId)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Artist>()
@@ -163,11 +168,6 @@ namespace iSMusic.Models.EFModels
 			modelBuilder.Entity<Artist>()
 				.HasMany(e => e.Song_Artist_Metadata)
 				.WithRequired(e => e.Artist)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Avatar>()
-				.HasMany(e => e.Members)
-				.WithRequired(e => e.Avatar)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Cart>()
@@ -514,8 +514,14 @@ namespace iSMusic.Models.EFModels
 				.HasPrecision(7, 0);
 
 			modelBuilder.Entity<SubscriptionPlan>()
+				.HasMany(e => e.Members)
+				.WithOptional(e => e.SubscriptionPlan)
+				.HasForeignKey(e => e.memberSubscriptionPlanId);
+
+			modelBuilder.Entity<SubscriptionPlan>()
 				.HasMany(e => e.SubscriptionRecords)
 				.WithRequired(e => e.SubscriptionPlan)
+				.HasForeignKey(e => e.subscraptionPlanId)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Tag>()
