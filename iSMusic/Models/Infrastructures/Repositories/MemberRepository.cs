@@ -43,10 +43,16 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			return (entity != null);
 
 		}
-		public MemberDTO GetByAccount(string account)
+		public MemberDTO GetByAccount(string Account)
 		{
 			return db.Members
-				.SingleOrDefault(x => x.memberAccount == account)
+				.SingleOrDefault(x => x.memberAccount == Account)
+				.ToDto();
+		}
+		public MemberDTO GetById(int Id)
+		{
+			return db.Members
+				.SingleOrDefault(x => x.id == Id)
 				.ToDto();
 		}
 		public void Update(MemberDTO entity)
@@ -54,8 +60,10 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			Member member = db.Members.Find(entity.id);
 
 			member.memberEmail = entity.Email;
+			member.memberAccount= entity.Account;
 			member.memberNickName = entity.NickName;
 			member.memberCellphone = entity.Cellphone;
+			member.memberAddress= entity.Address;
 			db.SaveChanges();
 		}
 	}

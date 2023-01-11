@@ -4,10 +4,10 @@
     ViewBag.Title = "會員管理";
 }
 
-<h2>Index</h2>
+<h2>會員總覽</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Register")
+    @Html.ActionLink("新增會員", "Register")
 </p>
 <table class="table">
     <tr>
@@ -59,9 +59,9 @@
             @Html.DisplayFor(modelItem => item.isConfirmed)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("編輯資料", "EditProfile", new { Id=item.id }) |
+            @Html.ActionLink("詳細資料", "Details", new { id=item.id }) |
+            @Html.ActionLink("刪除", "Delete", new { id=item.id })
         </td>
     </tr>
 }

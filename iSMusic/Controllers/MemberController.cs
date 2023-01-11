@@ -1,4 +1,5 @@
 ﻿using iSMusic.Models.DTOs;
+using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services;
 using iSMusic.Models.Services.Interfaces;
@@ -60,11 +61,11 @@ namespace iSMusic.Controllers
 			}
 		}
 
-		public ActionResult EditProfile()
+		public ActionResult EditProfile(int id)
 		{
-			string currentUserAccount = User.Identity.Name;
+			//string currentUserAccount = User.Identity.Name;
 
-			MemberDTO entity = repo.GetByAccount(currentUserAccount);
+			MemberDTO entity = repo.GetById(id);
 			EditProfileVM model = entity.ToEditProfileVM();
 
 			return View(model);
@@ -73,17 +74,17 @@ namespace iSMusic.Controllers
 		[HttpPost]
 		public ActionResult EditProfile(EditProfileVM model)
 		{
-			string currentUserAccount = User.Identity.Name;
+			//string currentUserAccount = User.Identity.Name;
 
 			if (ModelState.IsValid == false)
 			{
 				return View(model);
 			}
 
-			UpdateProfileDTO request = model.ToDTO(currentUserAccount);
+			//UpdateProfileDTO request = model.ToDTO(currentUserAccount);
 			try
 			{
-				memberService.UpdateProfile(request);
+				memberService.UpdateProfile(model.ToEditProfileDTO());
 			}
 			catch (Exception ex)
 			{
