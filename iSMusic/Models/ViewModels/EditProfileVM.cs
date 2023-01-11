@@ -30,35 +30,5 @@ namespace iSMusic.Models.ViewModels
 		
 
 	}
-	//public static class MemberDTOExts
-	//{
-	//	public static EditProfileVM ToEditProfileVM(this MemberDTO source)
-	//	{
-	//		return new EditProfileVM
-	//		{
-	//			Id = source.id,
-	//			Account = source.Account,
-	//			Address=source.Address,
-	//			Email = source.Email,
-	//			NickName = source.NickName,
-	//			Cellphone = source.Cellphone,
-				
-	//		};
-	//	}
 
-	//	public static UpdateProfileDTO ToDTO(this EditProfileVM source)
-	//	{
-	//		return new UpdateProfileDTO
-	//		{
-	//			//CurrentUserAccount = currentUserAccount,
-	//			Id =source.Id,
-	//			Account = source.Account,
-	//			Address = source.Address,
-	//			Email = source.Email,
-	//			NickName = source.NickName,
-	//			Cellphone = source.Cellphone,
-				
-	//		};
-	//	}
-	//}
 }

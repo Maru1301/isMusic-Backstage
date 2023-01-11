@@ -16,6 +16,7 @@ namespace iSMusic.Models.Services.Interfaces
 		MemberDTO GetByAccount(string Account);
 		MemberDTO GetById(int id);
 		void Update(MemberDTO entity);
+		void Delete(MemberDTO entity);
 		
 	}
 }

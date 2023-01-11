@@ -100,5 +100,39 @@ namespace iSMusic.Controllers
 				return View(model);
 			}
 		}
+
+		public ActionResult DeleteAccount(int Id)
+		{
+			MemberDTO entity = repo.GetById(Id);
+			EditProfileVM model = entity.ToEditProfileVM();
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public ActionResult DeleteAccount(EditProfileVM model)
+		{
+			if (ModelState.IsValid == false)
+			{
+				return View(model);
+			}
+			try
+			{
+				memberService.DeleteAccount(model.ToEditProfileDTO());
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError(string.Empty, ex.Message);
+			}
+
+			if (ModelState.IsValid == true)
+			{
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				return View(model);
+			}
+		}
 	}
 }

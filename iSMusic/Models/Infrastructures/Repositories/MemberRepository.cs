@@ -66,5 +66,11 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			member.memberAddress= entity.Address;
 			db.SaveChanges();
 		}
+		public void Delete(MemberDTO entity)
+		{
+			Member member= db.Members.Find(entity.id);
+			db.Members.Remove(member);
+			db.SaveChanges();
+		}
 	}
 }

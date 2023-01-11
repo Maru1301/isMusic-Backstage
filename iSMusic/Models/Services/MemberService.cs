@@ -83,5 +83,13 @@ namespace iSMusic.Models.Services
 			_repository.Update(entity);
 
 		}
+		
+
+		internal void DeleteAccount(UpdateProfileDTO request)
+		{
+			MemberDTO entity = _repository.GetById(request.Id);
+			if (entity == null) throw new Exception("找不到要刪除的會員記錄");
+			_repository.Delete(entity);
+		}
 	}
 }

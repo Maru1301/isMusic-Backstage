@@ -272,6 +272,7 @@
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Member\RegisterConfirm.cshtml" />
     <Content Include="Views\Member\EditProfile.cshtml" />
+    <Content Include="Views\Member\DeleteAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
