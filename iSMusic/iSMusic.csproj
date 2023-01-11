@@ -229,6 +229,8 @@
     <Compile Include="Models\ViewModels\AlbumCreateVM.cs" />
     <Compile Include="Models\ViewModels\AlbumEditVM.cs" />
     <Compile Include="Models\ViewModels\AlbumIndexVM.cs" />
+    <Compile Include="Models\ViewModels\OrderDetailVM.cs" />
+    <Compile Include="Models\ViewModels\OrderIndexVM.cs" />
     <Compile Include="Models\ViewModels\ProductVM.cs" />
     <Compile Include="Models\ViewModels\SongCreateVM.cs" />
     <Compile Include="Models\ViewModels\SongEditVM.cs" />
@@ -297,9 +299,11 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Delete.cshtml" />
-    <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Shared\_ProductLayout.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

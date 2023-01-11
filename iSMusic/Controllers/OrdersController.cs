@@ -6,7 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using iSMusic.Models.EFModels;
+using iSMusic.Models.ViewModels;
+using Microsoft.Ajax.Utilities;
 
 namespace iSMusic.Controllers
 {
@@ -14,10 +17,21 @@ namespace iSMusic.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
+        public string[] PaymentList = { "apple pay" }  ; 
+
         // GET: Orders
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Coupon).Include(o => o.Member);
+            var orders = db.Orders.Include(o => o.Coupon).Include(o => o.Member).ToList().Select(x=> new OrderIndexVM
+            {
+                id = x.id,
+                memberId = x.memberId,
+                paymentName = PaymentList[x.payments-1],
+                orderStatus = x.orderStatus,
+                paid = x.paid,
+                created = x.created,
+                receiver = x.receiver ,
+            });
             return View(orders.ToList());
         }
 
@@ -34,7 +48,9 @@ namespace iSMusic.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            OrderDetailVM order = db.Orders.FirstOrDefault(x => x.id == id).ToDetailVM();
+
+
             if (order == null)
             {
                 return HttpNotFound();

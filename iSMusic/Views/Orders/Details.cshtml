@@ -1,4 +1,4 @@
-﻿@model iSMusic.Models.EFModels.Order
+﻿@model iSMusic.Models.ViewModels.OrderDetailVM
 
 @{
     ViewBag.Title = "Details";
@@ -6,85 +6,108 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Coupon.couponText)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Coupon.couponText)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Member.memberNickName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Member.memberNickName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.payments)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.payments)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.orderStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.orderStatus)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.paid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.paid)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.receiver)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.receiver)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cellphone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cellphone)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Create New", "Create")
 </p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.memberId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.couponId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.payments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orderStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.receiver)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cellphone)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.orderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productId)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qty)
+        </th>
+        <th></th>
+    </tr>
+
+
+    <tr>
+
+        <th>
+            @Html.DisplayFor(modelItem => Model.memberId)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.couponId)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.payments)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.orderStatus)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.paid)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.created)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.receiver)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.address)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.cellphone)
+        </th>
+        @*<th>
+            @Html.DisplayFor(modelItem => Model.orderId)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.productId)
+        </th>*@
+        <th>
+            @Html.DisplayFor(modelItem => Model.price)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.productName)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.qty)
+        </th>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { Model.id }) |
+
+            @Html.ActionLink("Delete", "Delete", new { Model.id })
+        </td>
+    </tr>
+
+
+</table>

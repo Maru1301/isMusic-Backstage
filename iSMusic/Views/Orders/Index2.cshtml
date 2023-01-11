@@ -1,0 +1,63 @@
+﻿@model IEnumerable<iSMusic.Models.ViewModels.OrderIndexVM>
+
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2>Index2</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.memberId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paymentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orderStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.receiver)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.memberId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.paymentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.paid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.created)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.receiver)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
