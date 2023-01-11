@@ -6,13 +6,14 @@ using iSMusic.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
 namespace iSMusic.Controllers
 {
-    public class SongsController : Controller
-    {
+	public class SongsController : Controller
+	{
 		private ISongRepository repository;
 
 		public SongsController()
@@ -29,15 +30,35 @@ namespace iSMusic.Controllers
 		}
 
 		// launch a song
-		public ActionResult LaunchSong(int songId)
+		// PUT: Songs/LaunchSong
+		[HttpPost]
+		public JsonResult LaunchSong(List<SongIdInfo> info)
 		{
-			return Index();
+			var service = new SongService(repository);
+			
+			try
+			{
+				return Json(service.LaunchSong(info.Select(i=> i.Id).ToList()));
+			}
+			catch(Exception ex)
+			{
+				return Json(ex.Message);
+			}
 		}
 
 		// recall a song
-		public ActionResult RecallSong(int songId)
+		public JsonResult RecallSong(List<SongIdInfo> info)
 		{
-			return Index();
+			var service = new SongService(repository);
+
+			try
+			{
+				return Json(service.RecallSong(info.Select(i => i.Id).ToList()));
+			}
+			catch (Exception ex)
+			{
+				return Json(ex.Message);
+			}
 		}
 
 		// GET: Songs/Create
@@ -224,5 +245,10 @@ namespace iSMusic.Controllers
 			var data = service.GetSongList(artistId);
 			return Json(data, JsonRequestBehavior.AllowGet);
 		}
+	}
+
+	public class SongIdInfo
+	{
+		public int Id { get; set; }
 	}
 }

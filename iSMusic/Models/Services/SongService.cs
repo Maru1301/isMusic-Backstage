@@ -6,6 +6,7 @@ using iSMusic.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using WebGrease.Css.Ast.MediaQuery;
 
@@ -22,6 +23,44 @@ namespace iSMusic.Models.Services
 		public List<SongIndexVM> Index()
 		{
 			return repository.FindAll();
+		}
+
+		public string LaunchSong(List<int> songIds)
+		{
+			foreach(int songId in songIds)
+			{
+				var song = repository.Find(songId);
+
+				if (song == null)
+				{
+					throw new Exception($"查無ID為{songId}的歌");
+				}
+
+				song.status = true;
+
+				repository.LaunchSong(song);
+			}
+
+			return "上架成功";
+		}
+
+		public string RecallSong(List<int> songIdList)
+		{
+			foreach (int songId in songIdList)
+			{
+				var song = repository.Find(songId);
+
+				if (song == null)
+				{
+					throw new Exception($"查無ID為{songId}的歌");
+				}
+
+				song.status = false;
+
+				repository.RecallSong(song);
+			}
+
+			return "下架成功";
 		}
 
 		public void AddNewSong(string coverPath, string songPath, SongDTO dto)

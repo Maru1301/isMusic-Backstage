@@ -13,6 +13,12 @@ namespace iSMusic.Models.Services.Interfaces
 	{
 		List<SongIndexVM> FindAll();
 
+		Song Find(int id);
+
+		void LaunchSong(Song song);
+
+		void RecallSong(Song song);
+
 		SongEditVM FindById(int id);
 
 		void AddNewSong(SongDTO dto);
