@@ -8,12 +8,21 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    <span>
+        <button id="launch">上架</button>
+    </span>
+    <span>
+        <button id="recall">下架</button>
+    </span>
 </p>
+
 <table class="table">
     <tr>
         <th>
-
+            <input type="checkbox" id="index" />
         </th>
+        <th></th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.songName)
         </th>
@@ -37,7 +46,16 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+     <tr>
+         <td>
+             <input type="checkbox" class="checkbox" />
+         </td>
+            <td>
+                @if (item.status == false)
+                {
+                    @:已下架
+                }
+            </td>
             <td>
                 <audio controls>
                     <source src=@item.songPath type="audio/mp3" />
@@ -77,3 +95,27 @@
     }
 
 </table>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#index").on("click", function (event) {
+                if (event.target.checked == true) {
+                    $(".checkbox").prop("checked", true);
+                } else {
+                    $(".checkbox").prop("checked", false);
+                }
+            })
+
+            $("#launch").on("click", function () {
+                console.log($("input.checkbox:checked").parent());
+                $.ajax({
+                    type: "PUT",
+                    data: ,
+                    url: "https://localhost: /controller/action/"
+                }).done(function (data) { }).fail(function (err) { });
+            })
+        })
+    </script>
+}

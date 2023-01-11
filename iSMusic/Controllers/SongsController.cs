@@ -29,15 +29,21 @@ namespace iSMusic.Controllers
 		}
 
 		// launch a song
-		public ActionResult LaunchSong(int songId)
+		public List<SongIndexVM> LaunchSong(List<int> songIdList)
 		{
-			return Index();
+			var service = new SongService(repository);
+			var data = service.LaunchSong(songIdList).Select(s=> s.ToIndexVM());
+
+			return data.ToList();
 		}
 
 		// recall a song
-		public ActionResult RecallSong(int songId)
+		public List<SongIndexVM> RecallSong(List<int> songIdList)
 		{
-			return Index();
+			var service = new SongService(repository);
+			var data = service.RecallSong(songIdList).Select(s=>s.ToIndexVM());
+
+			return data.ToList();
 		}
 
 		// GET: Songs/Create

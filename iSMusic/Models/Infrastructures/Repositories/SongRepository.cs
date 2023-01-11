@@ -35,6 +35,7 @@ namespace iSMusic.Models.Infrastructures.Repositories
 					x.duration,
 					x.songWriter,
 					x.songPath,
+					x.status,
 				}).ToList()
 			.Select(p => new SongIndexVM
 			{
@@ -47,7 +48,30 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				duration = p.duration,
 				songWriter = p.songWriter,
 				songPath = "/Uploads/Songs/" + p.songPath,
+				status = p.status,
 			}).ToList();
+		}
+
+		public void LaunchSong(List<int> songIds)
+		{
+			foreach(int id in songIds)
+			{
+				var song = new Song() { id = id, status = true };
+				db.Songs.Attach(song);
+				db.Entry(song).Property(s => s.status).IsModified = true;
+				db.SaveChanges();
+			}
+		}
+
+		public void RecallSong(List<int> songIds)
+		{
+			foreach (int id in songIds)
+			{
+				var song = new Song() { id = id, status = false };
+				db.Songs.Attach(song);
+				db.Entry(song).Property(s => s.status).IsModified = true;
+				db.SaveChanges();
+			}
 		}
 
 		public void AddNewSong(SongDTO dto)
@@ -76,8 +100,12 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				model = db.Songs.SingleOrDefault(x => x.id != dto.id && x.songName == dto.songName && x.genreId == dto.genreId && x.duration == dto.duration);
 			}
 
-
 			return model;
+		}
+
+		public Song SearchById(int id)
+		{
+			return db.Songs.SingleOrDefault(s => s.id == id);
 		}
 
 		public SongEditVM FindById(int id)

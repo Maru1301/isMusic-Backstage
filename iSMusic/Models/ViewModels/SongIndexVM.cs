@@ -39,6 +39,8 @@ namespace iSMusic.Models.ViewModels
 
 		public string songPath { get; set; }
 
+		public bool status { get; set; }
+
 		public virtual ICollection<Song_Artist_Metadata> Song_Artist_Metadata { get; set; }
 
 		public virtual SongGenre SongGenre { get; set; }

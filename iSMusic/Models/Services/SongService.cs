@@ -24,6 +24,30 @@ namespace iSMusic.Models.Services
 			return repository.FindAll();
 		}
 
+		public List<SongDTO> LaunchSong(List<int> songIdList)
+		{
+			repository.LaunchSong(songIdList);
+			var list = new List<SongDTO>();
+			foreach(int Id in songIdList)
+			{
+				var song = repository.SearchById(Id);
+				list.Add(song.ToDTO());
+			}
+			return list;
+		}
+
+		public List<SongDTO> RecallSong(List<int> songIdList)
+		{
+			repository.RecallSong(songIdList);
+			var list = new List<SongDTO>();
+			foreach (int Id in songIdList)
+			{
+				var song = repository.SearchById(Id);
+				list.Add(song.ToDTO());
+			}
+			return list;
+		}
+
 		public void AddNewSong(string coverPath, string songPath, SongDTO dto)
 		{
 			if (dto.artistIdList == null) throw new Exception("No artist is chosen");
