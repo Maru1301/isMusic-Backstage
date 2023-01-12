@@ -4,15 +4,22 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+    .recall{
+        background-color: lightgrey;
+        color: dimgrey;
+    }
+</style>
+
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
     <span>
-        <button id="launch">上架</button>
+        <button id="launch" class="btn">上架</button>
     </span>
     <span>
-        <button id="recall">下架</button>
+        <button id="recall" class="btn">下架</button>
     </span>
 </p>
 
@@ -46,53 +53,54 @@
 
     @foreach (var item in Model)
     {
-     <tr>
+     <tr @if(item.status == false) { @:class="recall" 
+         }>
          <td>
              <span class="hidden">@item.id</span>
              <input type="checkbox" class="checkbox" />
-         </td>
-            <td>
-                @if (item.status == false)
+        </td>
+         <td>
+             @if(item.status == false)
                 {
                     @:已下架
                 }
-            </td>
-            <td>
-                <audio controls>
-                    <source src=@item.songPath type="audio/mp3" />
-                </audio>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.songName)
-            </td>
-            <td>
-                <table>
-                    @foreach (var name in item.artistList)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => name)
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.genreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.duration, "duration")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.language)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.released, "Date")
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id })
-            </td>
-        </tr>
+         </td>
+             <td>
+                 <audio controls>
+                     <source src=@item.songPath type="audio/mp3" />
+                 </audio>
+             </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.songName)
+             </td>
+             <td>
+                 <table>
+                     @foreach (var name in item.artistList)
+                     {
+                         <tr>
+                             <td>
+                                 @Html.DisplayFor(modelItem => name)
+                             </td>
+                         </tr>
+                     }
+                 </table>
+             </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.genreName)
+             </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.duration, "duration")
+             </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.language)
+             </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.released, "Date")
+             </td>
+             <td>
+                 @Html.ActionLink("Edit", "Edit", new { id = item.id })
+             </td>
+         </tr>
     }
 
 </table>
@@ -101,6 +109,8 @@
 {
     <script>
         $(document).ready(function () {
+            $("td.recall").parent().attr("class", "recall");
+
             $("#index").on("click", function (event) {
                 if (event.target.checked == true) {
                     $(".checkbox").prop("checked", true);
@@ -111,25 +121,38 @@
 
             $("#launch").on("click", function () {
                 let idList = [];
-                $("input.checkbox:checked").siblings().each(function () {
+                let checked = $("input.checkbox:checked");
+                $(checked).siblings().each(function () {
                     idList.push({ "Id": $(this).text() });
                 })
-
+                @*//@Url.Actoin()*@
                 $.ajax({
                     type: "POST",
-                    url: "https://localhost:44373/Songs/LaunchSong",
+                    url: "@Url.Content("~/Songs/LaunchSong")",
                     data: JSON.stringify(idList),
-                    contentType: "application/json"
+                    contentType: "application/json",
+                    dataType:"json"
                 }).done(function (message) {
                     alert(message)
+                    $(checked).parent().next().text("");
+                    $(checked).parent().parent().removeClass("recall");
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);
                 });
+                @*fetch("@Url.Content("~/Songs/LaunchSong")", {
+                    method: "PUT",
+                    body: JSON.stringify(idList),
+                     headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                    })*@
             })
 
             $("#recall").on("click", function () {
                 let idList = [];
-                $("input.checkbox:checked").siblings().each(function () {
+                let checked = $("input.checkbox:checked");
+                $(checked).siblings().each(function () {
                     idList.push({ "Id": $(this).text() });
                 })
 
@@ -139,7 +162,9 @@
                     data: JSON.stringify(idList),
                     contentType: "application/json"
                 }).done(function (message) {
-                    alert(message)
+                    alert(message);
+                    $(checked).parent().next().text("已下架");
+                    $(checked).parent().parent().addClass("recall");
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);
                 });
