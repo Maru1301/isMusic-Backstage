@@ -1,0 +1,41 @@
+﻿@model iSMusic.Models.EFModels.Creator
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Creator</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.creatorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creatorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creatorGender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creatorGender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creatorAbout)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creatorAbout)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

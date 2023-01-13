@@ -1,7 +1,7 @@
 ﻿@{
     string CurrentName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
 
-    if(CurrentName == "Songs" || CurrentName == "Artists" || CurrentName == "SongGenres" || CurrentName == "Albums")
+    if(CurrentName == "Songs" || CurrentName == "Artists" || CurrentName == "SongGenres" || CurrentName == "Albums" || CurrentName == "Creators")
     {
         Layout = "~/Views/Shared/_SongLayout.cshtml";
     }

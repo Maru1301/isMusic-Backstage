@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />
+    <Compile Include="Controllers\CreatorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SongGenresController.cs" />
     <Compile Include="Controllers\SongsController.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Models\EFModels\Admin.cs" />
     <Compile Include="Models\EFModels\Admin_Role_Metadata.cs" />
     <Compile Include="Models\EFModels\Album.cs" />
+    <Compile Include="Models\EFModels\AlbumType.cs" />
     <Compile Include="Models\EFModels\Album_Song_Metadata.cs" />
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\ArticlePunishemt.cs" />
@@ -197,10 +199,16 @@
     <Compile Include="Models\EFModels\SubscriptionRecord.cs" />
     <Compile Include="Models\EFModels\Tag.cs" />
     <Compile Include="Models\EFModels\TagPunishment.cs" />
+    <Compile Include="Models\Entities\ArtistEntity.cs" />
+    <Compile Include="Models\Entities\SongEntity.cs" />
+    <Compile Include="Models\Entities\SongGenreEntity.cs" />
+    <Compile Include="Models\Entities\Song_Artist_MetadataEntity.cs" />
+    <Compile Include="Models\Infrastructures\BaseSortInfo.cs" />
     <Compile Include="Models\Infrastructures\Extensions\AlbumExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\ArtistExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongGenreExts.cs" />
+    <Compile Include="Models\Infrastructures\PaginationInfo.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumMetadataRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ArtistRepository.cs" />
@@ -277,7 +285,11 @@
     <Content Include="Views\Albums\Create.cshtml" />
     <Content Include="Views\Albums\Edit.cshtml" />
     <Content Include="Views\Albums\Delete.cshtml" />
-    <Content Include="Views\Shared\Editor Templates\DateTimePicker.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTimePicker.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Duration.cshtml" />
+    <Content Include="Views\Creators\Index.cshtml" />
+    <Content Include="Views\Creators\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

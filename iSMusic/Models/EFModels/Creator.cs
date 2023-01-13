@@ -27,6 +27,10 @@ namespace iSMusic.Models.EFModels
         [StringLength(500)]
         public string creatorAbout { get; set; }
 
+        public int memberId { get; set; }
+
+        public virtual Member Member { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Song_Creator_Metadata> Song_Creator_Metadata { get; set; }
     }
