@@ -199,6 +199,10 @@
     <Compile Include="Models\EFModels\SubscriptionRecord.cs" />
     <Compile Include="Models\EFModels\Tag.cs" />
     <Compile Include="Models\EFModels\TagPunishment.cs" />
+    <Compile Include="Models\Entities\ArtistEntity.cs" />
+    <Compile Include="Models\Entities\SongEntity.cs" />
+    <Compile Include="Models\Entities\SongGenreEntity.cs" />
+    <Compile Include="Models\Entities\Song_Artist_MetadataEntity.cs" />
     <Compile Include="Models\Infrastructures\BaseSortInfo.cs" />
     <Compile Include="Models\Infrastructures\Extensions\AlbumExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\ArtistExts.cs" />

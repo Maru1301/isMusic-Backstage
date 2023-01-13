@@ -43,6 +43,7 @@ namespace iSMusic.Controllers
 			ViewBag.SortInfo = sortInfo;
 
 			query = sortInfo.ApplySort(query);
+
 			// 處理分頁功能
 			int totalRecords = query.Count();
 
@@ -255,8 +256,10 @@ namespace iSMusic.Controllers
 
 		}
 
-		public class SortInfo : BaseSortInfo<Album>
+		public class SortInfo : BaseSortInfo<AlbumIndexVM>
 		{
+			public override string[] ColumnNames { get => new string[] { "albumName", "released", "mainArtistName" }; }
+
 			public SortInfo(string columnName, string direction) : base(columnName, direction, "albumName")
 			{
 

@@ -14,6 +14,7 @@ namespace iSMusic.Models.Infrastructures.Extensions
 		{
 			return new SongDTO
 			{
+				id= source.id,
 				songName = source.songName,
 				artistList = source.Song_Artist_Metadata.Where(m=>m.songId == source.id).Select(m=> m.Artist.artistName).ToList(),
 				genreName = source.SongGenre.genreName,

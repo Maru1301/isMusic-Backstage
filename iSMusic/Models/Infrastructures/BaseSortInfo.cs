@@ -10,17 +10,17 @@ namespace iSMusic.Models.Infrastructures
 {
 	public abstract class BaseSortInfo<T> where T : class
 	{
-		protected string[] columnNames = new string[] { "albumName", "released", "mainArtistName" };
+		public abstract string[] ColumnNames { get; }
 
 		protected string[] directionNames = new string[] { "Asc", "Desc" };
 
-		public abstract IQueryable<AlbumIndexVM> ApplySort(IQueryable<AlbumIndexVM> data);
+		public abstract IQueryable<T> ApplySort(IQueryable<T> data);
 
 		public BaseSortInfo(string columnName, string direction, string defaultColumnName)
 		{
 			//this.ColumnName = Enum.TryParse(columnName, out P111Controller.SortInfo.EnumColumn colValue) ? colValue : P111Controller.SortInfo.EnumColumn.CityDisplayOrder;
 
-			this.ColumnName = this.columnNames.Contains(columnName) ? columnName : defaultColumnName;
+			this.ColumnName = this.ColumnNames.Contains(columnName) ? columnName : defaultColumnName;
 
 			this.Direction = Enum.TryParse(direction, out EnumDirection directionValue)
 				? directionValue

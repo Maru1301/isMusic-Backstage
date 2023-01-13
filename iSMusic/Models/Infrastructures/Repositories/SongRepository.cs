@@ -1,5 +1,6 @@
 ﻿using iSMusic.Models.DTOs;
 using iSMusic.Models.EFModels;
+using iSMusic.Models.Entities;
 using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
@@ -9,6 +10,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using static iSMusic.Controllers.AlbumsController;
+using static iSMusic.Controllers.SongsController;
 
 namespace iSMusic.Models.Infrastructures.Repositories
 {
@@ -63,7 +66,6 @@ namespace iSMusic.Models.Infrastructures.Repositories
 		{
 			db.Entry(song).Property(s => s.status).IsModified = true;
 			db.SaveChanges();
-			
 		}
 
 		public void RecallSong(Song song)
@@ -99,6 +101,19 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			}
 
 			return model;
+		}
+
+		public IEnumerable<SongEntity> Search(SongCriteria criteria, Controllers.SongsController.SortInfo sortInfo)
+		{
+			IQueryable<Song> query = db.Songs;
+
+			// Searching
+			query = criteria.ApplyCriteria(query);
+
+			//Sorting
+			query = sortInfo.ApplySort(query);
+
+			return query.ToList().Select(q => q.ToEntity());
 		}
 
 		public SongEditVM FindById(int id)
@@ -140,6 +155,11 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				songId = x.songId,
 				songName = x.songName
 			});
+		}
+
+		public IQueryable<SongEntity> GetQuery()
+		{
+			return db.Songs.Select(s=> s.ToEntity());
 		}
 	}
 }

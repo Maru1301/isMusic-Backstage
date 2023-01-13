@@ -1,17 +1,47 @@
-﻿@model IEnumerable<iSMusic.Models.ViewModels.SongIndexVM>
+﻿@using iSMusic.Controllers
+@using iSMusic.Models.Infrastructures
+@model IEnumerable<iSMusic.Models.ViewModels.SongIndexVM>
 
 @{
     ViewBag.Title = "Index";
+
+    var pagedInfo = (PaginationInfo)ViewBag.Pagination;
+    var sortInfo = (SongsController.SortInfo)ViewBag.SortInfo;
+    var criteria = (SongsController.SongCriteria)ViewBag.Criteria;
+
+    var languageList = (IEnumerable<SelectListItem>)ViewBag.LanguageList;
+    var statusList = (IEnumerable<SelectListItem>)ViewBag.StatusList;
+    var songGenreList = (IEnumerable<SelectListItem>)ViewBag.SongGenreList;
 }
 
 <style>
-    .recall{
+    .recall {
         background-color: lightgrey;
         color: dimgrey;
     }
 </style>
 
 <h2>Index</h2>
+
+<form method="get">
+    @sortInfo.RenderHiddenInfo()
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="caption">
+                <h3>Search</h3>
+                <div class="row">
+                    <div class="col-md-3">上架狀態:@Html.DropDownList("status", statusList, new { @class = "form-control" })</div>
+                    <div class="col-md-3">歌曲種類:@Html.DropDownList("songGenreId", songGenreList, new { @class = "form-control" })</div>
+                    <div class="col-md-3">語言:@Html.DropDownList("language", languageList, new { @class = "form-control" })</div>
+                    <div class="col-md-3">歌曲名稱:<input type="text" name="input" class="form-control" value="@criteria.input"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px;">
+        <input type="submit" class="btn btn-primary" value="Search" />
+    </div>
+</form>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -53,57 +83,58 @@
 
     @foreach (var item in Model)
     {
-     <tr @if(item.status == false) { @:class="recall" 
-         }>
-         <td>
-             <span class="hidden">@item.id</span>
-             <input type="checkbox" class="checkbox" />
-        </td>
-         <td>
-             @if(item.status == false)
+        <tr @if (item.status == false) { @: class="recall"
+            }>
+            <td>
+                <span class="hidden">@item.id</span>
+                <input type="checkbox" class="checkbox" />
+            </td>
+            <td>
+                @if (item.status == false)
                 {
                     @:已下架
                 }
-         </td>
-             <td>
-                 <audio controls>
-                     <source src=@item.songPath type="audio/mp3" />
-                 </audio>
-             </td>
-             <td>
-                 @Html.DisplayFor(modelItem => item.songName)
-             </td>
-             <td>
-                 <table>
-                     @foreach (var name in item.artistList)
-                     {
-                         <tr>
-                             <td>
-                                 @Html.DisplayFor(modelItem => name)
-                             </td>
-                         </tr>
-                     }
-                 </table>
-             </td>
-             <td>
-                 @Html.DisplayFor(modelItem => item.genreName)
-             </td>
-             <td>
-                 @Html.DisplayFor(modelItem => item.duration, "duration")
-             </td>
-             <td>
-                 @Html.DisplayFor(modelItem => item.language)
-             </td>
-             <td>
-                 @Html.DisplayFor(modelItem => item.released, "Date")
-             </td>
-             <td>
-                 @Html.ActionLink("Edit", "Edit", new { id = item.id })
-             </td>
-         </tr>
+            </td>
+            <td>
+                <audio controls>
+                    <source src=@item.songPath type="audio/mp3" />
+                </audio>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.songName)
+            </td>
+            <td>
+                <table>
+                    @foreach (var name in item.artistList)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => name)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genreName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration, "duration")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.language)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.released, "Date")
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id })
+            </td>
+        </tr>
     }
 
 </table>
+@pagedInfo.RenderPager(page => "/Songs/Index?PageNumber=" + page + "&" + sortInfo.GetQueryString() + "&" + criteria.GetQueryString())
 
 @section Scripts
 {

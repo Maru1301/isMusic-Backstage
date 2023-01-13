@@ -32,7 +32,7 @@ namespace iSMusic.Models.Infrastructures
 			}
 		}
 
-		public IQueryable<T> GetPagedData<T>(IQueryable<T> query)
+		public IEnumerable<T> GetPagedData<T>(IEnumerable<T> query)
 		{
 			int recordStartIndex = (PageNumber - 1) * PageSize;
 
