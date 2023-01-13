@@ -1,4 +1,5 @@
 ﻿using iSMusic.Models.DTOs;
+using iSMusic.Models.Entities;
 using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services.Interfaces;
@@ -6,22 +7,76 @@ using iSMusic.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using WebGrease.Css.Ast.MediaQuery;
+using static iSMusic.Controllers.SongsController;
 
 namespace iSMusic.Models.Services
 {
 	public class SongService
 	{
 		private ISongRepository repository;
+		private int pageSize;
 		public SongService(ISongRepository repo)
 		{
 			repository = repo;
+			pageSize = 20;
 		}
 
 		public List<SongIndexVM> Index()
 		{
 			return repository.FindAll();
+		}
+
+		public IEnumerable<SongEntity> Search(SongCriteria criteria, SortInfo sortInfo, int pageNumber, out Models.Infrastructures.PaginationInfo paginationInfo)
+		{
+			var entities = repository.Search(criteria, sortInfo);
+			int totalRecords = entities.Count();
+
+			paginationInfo = new Models.Infrastructures.PaginationInfo(totalRecords, this.pageSize, pageNumber);
+
+			var list = paginationInfo.GetPagedData(entities);
+
+			return list;
+		}
+
+		public string LaunchSong(List<int> songIds)
+		{
+			foreach(int songId in songIds)
+			{
+				var song = repository.Find(songId);
+
+				if (song == null)
+				{
+					throw new Exception($"查無ID為{songId}的歌");
+				}
+
+				song.status = true;
+
+				repository.LaunchSong(song);
+			}
+
+			return "上架成功";
+		}
+
+		public string RecallSong(List<int> songIdList)
+		{
+			foreach (int songId in songIdList)
+			{
+				var song = repository.Find(songId);
+
+				if (song == null)
+				{
+					throw new Exception($"查無ID為{songId}的歌");
+				}
+
+				song.status = false;
+
+				repository.RecallSong(song);
+			}
+
+			return "下架成功";
 		}
 
 		public void AddNewSong(string coverPath, string songPath, SongDTO dto)

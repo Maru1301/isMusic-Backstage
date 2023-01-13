@@ -163,6 +163,7 @@
     <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
+    <Compile Include="Controllers\CreatorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Models\EFModels\Admin.cs" />
     <Compile Include="Models\EFModels\Admin_Role_Metadata.cs" />
     <Compile Include="Models\EFModels\Album.cs" />
+    <Compile Include="Models\EFModels\AlbumType.cs" />
     <Compile Include="Models\EFModels\Album_Song_Metadata.cs" />
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\ArticlePunishemt.cs" />
@@ -234,10 +236,16 @@
     <Compile Include="Models\EFModels\SubscriptionRecord.cs" />
     <Compile Include="Models\EFModels\Tag.cs" />
     <Compile Include="Models\EFModels\TagPunishment.cs" />
+    <Compile Include="Models\Entities\ArtistEntity.cs" />
+    <Compile Include="Models\Entities\SongEntity.cs" />
+    <Compile Include="Models\Entities\SongGenreEntity.cs" />
+    <Compile Include="Models\Entities\Song_Artist_MetadataEntity.cs" />
+    <Compile Include="Models\Infrastructures\BaseSortInfo.cs" />
     <Compile Include="Models\Infrastructures\Extensions\AlbumExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\ArtistExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongGenreExts.cs" />
+    <Compile Include="Models\Infrastructures\PaginationInfo.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumMetadataRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ArtistRepository.cs" />
@@ -342,6 +350,10 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTimePicker2.cshtml" />
     <Content Include="Views\Products\UpdateStatus.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Duration.cshtml" />
+    <Content Include="Views\Creators\Index.cshtml" />
+    <Content Include="Views\Creators\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
