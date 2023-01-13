@@ -126,8 +126,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -136,6 +138,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOs\MemberDTO.cs" />
+    <Compile Include="Models\DTOs\AdminDTO.cs" />
+    <Compile Include="Models\DTOs\ActivityTypeDTO.cs" />
+    <Compile Include="Models\DTOs\ActivityEditDTO.cs" />
+    <Compile Include="Models\DTOs\ActivityDTO.cs" />
+    <Compile Include="Models\DTOs\ActivityCreateDTO.cs" />
     <Compile Include="Models\DTOs\AlbumDTO.cs" />
     <Compile Include="Models\DTOs\ArtistDTO.cs" />
     <Compile Include="Models\DTOs\SongDTO.cs" />
@@ -197,24 +205,31 @@
     <Compile Include="Models\EFModels\SubscriptionRecord.cs" />
     <Compile Include="Models\EFModels\Tag.cs" />
     <Compile Include="Models\EFModels\TagPunishment.cs" />
+    <Compile Include="Models\Infrastructures\Extensions\ActivityExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\AlbumExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\ArtistExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongGenreExts.cs" />
+    <Compile Include="Models\Infrastructures\Repositories\ActivityRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumMetadataRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ArtistRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongGenreRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongMetadataRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongRepository.cs" />
+    <Compile Include="Models\Services\ActivityService.cs" />
     <Compile Include="Models\Services\AlbumService.cs" />
     <Compile Include="Models\Services\ArtistService.cs" />
+    <Compile Include="Models\Services\Interfaces\IActivityRepository.cs" />
     <Compile Include="Models\Services\Interfaces\IAlbumRepository.cs" />
     <Compile Include="Models\Services\Interfaces\IArtistRepository.cs" />
     <Compile Include="Models\Services\Interfaces\ISongGenreRepository.cs" />
     <Compile Include="Models\Services\Interfaces\ISongRepository.cs" />
     <Compile Include="Models\Services\SongGenreService.cs" />
     <Compile Include="Models\Services\SongService.cs" />
+    <Compile Include="Models\ViewModels\ActivityVM.cs" />
+    <Compile Include="Models\ViewModels\ActivityEditVM.cs" />
+    <Compile Include="Models\ViewModels\ActivityCreateVM.cs" />
     <Compile Include="Models\ViewModels\AlbumCreateVM.cs" />
     <Compile Include="Models\ViewModels\AlbumEditVM.cs" />
     <Compile Include="Models\ViewModels\AlbumIndexVM.cs" />
@@ -278,9 +293,14 @@
     <Content Include="Views\Albums\Edit.cshtml" />
     <Content Include="Views\Albums\Delete.cshtml" />
     <Content Include="Views\Shared\Editor Templates\DateTimePicker.cshtml" />
+    <Content Include="Views\Activities\Index.cshtml" />
+    <Content Include="Views\Activities\Edit.cshtml" />
+    <Content Include="Views\Activities\Delete.cshtml" />
+    <Content Include="Views\Activities\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
     <Folder Include="Uploads\Covers\" />
     <Folder Include="Uploads\Songs\" />
   </ItemGroup>
