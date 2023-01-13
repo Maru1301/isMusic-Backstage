@@ -1,7 +1,12 @@
-﻿@model IEnumerable<iSMusic.Models.EFModels.Artist>
+﻿@using iSMusic.Controllers
+@model IEnumerable<iSMusic.Models.EFModels.Artist>
 
 @{
     ViewBag.Title = "Index";
+
+    var pagedInfo = (ArtistsController.PaginationInfo_110)ViewBag.Pagination;
+    var criteria = (ArtistsController.Criteria)ViewBag.Criteria;
+    var isBandList = (IEnumerable<SelectListItem>)ViewBag.IsBandList;
 }
 
 <h2>Index</h2>
@@ -9,6 +14,24 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<form method="get">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="caption">
+                <h3>Search</h3>
+                <div class="row">
+                    <div class="col-md-4">分類:@Html.DropDownList("isBand", isBandList, new { @class = "form-control" })</div>
+                    <div class="col-md-4">表演者名稱:<input type="text" name="PerformerName" class="form-control" value="@criteria.PerformerName"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px;">
+        <input type="submit" class="btn btn-primary" value="Search" />
+    </div>
+</form>
+
 <table class="table">
     <tr>
         <th>
@@ -61,4 +84,16 @@
     }
 
 </table>
+@pagedInfo.RenderPager(page => "/Artists/Index?" + criteria.GetQueryString() + "&PageNumber=" + page)
 
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+        @if (criteria.isBand.HasValue)
+            {
+                @:$("#isBand").val("@criteria.isBand")
+            }
+        })
+    </script>    
+}

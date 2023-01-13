@@ -2,10 +2,11 @@
 
 @{
     ViewBag.Title = "Edit";
+
+    var typeList = (IEnumerable<SelectListItem>)ViewBag.TypeList;
 }
 
 <h2>Edit</h2>
-
 
 @using (Html.BeginForm("Edit", "Albums", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -15,53 +16,61 @@
         <h4>*必填</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.albumName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.albumName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.albumName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
-                    @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
-                </div>
-                <img id="preview" style="max-height:200px;" />
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.released, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.released, "DateTimePicker")
-                    @Html.ValidationMessageFor(model => model.released, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.mainArtistId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.mainArtistId, (IEnumerable<SelectListItem>)ViewBag.ArtistList, new { @class = "form-control col-md-7" })
-                    @Html.ValidationMessageFor(model => model.mainArtistId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.songIdList, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.songIdList, (IEnumerable<SelectListItem>)ViewBag.SongList, new { @class = "form-control col-md-7 songIdList main" })
-                    @Html.ValidationMessageFor(model => model.songIdList, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group" id="songList">
-                <button id="addSong" class="btn btn-default col-md-offset-3 col-md-4" type="button">新增歌曲</button>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.typeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.typeId, typeList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.typeId, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.albumName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.albumName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.albumName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
+                @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
+            </div>
+            <img id="preview" style="max-height:200px;" />
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.released, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.released, "DateTimePicker")
+                @Html.ValidationMessageFor(model => model.released, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.mainArtistId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.mainArtistId, (IEnumerable<SelectListItem>)ViewBag.ArtistList, new { @class = "form-control col-md-7" })
+                @Html.ValidationMessageFor(model => model.mainArtistId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.songIdList, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.songIdList, (IEnumerable<SelectListItem>)ViewBag.SongList, new { @class = "form-control col-md-7 songIdList main" })
+                @Html.ValidationMessageFor(model => model.songIdList, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" id="songList">
+            <button id="addSong" class="btn btn-default col-md-offset-3 col-md-4" type="button">新增歌曲</button>
+        </div>
+    </div>
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -101,7 +110,7 @@
             var songList = {};
             $.ajax({
                 type: "GET",
-                url: "https://localhost:44342/Songs/GetSongList?" + "artistId=" + id
+                url: "https://localhost:44373/Songs/GetSongList?" + "artistId=" + id
             }).done(function (data) {
                 songList = data;
                 let length = @Model.songIdList.Count;

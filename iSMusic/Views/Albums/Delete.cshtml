@@ -12,7 +12,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.albumName)
+            專輯名稱
         </dt>
 
         <dd>
@@ -20,35 +20,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.albumCoverPath)
+            主要表演者
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.albumCoverPath)
+            @Html.DisplayFor(model => model.ArtistName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.released)
+            發行時間
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.released)
+            @Html.DisplayFor(model => model.released, "Date")
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.description)
+            描述
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.mainArtistId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.mainArtistId)
         </dd>
 
     </dl>

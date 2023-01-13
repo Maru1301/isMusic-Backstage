@@ -15,7 +15,6 @@ namespace iSMusic.Models.EFModels
             SubscriptionRecords = new HashSet<SubscriptionRecord>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]

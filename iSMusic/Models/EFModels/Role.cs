@@ -14,7 +14,6 @@ namespace iSMusic.Models.EFModels
             Admin_Role_Metadata = new HashSet<Admin_Role_Metadata>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]

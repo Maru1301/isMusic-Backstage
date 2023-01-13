@@ -14,6 +14,8 @@ namespace iSMusic.Models.Services.Interfaces
 
 		Artist FindById(int id);
 
+		IQueryable<Artist> GetQuery();
+
 		Artist IsExisted(ArtistDTO dto);
 
 		void Create(ArtistDTO dto);
