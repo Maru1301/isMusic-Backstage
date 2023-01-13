@@ -13,6 +13,8 @@ namespace iSMusic.Models.ViewModels
 		[Display(Name = "專輯名稱")]
 		public string albumName { get; set; }
 
+		public int albumTypeId { get; set; }
+
 		[Display(Name = "專輯類型")]
 		public string typeName { get; set; }
 

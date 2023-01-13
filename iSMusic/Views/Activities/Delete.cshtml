@@ -1,0 +1,104 @@
+﻿@model isMusic.Models.ViewModels.ActivityEditVM
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ActivityEditVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.activityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activityStartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activityStartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activityEndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activityEndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activityLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activityLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activityTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activityTypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activityInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activityInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activityOrganizerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activityOrganizerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activityImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activityImagePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.publishedStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.publishedStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.checkedById)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.checkedById)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

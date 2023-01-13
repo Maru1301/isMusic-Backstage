@@ -156,6 +156,11 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Artist>()
+				.HasMany(e => e.Albums)
+				.WithRequired(e => e.AlbumType)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Artist>()
 				.HasMany(e => e.Album_Artist_Metadata)
 				.WithRequired(e => e.Artist)
 				.WillCascadeOnDelete(false);
@@ -353,6 +358,11 @@ namespace iSMusic.Models.EFModels
 
 			modelBuilder.Entity<Member>()
 				.HasMany(e => e.CommentPunishments)
+				.WithRequired(e => e.Member)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Member>()
+				.HasMany(e => e.Creators)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
 

@@ -8,7 +8,6 @@
 
 <h2>Edit</h2>
 
-
 @using (Html.BeginForm("Edit", "Albums", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -111,7 +110,7 @@
             var songList = {};
             $.ajax({
                 type: "GET",
-                url: "https://localhost:44342/Songs/GetSongList?" + "artistId=" + id
+                url: "https://localhost:44373/Songs/GetSongList?" + "artistId=" + id
             }).done(function (data) {
                 songList = data;
                 let length = @Model.songIdList.Count;

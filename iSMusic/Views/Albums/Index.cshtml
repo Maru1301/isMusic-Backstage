@@ -1,7 +1,14 @@
-﻿@model IEnumerable<iSMusic.Models.ViewModels.AlbumIndexVM>
+﻿@using iSMusic.Controllers
+@using iSMusic.Models.Infrastructures
+@model IEnumerable<iSMusic.Models.ViewModels.AlbumIndexVM>
 
 @{
     ViewBag.Title = "Index";
+
+    var pagedInfo = (PaginationInfo)ViewBag.Pagination;
+    var sortInfo = (AlbumsController.SortInfo)ViewBag.SortInfo;
+    var criteria = (AlbumsController.AlbumCriteria)ViewBag.Criteria;
+    var typeList = (IEnumerable<SelectListItem>)ViewBag.TypeList;
 }
 
 <h2>Index</h2>
@@ -9,19 +16,38 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<form method="get">
+    @sortInfo.RenderHiddenInfo()
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="caption">
+                <h3>Search</h3>
+                <div class="row">
+                    <div class="col-md-4">專輯類型:@Html.DropDownList("albumTypeId", typeList, new { @class = "form-control" })</div>
+                    <div class="col-md-4">專輯名稱:<input type="text" name="input" class="form-control" value="@criteria.input"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px;">
+        <input type="submit" class="btn btn-primary" value="Search" />
+    </div>
+</form>
+
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.typeName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.albumName)
+            @Html.DisplayNameFor(model => model.albumName)@sortInfo.RenderItem(AlbumsController.EnumColumn.albumName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.released)
+            @Html.DisplayNameFor(model => model.released)@sortInfo.RenderItem(AlbumsController.EnumColumn.released)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.mainArtistName)
+            @Html.DisplayNameFor(model => model.mainArtistName)@sortInfo.RenderItem(AlbumsController.EnumColumn.mainArtistName)
         </th>
         <th></th>
     </tr>
@@ -49,3 +75,16 @@
     }
 
 </table>
+@pagedInfo.RenderPager(page => "/Albums/Index?PageNumber=" + page + "&" + sortInfo.GetQueryString() + "&" + criteria.GetQueryString())
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+        @if (criteria.AlbumTypeId.HasValue)
+            {
+                @:$("#albumTypeId").val("@criteria.AlbumTypeId")
+            }
+        })
+    </script>
+}
