@@ -24,7 +24,7 @@ namespace isMusic.Models.DTOs
         public string activityInfo { get; set; }
 
         //public string member { get; set; }
-        public MemberDTO member { get; set; }
+        public MemberEntity member { get; set; }
 
         public string activityImagePath { get; set; }
 

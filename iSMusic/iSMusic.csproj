@@ -167,6 +167,7 @@
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\CreatorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SongGenresController.cs" />
@@ -175,6 +176,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\MemberDTO.cs" />
+    <Compile Include="Models\DTOs\RegisterDTO.cs" />
+    <Compile Include="Models\DTOs\UpdateProfileDTO.cs" />
+    <Compile Include="Models\Entities\MemberEntity.cs" />
     <Compile Include="Models\DTOs\AdminDTO.cs" />
     <Compile Include="Models\DTOs\ActivityTypeDTO.cs" />
     <Compile Include="Models\DTOs\ActivityEditDTO.cs" />
@@ -252,13 +256,16 @@
     <Compile Include="Models\Infrastructures\BaseSortInfo.cs" />
     <Compile Include="Models\Infrastructures\Extensions\AlbumExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\ArtistExts.cs" />
+    <Compile Include="Models\Infrastructures\Extensions\MemberExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongExts.cs" />
     <Compile Include="Models\Infrastructures\Extensions\SongGenreExts.cs" />
+    <Compile Include="Models\Infrastructures\HashUtility.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ActivityRepository.cs" />
     <Compile Include="Models\Infrastructures\PaginationInfo.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumMetadataRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\AlbumRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ArtistRepository.cs" />
+    <Compile Include="Models\Infrastructures\Repositories\MemberRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\ProductRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongGenreRepository.cs" />
     <Compile Include="Models\Infrastructures\Repositories\SongMetadataRepository.cs" />
@@ -269,9 +276,11 @@
     <Compile Include="Models\Services\Interfaces\IActivityRepository.cs" />
     <Compile Include="Models\Services\Interfaces\IAlbumRepository.cs" />
     <Compile Include="Models\Services\Interfaces\IArtistRepository.cs" />
+    <Compile Include="Models\Services\Interfaces\IMemberRepository.cs" />
     <Compile Include="Models\Services\Interfaces\IProductRepository.cs" />
     <Compile Include="Models\Services\Interfaces\ISongGenreRepository.cs" />
     <Compile Include="Models\Services\Interfaces\ISongRepository.cs" />
+    <Compile Include="Models\Services\MemberService.cs" />
     <Compile Include="Models\Services\ProductService.cs" />
     <Compile Include="Models\Services\SongGenreService.cs" />
     <Compile Include="Models\Services\SongService.cs" />
@@ -281,9 +290,14 @@
     <Compile Include="Models\ViewModels\AlbumCreateVM.cs" />
     <Compile Include="Models\ViewModels\AlbumEditVM.cs" />
     <Compile Include="Models\ViewModels\AlbumIndexVM.cs" />
+    <Compile Include="Models\ViewModels\EditProfileVM.cs" />
+    <Compile Include="Models\ViewModels\LoginVM.cs" />
+    <Compile Include="Models\ViewModels\MemberPermissionsVM.cs" />
+    <Compile Include="Models\ViewModels\MemberVM.cs" />
     <Compile Include="Models\ViewModels\OrderDetailVM.cs" />
     <Compile Include="Models\ViewModels\OrderIndexVM.cs" />
     <Compile Include="Models\ViewModels\ProductVM.cs" />
+    <Compile Include="Models\ViewModels\RegisterVM.cs" />
     <Compile Include="Models\ViewModels\SongCreateVM.cs" />
     <Compile Include="Models\ViewModels\SongEditVM.cs" />
     <Compile Include="Models\ViewModels\SongIndexVM.cs" />
@@ -373,6 +387,11 @@
     <Content Include="Views\Shared\DisplayTemplates\Duration.cshtml" />
     <Content Include="Views\Creators\Index.cshtml" />
     <Content Include="Views\Creators\Details.cshtml" />
+    <Content Include="Views\Members\DeleteAccount.cshtml" />
+    <Content Include="Views\Members\EditProfile.cshtml" />
+    <Content Include="Views\Members\Index.cshtml" />
+    <Content Include="Views\Members\Register.cshtml" />
+    <Content Include="Views\Members\RegisterConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
