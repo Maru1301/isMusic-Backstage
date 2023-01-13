@@ -23,7 +23,9 @@ namespace iSMusic.Models.EFModels
         [StringLength(50)]
         public string artistName { get; set; }
 
-        public bool artistGender { get; set; }
+        public bool isBand { get; set; }
+
+        public bool? artistGender { get; set; }
 
         [Required]
         [StringLength(500)]

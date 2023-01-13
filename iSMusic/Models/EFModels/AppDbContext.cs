@@ -20,6 +20,7 @@ namespace iSMusic.Models.EFModels
 		public virtual DbSet<Album_Artist_Metadata> Album_Artist_Metadata { get; set; }
 		public virtual DbSet<Album_Song_Metadata> Album_Song_Metadata { get; set; }
 		public virtual DbSet<Album> Albums { get; set; }
+		public virtual DbSet<AlbumType> AlbumTypes { get; set; }
 		public virtual DbSet<Article_Tag_Metadata> Article_Tag_Metadata { get; set; }
 		public virtual DbSet<ArticlePunishemt> ArticlePunishemts { get; set; }
 		public virtual DbSet<ArtistFollow> ArtistFollows { get; set; }
@@ -148,6 +149,11 @@ namespace iSMusic.Models.EFModels
 			modelBuilder.Entity<Album>()
 				.HasMany(e => e.Products)
 				.WithRequired(e => e.Album)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<AlbumType>()
+				.HasMany(e => e.Albums)
+				.WithRequired(e => e.AlbumType)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Artist>()
@@ -348,6 +354,11 @@ namespace iSMusic.Models.EFModels
 
 			modelBuilder.Entity<Member>()
 				.HasMany(e => e.CommentPunishments)
+				.WithRequired(e => e.Member)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Member>()
+				.HasMany(e => e.Creators)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
 

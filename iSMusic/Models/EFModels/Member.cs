@@ -21,6 +21,7 @@ namespace iSMusic.Models.EFModels
             CensorSongs = new HashSet<CensorSong>();
             CensorTags = new HashSet<CensorTag>();
             CommentPunishments = new HashSet<CommentPunishment>();
+            Creators = new HashSet<Creator>();
             ForumArticleLikes = new HashSet<ForumArticleLike>();
             ForumArticles = new HashSet<ForumArticle>();
             ForumCollections = new HashSet<ForumCollection>();
@@ -110,6 +111,9 @@ namespace iSMusic.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommentPunishment> CommentPunishments { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Creator> Creators { get; set; }
 
         public virtual CreditCard CreditCard { get; set; }
 

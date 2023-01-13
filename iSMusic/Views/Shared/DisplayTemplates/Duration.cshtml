@@ -1,0 +1,12 @@
+﻿@model int?
+@if (Model.HasValue)
+{
+    var mins = (Model.Value / 60).ToString();
+    var secs = (Model.Value % 60).ToString();
+    if(secs.Length == 1)
+    {
+        secs = "0" + secs;
+    }
+    <span>@mins : @secs</span>
+}
+
