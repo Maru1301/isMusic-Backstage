@@ -5,6 +5,10 @@
     {
         Layout = "~/Views/Shared/_SongLayout.cshtml";
     }
+    if (CurrentName == "Products" || CurrentName == "Orders" || CurrentName == "Coupons")
+    {
+        Layout = "~/Views/Shared/_ProductLayout.cshtml";
+    }
     else
     {
         Layout = "/Views/Shared/_Layout.cshtml";

@@ -1,0 +1,50 @@
+﻿@model iSMusic.Models.EFModels.Coupon
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Coupon</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.couponText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.couponText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.startDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.startDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.expiredDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.expiredDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.discounts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.discounts)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

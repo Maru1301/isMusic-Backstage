@@ -1,0 +1,56 @@
+﻿@model iSMusic.Models.EFModels.Coupon
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Coupon</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.couponText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.couponText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.startDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.startDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.expiredDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.expiredDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.discounts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.discounts)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

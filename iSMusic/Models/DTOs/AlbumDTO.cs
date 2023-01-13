@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iSMusic.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,5 +25,8 @@ namespace iSMusic.Models.DTOs
 		public int mainArtistId { get; set; }
 
 		public List<int> songIdList { get; set; }
-	}
+
+        public virtual ICollection<Product> Products { get; set; }
+    }
+    
 }
