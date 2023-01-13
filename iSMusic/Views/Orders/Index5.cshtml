@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<iSMusic.Models.ViewModels.OrderIndexVM>
 
 @{
-    ViewBag.Title = "Index2";
+    ViewBag.Title = "Index";
 }
 
-<h2>Index2</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.memberId)
+            @Html.DisplayNameFor(model => model.memberNickName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.paymentName)
@@ -35,7 +35,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.memberId)
+            @Html.DisplayFor(modelItem => item.memberNickName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.paymentName)

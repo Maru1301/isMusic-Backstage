@@ -13,7 +13,8 @@ namespace iSMusic.Models.ViewModels
     {
         public int id { get; set; }
 
-        [Display(Name = "名稱")]
+        [Display(Name = "演出者")]
+
         public string productName { get; set; }
 
         [Display(Name = "分類名稱")]
@@ -25,25 +26,16 @@ namespace iSMusic.Models.ViewModels
         [Display(Name = "庫存量")]
         public decimal stock { get; set; }
 
-        [Display(Name = "狀態")]
+        [Display(Name = "status")]
         public bool status { get; set; }
+
+        [Display(Name = "專輯")]
+        public string album { get; set; }
     }
 
 
     public static partial class PorductDtoExts
     {
-        public static ProductVM ToVM(this ProductDTO source)
-        {
-            return new ProductVM
-            {
-                id = source.id,
-                productName = source.productName,
-                categoryName = source.Category.categoryName,
-                productPrice = source.productPrice,
-                stock = source.stock,
-                status = source.status,
-            };
-        }
 
         public static ProductVM ToVM(this Product source)
         {
@@ -55,6 +47,8 @@ namespace iSMusic.Models.ViewModels
                 productPrice = source.productPrice,
                 stock = source.stock,
                 status = source.status,
+                album = source.Album.albumName,
+
             };
         }
     }

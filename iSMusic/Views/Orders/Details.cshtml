@@ -15,19 +15,22 @@
             @Html.DisplayNameFor(model => model.memberId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.couponId)
+            @Html.DisplayNameFor(model => model.productName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.couponText)
+        </th>
+        <th>
+            <div>總價</div>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.payments)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.orderStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.paid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.created)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.receiver)
@@ -38,21 +41,28 @@
         <th>
             @Html.DisplayNameFor(model => model.cellphone)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orderStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paid)
+        </th>
+
+
+
+
         @*<th>
             @Html.DisplayNameFor(model => model.orderId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.productId)
         </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.productName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.qty)
-        </th>
+
+
+
         <th></th>
     </tr>
 
@@ -63,19 +73,22 @@
             @Html.DisplayFor(modelItem => Model.memberId)
         </th>
         <th>
-            @Html.DisplayFor(modelItem => Model.couponId)
+            @Html.DisplayFor(modelItem => Model.productName)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.price)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.qty)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.couponText)
+        </th>
+        <th>
+            @ViewBag.total
         </th>
         <th>
             @Html.DisplayFor(modelItem => Model.payments)
-        </th>
-        <th>
-            @Html.DisplayFor(modelItem => Model.orderStatus)
-        </th>
-        <th>
-            @Html.DisplayFor(modelItem => Model.paid)
-        </th>
-        <th>
-            @Html.DisplayFor(modelItem => Model.created)
         </th>
         <th>
             @Html.DisplayFor(modelItem => Model.receiver)
@@ -86,21 +99,30 @@
         <th>
             @Html.DisplayFor(modelItem => Model.cellphone)
         </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.created)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.orderStatus)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => Model.paid)
+        </th>
+
+
+
+
         @*<th>
             @Html.DisplayFor(modelItem => Model.orderId)
         </th>
         <th>
             @Html.DisplayFor(modelItem => Model.productId)
         </th>*@
-        <th>
-            @Html.DisplayFor(modelItem => Model.price)
-        </th>
-        <th>
-            @Html.DisplayFor(modelItem => Model.productName)
-        </th>
-        <th>
-            @Html.DisplayFor(modelItem => Model.qty)
-        </th>
+
+
+
+
+
 
         <td>
             @Html.ActionLink("Edit", "Edit", new { Model.id }) |

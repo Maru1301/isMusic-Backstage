@@ -1,5 +1,6 @@
 namespace iSMusic.Models.EFModels
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@ namespace iSMusic.Models.EFModels
         {
             Order_Product_Metadata = new HashSet<Order_Product_Metadata>();
         }
+        public string[] PaymentList = { "apple pay", "Line pay" };
 
         public int id { get; set; }
 
@@ -27,6 +29,7 @@ namespace iSMusic.Models.EFModels
         public bool paid { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd HH:mm:ss}",ApplyFormatInEditMode = true)]
         public DateTime created { get; set; }
 
         [Required]
@@ -44,6 +47,8 @@ namespace iSMusic.Models.EFModels
         public virtual Coupon Coupon { get; set; }
 
         public virtual Member Member { get; set; }
+
+        //public virtual Product Product { get; set; }
 
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

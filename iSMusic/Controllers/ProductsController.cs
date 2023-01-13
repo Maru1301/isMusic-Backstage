@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,7 +12,7 @@ using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services;
 using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
-using PagedList;
+using X.PagedList;
 
 namespace iSMusic.Controllers
 {
@@ -28,17 +29,18 @@ namespace iSMusic.Controllers
         }
 
         // GET: Products
-        public ActionResult Index(int? AlbumId, int? categoryId, string productName, int pageNumber = 1)
+        public ActionResult Index(int? categoryId, string productName, int pageNumber = 1 )
         {
+            pageNumber = pageNumber > 0 ? pageNumber : 1;
 
             ViewBag.Categories = GetCategories(categoryId);
             ViewBag.ProductName = productName;
 
-          
+            
 
             IPagedList<Product> pagedData = GetPagedProducts(categoryId, productName, pageNumber);
+            return View(pagedData);
 
-            return View(pagedData.Select(x => x.ToVM()));
         }
 
         private IEnumerable<SelectListItem> GetCategories(int? categoryId)
@@ -56,7 +58,7 @@ namespace iSMusic.Controllers
 
         private IPagedList<Product> GetPagedProducts(int? categoryId, string productName, int pageNumber)
         {
-            int pageSize = 3;
+            int pageSize = 4;
 
             var query = db.Products.Include(x => x.ProductCategory);
 
@@ -125,6 +127,7 @@ namespace iSMusic.Controllers
                 return HttpNotFound();
             }
             ViewBag.productCategoryId = new SelectList(db.ProductCategories, "id", "categoryName", product.productCategoryId);
+            ViewBag.albumId = new SelectList(db.Albums, "id", "albumName");
             return View(product);
         }
 
@@ -142,6 +145,7 @@ namespace iSMusic.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.productCategoryId = new SelectList(db.ProductCategories, "id", "categoryName", product.productCategoryId);
+            ViewBag.albumId = new SelectList(db.Albums, "id", "albumName");
             return View(product);
         }
 
@@ -179,5 +183,21 @@ namespace iSMusic.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateStatus([Bind(Include = "id,productCategoryId,productPrice,albumId,productName,stock,status")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(product);
+        }
+       
     }
 }

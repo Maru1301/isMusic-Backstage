@@ -1,4 +1,12 @@
-﻿@model IEnumerable<iSMusic.Models.ViewModels.ProductVM>
+﻿@using X.PagedList.Mvc.Fluent
+@using iSMusic.Models.EFModels
+
+@*@model IEnumerable<iSMusic.Models.ViewModels.ProductVM>*@
+
+@model X.PagedList.IPagedList<Product>
+
+
+
 
 
 @{
@@ -29,27 +37,32 @@
 
 
 
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.productName)
+            categoryName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.categoryName)
+            album
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.productPrice)
+            productName
+        </th>
+
+        <th>
+            productPrice
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stock)
+            stock
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status)
+            上架status
         </th>
+
+
         <th></th>
     </tr>
 
@@ -57,11 +70,15 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.productName)
+                @Html.DisplayFor(modelItem => item.ProductCategory.categoryName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.categoryName)
+                @Html.DisplayFor(modelItem => item.Album.albumName)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.productName)
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.productPrice)
             </td>
@@ -69,14 +86,42 @@
                 @Html.DisplayFor(modelItem => item.stock)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.status)
+                <div class="delItem">
+                    @Html.EditorFor(modelItem => item.status)
+                </div>
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @*@Html.ActionLink("Details", "Details", new { id = item.id }) |*@
                 @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                @Html.ActionLink("上架", "UpdateStatus")
             </td>
+
         </tr>
+
     }
 
 </table>
+@(Html.Pager(Model)
+    .Url(page => Url.Action("Index", new { pageNumber=page, CategoryId= ViewBag.CategoryId, ProductName = ViewBag.ProductName }))
+    .ClassicPlusFirstAndLast())
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input id="btnSelect" type="submit" value="上架" class="btn btn-default" />
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#btnSelect").on("click", function () {
+                $(".delItem").each(function () {
+                    console.log($(this).find("#item_status").is(":checked"));
+                    //console.log($(this).next("#item_status"));
+                });
+            })
+        });
+    </script>
+}

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using System.Xml;
 using iSMusic.Models.EFModels;
 using iSMusic.Models.ViewModels;
 using Microsoft.Ajax.Utilities;
@@ -17,20 +18,28 @@ namespace iSMusic.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
-        public string[] PaymentList = { "apple pay" }  ; 
+        
+    
 
         // GET: Orders
+        //public ActionResult Index()
+        //{
+        //    var orders = db.Orders.Include(o => o.Coupon).Include(o => o.Member);
+        //    return View(orders.ToList());
+        //}
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Coupon).Include(o => o.Member).ToList().Select(x=> new OrderIndexVM
+            var orders = db.Orders.Include(o => o.Coupon).Include(o => o.Member).ToList().Select(x => new OrderIndexVM
             {
                 id = x.id,
-                memberId = x.memberId,
-                paymentName = PaymentList[x.payments-1],
+                memberNickName = x.Member.memberNickName,
+                //memberId = x.memberId,
+                //paymentName = PaymentList[x.payments-2],
+                paymentName = x.PaymentList[x.payments-1],
                 orderStatus = x.orderStatus,
                 paid = x.paid,
                 created = x.created,
-                receiver = x.receiver ,
+                receiver = x.receiver,
             });
             return View(orders.ToList());
         }
@@ -49,7 +58,21 @@ namespace iSMusic.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             OrderDetailVM order = db.Orders.FirstOrDefault(x => x.id == id).ToDetailVM();
-
+            var price = order.price;
+            var qty = order.qty;
+            var discounts = order.discounts;
+            var total = price  * qty;
+            if (discounts[0] == '*')
+            {
+                decimal discountNumber = decimal.Parse(discounts.Substring(1));
+                total = total * discountNumber;
+            }
+            else
+            {
+                var discountNumber = int.Parse(discounts.Substring(1));
+                total = total - discountNumber;
+            }
+            ViewBag.total = total;
 
             if (order == null)
             {
@@ -63,6 +86,9 @@ namespace iSMusic.Controllers
         {
             ViewBag.couponId = new SelectList(db.Coupons, "id", "couponText");
             ViewBag.memberId = new SelectList(db.Members, "id", "memberNickName");
+            DateTime date= DateTime.Now;
+            ViewBag.date = date;
+
             return View();
         }
 
@@ -77,6 +103,7 @@ namespace iSMusic.Controllers
             {
                 db.Orders.Add(order);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 

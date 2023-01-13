@@ -16,6 +16,8 @@ namespace iSMusic.Models.DTOs
         public decimal stock { get; set; }
         public bool status { get; set; }
 
+        public string album { get; set; }
+
     }
 
     public static partial class ProductExts
@@ -30,6 +32,7 @@ namespace iSMusic.Models.DTOs
                 productPrice = source.productPrice,
                 stock = source.stock,
                 status = source.status,
+                album = source.Album.albumName,
 
             };
     }
