@@ -142,9 +142,6 @@
     <Compile Include="Models\DTOs\SongDTO.cs" />
     <Compile Include="Models\DTOs\SongGenreDTO.cs" />
     <Compile Include="Controllers\MemberController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Models\DTOs\MemberDTO.cs" />
     <Compile Include="Models\DTOs\RegisterDTO.cs" />
     <Compile Include="Models\DTOs\UpdateProfileDTO.cs" />
@@ -308,7 +305,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\Covers\" />
     <Folder Include="Uploads\Songs\" />
-    <Folder Include="Views\Albums\" />
     <Folder Include="Views\SongMainPage\" />
   </ItemGroup>
   <ItemGroup>

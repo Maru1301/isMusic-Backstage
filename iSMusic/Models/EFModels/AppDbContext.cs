@@ -17,7 +17,6 @@ namespace iSMusic.Models.EFModels
 		public virtual DbSet<ActivityType> ActivityTypes { get; set; }
 		public virtual DbSet<Admin_Role_Metadata> Admin_Role_Metadata { get; set; }
 		public virtual DbSet<Admin> Admins { get; set; }
-		public virtual DbSet<Album_Artist_Metadata> Album_Artist_Metadata { get; set; }
 		public virtual DbSet<Album_Song_Metadata> Album_Song_Metadata { get; set; }
 		public virtual DbSet<Album> Albums { get; set; }
 		public virtual DbSet<AlbumType> AlbumTypes { get; set; }
