@@ -53,13 +53,22 @@ namespace iSMusic.Models.Infrastructures
 		{
 			string result = @"
 			<nav aria-label=""Page navigation"">
-    <ul class=""pagination"">";
+				<ul class=""pagination"">";
 
-			if (pagedInfo.Pages > 0 && pagedInfo.PageNumber >= 1)
+			if (pagedInfo.Pages > 0 && pagedInfo.PageNumber > 1)
 			{
 				string prevUrl = urlGenerator(pagedInfo.PageItemPrevNumber);
-				result += $@"<li>
-                <a href=""{prevUrl}"" aria-label=""Previous"">
+				result += $@"<li class=""page-item"">
+                <a class=""page-link"" href=""{prevUrl}"" aria-label=""Previous"">
+                    <span aria-hidden=""true"">&laquo;</span>
+                </a>
+            </li>";
+			}
+			else
+			{
+				string prevUrl = urlGenerator(pagedInfo.PageItemPrevNumber);
+				result += $@"<li class=""page-item"">
+                <a class=""page-link disabled"" href=""{prevUrl}"" aria-label=""Previous"">
                     <span aria-hidden=""true"">&laquo;</span>
                 </a>
             </li>";
@@ -73,23 +82,33 @@ namespace iSMusic.Models.Infrastructures
 				string className = pagedInfo.PageBarStartNumber + i == pagedInfo.PageNumber ? "active" : "";
 
 				result += $@"
-            <li class=""{className}""><a href=""{url}"">{currentPageNumber}</a></li>";
+            <li class=""page-item {className}""><a class=""page-link"" href=""{url}"">{currentPageNumber}</a></li>";
 			}
 
-			if (pagedInfo.PageNumber < pagedInfo.Pages)
+			if (pagedInfo.PageNumber > pagedInfo.Pages)
 			{
 				string nextUrl = urlGenerator(pagedInfo.PageItemNextNumber);
 				result += $@"
-            <li>
+            <li class=""page-item"">
                 <a href=""{nextUrl}"" aria-label=""Next"">
+                    <span aria-hidden=""true"">&raquo;</span>
+                </a>
+            </li>";
+			}
+			else
+			{
+				string nextUrl = urlGenerator(pagedInfo.PageItemNextNumber);
+				result += $@"
+            <li class=""page-item disabled"">
+                <a class=""page-link"" href=""{nextUrl}"" aria-label=""Next"">
                     <span aria-hidden=""true"">&raquo;</span>
                 </a>
             </li>";
 			}
 
 			result += @"
-    </ul>
-</nav>";
+				</ul>
+			</nav>";
 
 			return new MvcHtmlString(result);
 		}
