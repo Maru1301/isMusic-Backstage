@@ -1,0 +1,134 @@
+﻿@model isMusic.Models.ViewModels.AdminCreateVM
+
+@{
+    ViewBag.Title = "Create";
+    var departmentIdList = (IEnumerable<SelectListItem>)ViewBag.departmentId;
+
+    var authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+    var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+    string[] roles = authTicket.UserData.Split(',').Where(x => x.Length != 0).ToArray();
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>AdminCreateVM</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.departmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.departmentId, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.departmentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.adminAccount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.adminAccount, new { htmlAttributes = new { @class = "form-control col-md-4 account" } })
+                <button class="btn btn-default col-md-2 col-md-offset-1" id="adminAccountbtn" type="button">自動生成帳號</button>
+            </div>
+            <div class="col-md-offset-2">
+                @Html.ValidationMessageFor(model => model.adminAccount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-md-4 pwd" } })
+                <button class="btn btn-default col-md-2 col-md-offset-1" id="Passwordbtn" type="button">自動生成密碼</button>
+            </div>
+            <div class="col-md-offset-2">
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @foreach (var department in departmentIdList.Where(Id => Id.Value != null))
+        {
+            <div class="form-group select" id="@department.Value">
+                <label class="control-label col-md-2" for="radiobtn">@(department.Text)部門權限</label>
+                <div class="col-md-10 radiobtn" name="RoleIdList">
+                    @if (roles.Contains("1") || roles.Contains("52") || roles.Contains("53"))
+                    {
+                        @Html.RadioButton(department.Value, Int32.Parse(department.Value + 3), new { @class = "radio-btn" }) @:管理員
+                    }
+                    @Html.RadioButton(department.Value, Int32.Parse(department.Value + 2), new { @class = "radio-btn" }) 編輯者
+                    @Html.RadioButton(department.Value, Int32.Parse(department.Value + 1), new { @class = "radio-btn" }) 訪客
+                </div>
+            </div>
+            @Html.TextBoxFor(model => model.RoleIdList, new { @class = $"form-control input{department.Value} hidden" })
+        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+    const characters = ["A","B","C","D","E","F","G","H","I",
+"J","K","L","M","N","O","P","Q","R","S","T","U","V","W",
+"X","Y","Z","a","b","c","d","e","f","g","h","i","j","k",
+"l","m","n","o","p","q","r","s","t","u","v","w","x","y",
+"z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+"~","`","!","@@","#","$","%","^","&","*","(",")","_","-",
+        "+", "=", "{", "[", "}", "]", ",", "|", ":", ";", "<", ">", ".", "?", "/"];
+
+    let radios = document.querySelectorAll(".radio-btn");
+    for (let i = 0; i < radios.length; i++) {
+        radios[i].addEventListener("change", function (e) {
+            let target = e.target;
+            let name = target.name;
+            let record = document.querySelector("input.input" + name);
+            record.value = target.value;
+        })
+    }
+    $(document).ready(function () {
+        $("#adminAccountbtn").on("click", function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Content("~/Admins/GenerateAccount")",
+            }).done(function (result) {
+                $(".account").val(result);
+            }).fail(function (err) {
+                alert(err.responseText);
+            })
+        })
+
+        $("#Passwordbtn").on("click", function () {
+            let pwd = $(".pwd");
+            let temp = "";
+            for (let i = 0; i < 12; i++) {
+                temp += characters[Math.floor(Math.random() * characters.length)];
+            }
+            $(pwd).val(temp);
+        })
+
+        @if (roles.Contains("1") == false && roles.Contains("52") == false && roles.Contains("53") == false)
+        {
+            @:$(".select").addClass("hidden");
+
+            @:$("#departmentId").on("change", function () {
+                @:$(".select").addCla1ss("hidden");
+                @:if ($(this).length != 0) {
+                    @:$("#" + $(this).val() + ".select").removeClass("hidden");
+                @:}
+            @:})
+        }
+    })
+
+    </script>
+}

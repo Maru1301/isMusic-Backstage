@@ -22,9 +22,22 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("音樂", "Index", "Songs")</li>
-                </ul>
-                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("活動", "Index", "Activities")</li>
                     <li>@Html.ActionLink("商品", "Index", "Products")</li>
+                    <li>@Html.ActionLink("會員", "Index", "Members")</li>
+                    @{
+                        var authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+                        if (authCookie != null)
+                        {
+                            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                            string[] roles = authTicket.UserData.Split(',');
+                            string[] permissions = roles.Where(r => r.Length > 1).Select(r => r.Substring(1)).ToArray();
+                            if (permissions.Contains("3") || roles.Contains("1"))
+                            {
+                                <li>@Html.ActionLink("管理員權限", "Index", "Admins")</li>
+                            }
+                        }
+                    }
                 </ul>
             </div>
         </div>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<iSMusic.Models.ViewModels.MemberVM>
+
+@{
+    ViewBag.Title = "會員管理";
+}
+
+<h2>會員總覽</h2>
+
+<p>
+    @Html.ActionLink("新增會員", "Register")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.memberNickName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.memberAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.memberEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.memberAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.memberCellphone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.memberDateOfBirth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isConfirmed)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberNickName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberCellphone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberDateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isConfirmed)
+            </td>
+            <td>
+                @Html.ActionLink("編輯資料", "EditProfile", new { Id = item.id }) |
+                @Html.ActionLink("刪除", "DeleteAccount", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -259,6 +259,8 @@
                         $(selects[i-1]).val(artistIds[i]);
                     }
                 }
+
+                $("#released").val("@Model.released.ToString("yyyy-MM-dd")")
             })
     </script>
 }

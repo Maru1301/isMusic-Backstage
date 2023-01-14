@@ -1,12 +1,17 @@
 ﻿using iSMusic.Models.DTOs;
 using iSMusic.Models.EFModels;
+using iSMusic.Models.Entities;
 using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+using static iSMusic.Controllers.AlbumsController;
+using static iSMusic.Controllers.SongsController;
 
 namespace iSMusic.Models.Infrastructures.Repositories
 {
@@ -35,6 +40,7 @@ namespace iSMusic.Models.Infrastructures.Repositories
 					x.duration,
 					x.songWriter,
 					x.songPath,
+					x.status,
 				}).ToList()
 			.Select(p => new SongIndexVM
 			{
@@ -47,7 +53,25 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				duration = p.duration,
 				songWriter = p.songWriter,
 				songPath = "/Uploads/Songs/" + p.songPath,
+				status = p.status,
 			}).ToList();
+		}
+
+		public Song Find(int id)
+		{
+			return db.Songs.Find(id);
+		}
+
+		public void LaunchSong(Song song)
+		{
+			db.Entry(song).Property(s => s.status).IsModified = true;
+			db.SaveChanges();
+		}
+
+		public void RecallSong(Song song)
+		{
+			db.Entry(song).Property(s => s.status).IsModified = true;
+			db.SaveChanges();
 		}
 
 		public void AddNewSong(SongDTO dto)
@@ -76,8 +100,20 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				model = db.Songs.SingleOrDefault(x => x.id != dto.id && x.songName == dto.songName && x.genreId == dto.genreId && x.duration == dto.duration);
 			}
 
-
 			return model;
+		}
+
+		public IEnumerable<SongEntity> Search(SongCriteria criteria, Controllers.SongsController.SortInfo sortInfo)
+		{
+			IQueryable<Song> query = db.Songs;
+
+			// Searching
+			query = criteria.ApplyCriteria(query);
+
+			//Sorting
+			query = sortInfo.ApplySort(query);
+
+			return query.ToList().Select(q => q.ToEntity());
 		}
 
 		public SongEditVM FindById(int id)
@@ -119,6 +155,11 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				songId = x.songId,
 				songName = x.songName
 			});
+		}
+
+		public IQueryable<SongEntity> GetQuery()
+		{
+			return db.Songs.Select(s=> s.ToEntity());
 		}
 	}
 }

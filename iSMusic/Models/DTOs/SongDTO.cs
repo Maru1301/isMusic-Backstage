@@ -18,7 +18,11 @@ namespace iSMusic.Models.DTOs
 
 		public List<int> artistIdList { get; set; }
 
+		public List<string> artistList { get; set; }
+
 		public int genreId { get; set; }
+
+		public string genreName { get; set; }
 
 		public int duration { get; set; }
 

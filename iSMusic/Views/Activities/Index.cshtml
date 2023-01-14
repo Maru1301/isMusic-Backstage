@@ -1,0 +1,88 @@
+﻿@model IEnumerable<isMusic.ViewModels.ActivityVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.activityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.activityStartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.activityEndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.activityLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.activityType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.activityInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.memberAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.activityImagePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.publishedStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.checkedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.activityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.activityStartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.activityEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.activityLocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.activityType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.activityInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.memberAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.activityImagePath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.publishedStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.checkedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
+
+
