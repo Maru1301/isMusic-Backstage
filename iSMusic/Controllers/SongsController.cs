@@ -338,15 +338,30 @@ namespace iSMusic.Controllers
 							? data.OrderBy(t => t.songName).ThenBy(t => t.released)
 							: data.OrderByDescending(t => t.songName).ThenBy(t => t.released);
 
+					case EnumColumn.SongGenreName:
+						return (IsAsc())
+							? data.OrderBy(t => t.SongGenre.genreName).ThenByDescending(t => t.released)
+							: data.OrderByDescending(t => t.SongGenre.genreName).ThenByDescending(t => t.released);
+
 					case EnumColumn.released:
 						return (IsAsc())
 							? data.OrderBy(t => t.released).ThenBy(t => t.songName)
 							: data.OrderByDescending(t => t.released).ThenBy(t => t.songName);
 
-					case EnumColumn.SongGenreName:
+					case EnumColumn.Language:
 						return (IsAsc())
-							? data.OrderBy(t => t.SongGenre.genreName)
-							: data.OrderByDescending(t => t.SongGenre.genreName);
+							? data.OrderBy(t => t.language)
+							: data.OrderByDescending(t => t.language);
+
+					case EnumColumn.duration:
+						return (IsAsc())
+							? data.OrderBy(t => t.duration)
+							: data.OrderByDescending(t => t.duration);
+
+					case EnumColumn.TimesOfPlay:
+						return (IsAsc())
+							? data.OrderBy(t => t.timesOfPlay).ThenByDescending(t=>t.released)
+							: data.OrderByDescending(t => t.timesOfPlay).ThenByDescending(t=>t.released);
 				}
 
 				return data;

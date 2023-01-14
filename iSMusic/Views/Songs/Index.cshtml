@@ -71,23 +71,29 @@
             </th>
             <th></th>
             <th></th>
-            <th>
-                @Html.DisplayNameFor(model => model.songName)
+            <th class="row">
+                <div class="col-md-8">
+                    @Html.DisplayNameFor(model => model.songName)
+                </div>
+                <div class="col-md-4 d-flex">
+                    @sortInfo.RenderItem(SongsController.EnumColumn.songName)
+
+                </div>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.artistList)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.genreName)
+                @Html.DisplayNameFor(model => model.genreName)@sortInfo.RenderItem(SongsController.EnumColumn.SongGenreName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.duration)
+                @Html.DisplayNameFor(model => model.duration)@sortInfo.RenderItem(SongsController.EnumColumn.duration)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.language)
+                @Html.DisplayNameFor(model => model.language)@sortInfo.RenderItem(SongsController.EnumColumn.Language)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.released)
+                @Html.DisplayNameFor(model => model.released)@sortInfo.RenderItem(SongsController.EnumColumn.released)
             </th>
             <th></th>
         </tr>
