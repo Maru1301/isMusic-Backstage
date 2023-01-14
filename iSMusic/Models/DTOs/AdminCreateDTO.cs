@@ -1,26 +1,24 @@
 ﻿using iSMusic.Models.Infrastructures;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 
-namespace iSMusic.Models.DTOs
+namespace isMusic.Models.DTOs
 {
-	public class AdminDTO
+	public class AdminCreateDTO
 	{
 		private string SALT = "!@#$%^*AWRH()&%^";
 
-		public int Id { get; set; }
-
 		public int departmentId { get; set; }
-
-		public string DepartmentName { get; set; }
 
 		public string adminAccount { get; set; }
 
 		public string Password { get; set; }
 
-		public string adminEncryptedPassword
+		public string EncryptedPassword
 		{
 			get
 			{
@@ -30,8 +28,6 @@ namespace iSMusic.Models.DTOs
 			}
 		}
 
-		public IEnumerable<int> RoleIdList { get; set; }
-
-		public string MainRoleName { get; set; }
+		public List<int> RoleIdList { get; set; }
 	}
 }

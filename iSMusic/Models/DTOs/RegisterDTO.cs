@@ -1,5 +1,4 @@
-﻿using AdminManagement.Models.Infrastructures;
-using iSMusic.Models.Infrastructures;
+﻿using iSMusic.Models.Infrastructures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
