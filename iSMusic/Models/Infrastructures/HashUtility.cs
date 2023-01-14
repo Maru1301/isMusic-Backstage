@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace AdminManagement.Models.Infrastructures
+namespace iSMusic.Models.Infrastructures
 {
 	public class HashUtility
 	{

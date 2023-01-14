@@ -31,7 +31,7 @@ namespace isMusic.Models.DTOs
         public bool publishedStatus { get; set; }
 
         //public string admin { get; set; }
-        public AdminDTO admin { get; set; }
+        public AdminEntity admin { get; set; }
 
 
     }

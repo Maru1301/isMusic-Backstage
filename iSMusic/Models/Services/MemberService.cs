@@ -1,6 +1,5 @@
-﻿using AdminManagement.Models.Infrastructures;
+﻿using iSMusic.Models.Infrastructures;
 using iSMusic.Models.DTOs;
-using iSMusic.Models.Infrastructures;
 using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
 using System;
