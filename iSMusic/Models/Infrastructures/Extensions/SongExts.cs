@@ -86,7 +86,7 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				songCoverPath = source.songCoverPath,
 				songPath = source.songPath,
 				status = source.status,
-				timesOfPlay = source.timeOfPlay,
+				timesOfPlay = source.timesOfPlay,
 			};
 		}
 
@@ -105,5 +105,37 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				status= source.status,
 			};
 		}
+
+		public static SongEditVM ToEditVM(this SongDTO source)
+			=> new SongEditVM
+			{
+				id = source.id,
+				songName = source.songName,
+				genreId= source.genreId,
+				artistIdList= source.artistIdList,
+				released = source.released,
+				status= source.status,
+				language= source.language,
+				lyric = source.lyric,
+				songCoverPath= source.songCoverPath,
+				songPath = source.songPath,
+				songWriter = source.songWriter,
+				duration=source.duration,
+				isExplicit=source.isExplicit,
+				isInstrumental=source.isInstrumental,
+				timesOfPlay	= source.timesOfPlay,
+			};
+
+		public static SongDeleteVM ToDeleteVM(this SongDTO source)
+		=> new SongDeleteVM
+		{
+			id = source.id,
+			SongName= source.songName,
+			SingersName= source.artistList,
+			GenreName= source.genreName,
+			Language= source.language,
+			Released= source.released,
+			Status= source.status,
+		};
 	}
 }

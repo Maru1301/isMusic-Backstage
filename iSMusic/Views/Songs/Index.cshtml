@@ -44,10 +44,10 @@
             </div>
             <div class="col-xs-12 mt-3 d-flex">
                 <div class="col-md-1">
-                    <button id="launch" class="btn btn-outline-secondary">上架</button>
+                    <button id="launch" class="btn btn-outline-secondary" type="button">上架</button>
                 </div>
                 <div claass="col-md-1">
-                    <button id="recall" class="btn btn-outline-secondary">下架</button>
+                    <button id="recall" class="btn btn-outline-secondary" type="button">下架</button>
                 </div>
                 <div class="col-md-1 ms-auto">
                     <a class="btn btn-dark col-10 ms-auto" href="/Songs/Create">新增</a>
@@ -178,11 +178,11 @@
                     contentType: "application/json",
                     dataType:"json"
                 }).done(function (message) {
-                    alert(message)
+                    console.log(message)
                     $(checked).parent().next().text("");
                     $(checked).parent().parent().removeClass("recall");
                 }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
+                    console.log(jqXHR.responseText);
                 });
                 @*fetch("@Url.Content("~/Songs/LaunchSong")", {
                     method: "PUT",
@@ -207,11 +207,11 @@
                     data: JSON.stringify(idList),
                     contentType: "application/json"
                 }).done(function (message) {
-                    alert(message);
+                    console.log(message);
                     $(checked).parent().next().text("已下架");
                     $(checked).parent().parent().addClass("recall");
                 }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
+                    console.log(jqXHR.responseText);
                 });
             })
 

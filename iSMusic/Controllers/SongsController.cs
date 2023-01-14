@@ -177,7 +177,7 @@ namespace iSMusic.Controllers
 		// GET: Songs/Edit/5
 		public ActionResult Edit(int id)
 		{
-			SongEditVM data = null;
+			SongDTO data = null;
 			try
 			{
 				data = repository.FindById(id);
@@ -196,7 +196,7 @@ namespace iSMusic.Controllers
 
 			if (ModelState.IsValid)
 			{
-				return View(data);
+				return View(data.ToEditVM());
 			}
 
 			return RedirectToAction("Index"); ;
@@ -236,7 +236,7 @@ namespace iSMusic.Controllers
 		{
 			var data = repository.FindById(id);
 
-			return View(data);
+			return View(data.ToDeleteVM());
 		}
 
 		// POST: Songs/Delete/5

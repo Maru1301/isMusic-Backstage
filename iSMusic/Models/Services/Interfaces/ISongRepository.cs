@@ -23,7 +23,7 @@ namespace iSMusic.Models.Services.Interfaces
 
 		void RecallSong(Song song);
 
-		SongEditVM FindById(int id);
+		SongDTO FindById(int id);
 
 		void AddNewSong(SongDTO dto);
 
