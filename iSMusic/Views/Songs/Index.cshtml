@@ -21,14 +21,13 @@
     }
 </style>
 
-<h2>Index</h2>
+<h2>音樂目錄</h2>
 
 <form method="get">
     @sortInfo.RenderHiddenInfo()
     <div class="row">
         <div class="col-xs-12">
             <div class="caption">
-                <h3>Search</h3>
                 <div class="row">
                     <div class="col-md-3">上架狀態:@Html.DropDownList("status", statusList, new { @class = "form-control" })</div>
                     <div class="col-md-3">歌曲種類:@Html.DropDownList("songGenreId", songGenreList, new { @class = "form-control" })</div>
@@ -38,18 +37,20 @@
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px;">
-        <input type="submit" class="btn btn-primary" value="Search" />
+    <div class="row">
+        <div class="col-xs-12">
+            <input type="submit" class="btn btn-primary col-md-2 me-0" value="Search" />
+        </div>
     </div>
 </form>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a class="btn btn-dark" href="/Songs/Create">新增歌曲</a>
     <span>
-        <button id="launch" class="btn">上架</button>
+        <button id="launch" class="btn border-1 border-info">上架</button>
     </span>
     <span>
-        <button id="recall" class="btn">下架</button>
+        <button id="recall" class="btn border-1 border-info">下架</button>
     </span>
 </p>
 
@@ -86,7 +87,7 @@
         <tr @if (item.status == false) { @: class="recall"
             }>
             <td>
-                <span class="hidden">@item.id</span>
+                <span class="d-none">@item.id</span>
                 <input type="checkbox" class="checkbox" />
             </td>
             <td>
@@ -101,7 +102,7 @@
                 </audio>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.songName)
+                @Html.DisplayFor(modelItem => item.songName, new { @class="align-middle" })
             </td>
             <td>
                 <table>

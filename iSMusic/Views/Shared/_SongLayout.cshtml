@@ -1,31 +1,29 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="其他選項">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 </button>
-                @Html.ActionLink("iSMusic", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="/">iSMusic</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("音樂", "Index", "Songs")</li>
-                    <li>@Html.ActionLink("專輯", "Index", "Albums")</li>
-                    <li>@Html.ActionLink("演出者", "Index", "Artists")</li>
-                    <li>@Html.ActionLink("創作者", "Index", "Creators")</li>
-                    <li>@Html.ActionLink("音樂種類", "Index", "SongGenres")</li>
+                <ul class="nav navbar-nav navbar-right mr-auto">
+                    <li class="nav-item"><a href="/Songs/Index" id="registerLink" class="nav-link">音樂</a></li>
+                    <li class="nav-item"><a href="/Albums/Index" id="registerLink" class="nav-link">專輯</a></li>
+                    <li class="nav-item"><a href="/Artists/Index" id="registerLink" class="nav-link">演出者</a></li>
+                    <li class="nav-item"><a href="/Creators/Index" id="registerLink" class="nav-link">創作者</a></li>
+                    <li class="nav-item"><a href="/SongGenres/Index" id="registerLink" class="nav-link">音樂種類</a></li>
                 </ul>
             </div>
         </div>
