@@ -10,32 +10,30 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                </button>
+        <div class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="/">iSMusic</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right mr-auto">
-                    <li class="nav-item"><a href="/Songs/Index" id="registerLink" class="nav-link">音樂</a></li>
-                    <li class="nav-item"><a href="/Albums/Index" id="registerLink" class="nav-link">專輯</a></li>
-                    <li class="nav-item"><a href="/Artists/Index" id="registerLink" class="nav-link">演出者</a></li>
-                    <li class="nav-item"><a href="/Creators/Index" id="registerLink" class="nav-link">創作者</a></li>
-                    <li class="nav-item"><a href="/SongGenres/Index" id="registerLink" class="nav-link">音樂種類</a></li>
-                </ul>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right mr-auto">
+                        <li class="nav-item"><a href="/Songs/Index" id="registerLink" class="nav-link">音樂</a></li>
+                        <li class="nav-item"><a href="/Albums/Index" id="registerLink" class="nav-link">專輯</a></li>
+                        <li class="nav-item"><a href="/Artists/Index" id="registerLink" class="nav-link">演出者</a></li>
+                        <li class="nav-item"><a href="/Creators/Index" id="registerLink" class="nav-link">創作者</a></li>
+                        <li class="nav-item"><a href="/SongGenres/Index" id="registerLink" class="nav-link">音樂種類</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
-        </footer>
-    </div>
-
+        <div class="container body-content mt-120px">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+            </footer>
+        </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

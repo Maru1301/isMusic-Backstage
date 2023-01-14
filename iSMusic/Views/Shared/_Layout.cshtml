@@ -10,47 +10,46 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                </button>
+        <div class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="/">iSMusic</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right mr-auto">
-                    <li class="nav-item"><a href="/Songs/Index" id="registerLink" class="nav-link">音樂</a></li>
-                    <li class="nav-item"><a href="/Activities/Index" id="registerLink" class="nav-link">活動</a></li>
-                    <li class="nav-item"><a href="/Products/Index" id="registerLink" class="nav-link">商城</a></li>
-                    <li class="nav-item"><a href="/Members/Index" id="registerLink" class="nav-link">會員</a></li>
-                    @{
-                        var authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
-                        if (authCookie != null)
-                        {
-                            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                            string[] roles = authTicket.UserData.Split(',');
-                            string[] permissions = roles.Where(r => r.Length > 1).Select(r => r.Substring(1)).ToArray();
-                            if (permissions.Contains("3") || roles.Contains("1"))
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a href="/Songs/Index" id="registerLink" class="nav-link">音樂</a></li>
+                        <li class="nav-item"><a href="/Activities/Index" id="registerLink" class="nav-link">活動</a></li>
+                        <li class="nav-item"><a href="/Products/Index" id="registerLink" class="nav-link">商城</a></li>
+                        <li class="nav-item"><a href="/Members/Index" id="registerLink" class="nav-link">會員</a></li>
+                        @{
+                            var authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+                            if (authCookie != null)
                             {
-                                <li class="nav-item"><a href="/Admins/Index" id="registerLink" class="nav-link">管理員權限</a></li>
+                                var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                                string[] roles = authTicket.UserData.Split(',');
+                                string[] permissions = roles.Where(r => r.Length > 1).Select(r => r.Substring(1)).ToArray();
+                                if (permissions.Contains("3") || roles.Contains("1"))
+                                {
+                                    <li class="nav-item"><a href="/Admins/Index" id="registerLink" class="nav-link">管理員權限</a></li>
+                                }
                             }
                         }
-                    }
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
-        </footer>
-    </div>
+        <div class="container body-content mt-120px">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+            </footer>
+        </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @*@Scripts.Render("~/bundles/bootstrap")*@
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @*<script src="~/Scripts/bootstrap.bundle.min.js"></script>*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

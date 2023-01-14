@@ -12,87 +12,85 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>*必填</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal container">
+    <h4>*必填</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
         <div class="col-md-6">
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
                     <input data-val="true" data-val-required="請選一張圖片" type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
                     @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
                 </div>
                 <img id="preview" style="max-height:200px;" />
             </div>
             <script>
-            const myImg = document.querySelector("#myImg");
-            myImg.addEventListener("change", function (e) {
-                const file = this.files[0];
-                const objectURL = URL.createObjectURL(file);
-                let preview = document.querySelector("#preview");
-                preview.src = objectURL;
-            })
+                const myImg = document.querySelector("#myImg");
+                myImg.addEventListener("change", function (e) {
+                    const file = this.files[0];
+                    const objectURL = URL.createObjectURL(file);
+                    let preview = document.querySelector("#preview");
+                    preview.src = objectURL;
+                })
             </script>
 
-            <div class="form-group">
+            <div class="form-group row mt-3">
                 @Html.LabelFor(model => model.songName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.EditorFor(model => model.songName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.songName, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row mt-3">
                 <div class="col-md-2"><label>主表演者</label></div>
-                <div class="col-md-10">
+                <div class="col-md-8">
                     @Html.DropDownListFor(model => model.artistIdList, (IEnumerable<SelectListItem>)ViewBag.ArtistList, new { @class = "form-control col-md-7" })
                     @Html.ValidationMessageFor(model => model.artistIdList, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group" id="artistList">
-                <div class="col-md-2"><label>其他表演者</label></div>
-                <button id="add" class="btn btn-default col-md-offset-1 col-md-4" type="button">新增表演者</button>
+            <div class="form-group row mt-3" id="artistList">
+                <div class="col-md-2">
+                    <label>其他表演者</label>
+                </div>
+                <div class="col-md-8">
+                    <button id="add" class="btn btn-outline-dark col-md-8" type="button">新增表演者</button>
+                </div>
             </div>
+
             <script>
-            var listNum = 0;
-            $(".btn").on("click", function () {
-                let outerBtn = $(this);
-                    let div = $("<div>");
-                    if (listNum >= 1) {
-                        outerBtn.removeClass("col-md-offset-1");
-                        outerBtn.addClass("col-md-offset-3");
-                    }
-                    if (listNum >= 2) {
-                        div.attr("class", "col-md-10 col-md-offset-2");
-                    } else {
-                        div.attr("class", "col-md-10")
-                    }
-                    let droplist = `@Html.DropDownListFor(model => model.artistIdList, (IEnumerable<SelectListItem>)ViewBag.ArtistList, new { @class = "form-control col-md-7" })`;
-                    let validation = `@Html.ValidationMessageFor(model => model.artistIdList, "", new { @class = "text-danger" })`;
-                    let delBtn = $("<button>");
+                        var listNum = 0;
+                        $(".btn").on("click", function () {
+                            let outerBtn = $(this);
+                            let div = $("<div>");
+                            div.attr("class", "col-md-12 d-flex mt-2")
+                            
+                            let droplist = `@Html.DropDownListFor(model => model.artistIdList, (IEnumerable<SelectListItem>)ViewBag.ArtistList, new { @class = "form-control col-md-7 me-2" })`;
+                            let validation = `@Html.ValidationMessageFor(model => model.artistIdList, "", new { @class = "text-danger" })`;
+                            let delBtn = $("<button>");
 
-                    delBtn.attr("class", "btn btn-control col-md-2")
-                    delBtn.text("Delete")
-                    delBtn.on("click", function () {
-                        div.remove();
-                        listNum--;
-                        if (listNum < 2) {
-                            outerBtn.removeClass("col-md-offset-3");
-                            outerBtn.addClass("col-md-offset-1");
-                        }
-                    })
-                    div.append(droplist);
-                    div.append(delBtn);
-                    div.append(validation);
+                            delBtn.attr("class", "btn btn-outline-dark col-md-2")
+                            delBtn.text("X")
+                            delBtn.on("click", function () {
+                                div.remove();
+                                listNum--;
+                                if (listNum < 2) {
+                                    outerBtn.removeClass("col-md-offset-3");
+                                    outerBtn.addClass("col-md-offset-1");
+                                }
+                            })
+                            div.append(droplist);
+                            div.append(delBtn);
+                            div.append(validation);
 
-                    $("#add").before(div);
-                    listNum++;
-                })
+                            $("#add").before(div);
+                            listNum++;
+                        })
             </script>
 
-            <div class="form-group">
+            <div class="form-group row mt-3">
                 @Html.LabelFor(model => model.genreId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.genreId, (IEnumerable<SelectListItem>)ViewBag.GenreList, new { @class = "form-control" })
@@ -100,7 +98,7 @@
                 </div>
             </div>
 
-            <div class="form-group hidden">
+            <div class="form-group d-none">
                 @Html.LabelFor(model => model.duration, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "form-control hidden" } })
@@ -108,7 +106,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row mt-3">
                 @Html.LabelFor(model => model.isInstrumental, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.RadioButtonFor(model => model.isInstrumental, true, new
@@ -125,7 +123,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row mt-3">
                 @Html.LabelFor(model => model.language, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.language, (IEnumerable<SelectListItem>)ViewBag.LanguageList, new { @class = "form-control", @id = "language" })
@@ -133,7 +131,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row mt-3">
                 @Html.LabelFor(model => model.isExplicit, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.RadioButtonFor(model => model.isExplicit, true, new
@@ -150,7 +148,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row mt-3">
                 @Html.LabelFor(model => model.released, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.released, "DateTimePicker")
@@ -158,7 +156,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row mt-3">
                 @Html.LabelFor(model => model.songWriter, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.songWriter, new { htmlAttributes = new { @class = "form-control" } })
@@ -166,15 +164,16 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group row">
                 @Html.LabelFor(model => model.SongFile, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-9">
                     <input data-val="true" data-val-required="請選擇一首歌" type="file" name="SongFile" id="mySong" accept="audio/*" />
                     @Html.ValidationMessageFor(model => model.SongFile, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2"></div>
-                <div class="col-md-10">
+                <div class="col-md-10 mt-2">
                     <audio id="audio_player" controls />
                 </div>
             </div>
@@ -195,21 +194,21 @@
                 })
             </script>
 
-            <div class="form-group">
+            <div class="form-group row mt-3">
                 @Html.LabelFor(model => model.lyric, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.lyric, new { @class = "form-control", @rows = "20" })
+                    @Html.TextAreaFor(model => model.lyric, new { @class = "form-control", @rows = "18" })
                     @Html.ValidationMessageFor(model => model.lyric, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-5 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default col-md-1" />
-            </div>
+    </div>
+    <div class="form-group d-flex justify-content-center mt-5">
+        <div class="col-md-2">
+            <input type="submit" value="建立" class="btn col-md-12 " style="background-color: #F68657; color: white" />
         </div>
     </div>
+</div>
 }
 
 <div>
