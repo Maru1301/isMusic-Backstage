@@ -451,6 +451,7 @@
     <Content Include="Views\Admins\Login.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DatePicker.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ChineseDate.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DollarFormat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

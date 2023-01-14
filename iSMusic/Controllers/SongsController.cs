@@ -316,7 +316,7 @@ namespace iSMusic.Controllers
 
 		public class SortInfo : BaseSortInfo<Song>
 		{
-			public override string[] ColumnNames { get=> new string[] { "songName", "SongGenreName", "Language", "released", "duration", "TimesOfPlay "}; }
+			public override string[] ColumnNames { get=> new string[] { "songName", "SongGenreName", "Language", "released", "duration", "TimesOfPlay"}; }
 
 			public SortInfo(string columnName, string direction) : base(columnName, direction, "songName")
 			{

@@ -70,15 +70,9 @@
                 <input type="checkbox" id="index" />
             </th>
             <th></th>
-            <th></th>
-            <th class="row">
-                <div class="col-md-8">
+            <th>
                     @Html.DisplayNameFor(model => model.songName)
-                </div>
-                <div class="col-md-4 d-flex">
                     @sortInfo.RenderItem(SongsController.EnumColumn.songName)
-
-                </div>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.artistList)
@@ -95,6 +89,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.released)@sortInfo.RenderItem(SongsController.EnumColumn.released)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.timesOfPlay)@sortInfo.RenderItem(SongsController.EnumColumn.TimesOfPlay)
+            </th>
             <th></th>
         </tr>
 
@@ -106,12 +103,12 @@
                     <span class="d-none">@item.id</span>
                     <input type="checkbox" class="checkbox" />
                 </td>
-                <td class="col-md-1">
+                @*<td>
                     @if (item.status == false)
                     {
-                        @:已下架
+                        @:<span class="col-md-1">已下架</span>
                     }
-                </td>
+                </td>*@
                 <td>
                     <i class="fa-regular fa-circle-play fa-2x" id="play_@item.id"></i>
                     <i class="fa-regular fa-circle-pause fa-2x d-none"></i>
@@ -119,7 +116,7 @@
                         <source src=@item.songPath type="audio/mp3" />
                     </audio>
                 </td>
-                <td class="align-middle">
+                <td>
                     @Html.DisplayFor(modelItem => item.songName)
                 </td>
                 <td>
@@ -143,6 +140,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.released, "Date")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.timesOfPlay, "DollarFormat")
                 </td>
                 <td>
                     <a class="btn" style="background-color: #F68657; color: white" href="/Songs/Edit/@item.id">編輯</a>
