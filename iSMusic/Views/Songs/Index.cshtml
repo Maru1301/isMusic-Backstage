@@ -184,8 +184,7 @@
                     contentType: "application/json",
                     dataType:"json"
                 }).done(function (message) {
-                    console.log(message)
-                    $(checked).parent().next().text("");
+                    //$(checked).parent().next().text("");
                     $(checked).parent().parent().removeClass("recall");
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR.responseText);
@@ -213,8 +212,7 @@
                     data: JSON.stringify(idList),
                     contentType: "application/json"
                 }).done(function (message) {
-                    console.log(message);
-                    $(checked).parent().next().text("已下架");
+                    //$(checked).parent().next().text("已下架");
                     $(checked).parent().parent().addClass("recall");
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR.responseText);
