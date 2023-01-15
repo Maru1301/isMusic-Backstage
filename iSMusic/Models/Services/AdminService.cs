@@ -150,15 +150,46 @@ namespace iSMusic.Models.Services
 			return (true, null);
 		}
 
-		public (bool issuccess, string errormessage) Delete(int id)
+		public AdminDTO ShowDelete(int id)
 		{
-			var admin = repository.GetById(id);
+			var data = repository.GetById(id);
+
+			var roleIdList = data.RoleIdList.Where(x => x != 0);
+
+			if (roleIdList.Contains(53))
+			{
+				data.MainRoleName = roleName[53];
+			}
+			else if (roleIdList.Contains(52))
+			{
+				data.MainRoleName = roleName[52];
+			}
+			else
+			{
+				var mainRoleId = roleIdList.First(x => x.ToString().Contains(data.departmentId.ToString()));
+
+				data.MainRoleName = roleName[mainRoleId % 10];
+			}
+
+			return data;
+		}
+
+		public (bool issuccess, string errormessage) Delete(AdminDTO dto)
+		{
+			var admin = repository.GetById(dto.Id);
 			if (repository.IsExisted(admin.adminAccount) == false)
 			{
 				return (false, "帳號已不存在");
 			}
 
-			repository.Delete(id);
+			repository.Delete(admin.Id);
+
+			var adminId = admin.Id;
+			foreach(var roleId in admin.RoleIdList)
+			{
+				repository.DeleteMetadata(adminId, roleId);
+			}
+
 			return (true, null);
 		}
 

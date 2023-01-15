@@ -56,17 +56,22 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.RoleName)
             </td>
-            <td>
-                @if (item.RoleName != "管理員" || roles.Contains("1"))
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) @:|
-                }
-                else
-                {
-                    @:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
-                }
-                @Html.ActionLink("Details", "Details", new {  id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+            <td class="d-flex">
+                <div class="col-md-2">
+                    @if (item.RoleName != "管理員" || roles.Contains("1"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
+                    }
+                </div>
+                <div class="col-md-2">
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </div>
+                <div class="col-md-2">
+                    @if (roles.Contains("1"))
+                    {
+                        @: | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    }
+                </div>
             </td>
         </tr>
     }

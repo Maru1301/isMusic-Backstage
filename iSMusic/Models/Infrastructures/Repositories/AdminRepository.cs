@@ -33,7 +33,7 @@ namespace AdminManagement.Models.Repositories
 
 		public AdminDTO GetById(int id)
 		{
-			return db.Admins.FirstOrDefault(a=> a.id== id).ToDTO();
+			return db.Admins.Include("Admin_Role_Metadata").FirstOrDefault(a=> a.id== id).ToDTO();
 		}
 
 		public void Create(AdminDTO dto)

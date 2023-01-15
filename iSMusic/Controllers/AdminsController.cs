@@ -266,10 +266,12 @@ namespace AdminManagement.Controllers
 		{
 			//superuser check
 			List<int> roles = FormsAuthentication.Decrypt(System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData.Split(',').Where(x => x.Length != 0).Select(r => int.Parse(r)).ToList();
-			if (roles.Contains('1') == false) return RedirectToAction("Index", "Admins");
+			if (roles.Contains(1) == false) return RedirectToAction("Index", "Admins");
+
+			var service = new AdminService(repository);
 
 			//only superuser can execute delete action
-			var data = repository.GetById(id);
+			var data = service.ShowDelete(id);
 
 			return View(data.ToDelVM());
 		}
@@ -282,7 +284,7 @@ namespace AdminManagement.Controllers
 			try
 			{
 				// TODO: Add delete logic here
-				service.Delete(model.Id);
+				service.Delete(model.ToRequestDTO());
 
 				return RedirectToAction("Index");
 			}

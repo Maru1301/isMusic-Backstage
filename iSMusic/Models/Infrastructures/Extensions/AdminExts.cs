@@ -71,6 +71,13 @@ namespace iSMusic.Infrastructures.Extensions
 				RoleIdList = source.RoleIdList.Where(id => id != 0),
 			};
 
+		public static AdminDTO ToRequestDTO(this AdminDelVM source)
+			=> new AdminDTO
+			{
+				Id = source.Id,
+				adminAccount = source.adminAccount,
+			};
+
 		public static Admin ToEntity(this AdminDTO source)
 		{
 			return new Admin
