@@ -18,26 +18,38 @@
                 </button>
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a href="/Songs/Index" id="registerLink" class="nav-link">音樂</a></li>
-                        <li class="nav-item"><a href="/Activities/Index" id="registerLink" class="nav-link">活動</a></li>
-                        <li class="nav-item"><a href="/Products/Index" id="registerLink" class="nav-link">商城</a></li>
-                        <li class="nav-item"><a href="/Members/Index" id="registerLink" class="nav-link">會員</a></li>
+                        <li class="nav-item"><a href="/Songs/Index" id="musicLink" class="nav-link">音樂</a></li>
+                        <li class="nav-item"><a href="/Activities/Index" id="activityLink" class="nav-link">活動</a></li>
+                        <li class="nav-item"><a href="/Products/Index" id="shopLink" class="nav-link">商城</a></li>
+                        <li class="nav-item"><a href="/Members/Index" id="memberLink" class="nav-link">會員</a></li>
                         @{
                             var authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
                             if (authCookie != null)
                             {
                                 var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
                                 string[] roles = authTicket.UserData.Split(',');
-                                string[] permissions = roles.Where(r => r.Length > 1).Select(r => r.Substring(1)).ToArray();
-                                if (permissions.Contains("3") || roles.Contains("1"))
+                                string[] permissionLevels = roles.Where(r => r.Length > 1).Select(r => r.Substring(1)).ToArray();
+                                if (permissionLevels.Contains("3"))
                                 {
-                                    <li class="nav-item"><a href="/Admins/Index" id="registerLink" class="nav-link">管理員權限</a></li>
+                                    <li class="nav-item"><a href="/Admins/DepartmentIndex" id="adminDepartmentLink" class="nav-link">部門權限管理</a></li>
+                                }
+                                if (roles.Contains("1") || roles.Contains("53") || roles.Contains("52"))
+                                {
+                                    <li class="nav-item"><a href="/Admins/Index" id="adminLink" class="nav-link">權限管理</a></li>
                                 }
                             }
+
+                            if (User.Identity.IsAuthenticated == false)
+                            {
+                                <li class="nav-item ms-723px"><a href="/Admins/Login" id="loginLink" class="nav-link">登入</a></li>
+                            }
+                            else
+                            {
+                                <li class="nav-item ms-600px"><a href="/Admins/Logout" id="loginLink" class="nav-link">登出</a></li>
+                            }
                         }
-                    }
-                    <li class="ms-auto">@Html.ActionLink("登入", "Login", "Admins")</li>
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="container body-content mt-120px">

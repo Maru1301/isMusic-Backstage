@@ -15,16 +15,24 @@ namespace iSMusic.Models.Services.Interfaces
 
 		Admin GetByAccount(string account);
 
+		AdminDTO GetById(int id);
+
 		IEnumerable<AdminDTO> Search(string adminAccount = null);
 
 		Admin Load(string account);
 
-		bool IsExisted(string account);
+		IQueryable<Admin_Role_Metadata> LoadMetadata(int id);
+
+		bool IsExisted(string account, int id = 0);
 
 		void Create(AdminDTO dto);
 
+		void Update(AdminDTO dto);
+
 		string GetLastDefaultAccount();
 
-		void CreateMetadata(int adminId, List<int> roleIdList);
+		void CreateMetadata(int adminId, int roleId);
+
+		void DeleteMetadata(int adminId, int roleId);
 	}
 }

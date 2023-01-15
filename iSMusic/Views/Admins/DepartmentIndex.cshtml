@@ -1,0 +1,49 @@
+﻿@model IEnumerable<isMusic.Models.ViewModels.AdminIndexVM>
+
+@{
+    ViewBag.Title = "DepartmentIndex";
+}
+
+<h2>DepartmentIndex</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </th>
+        <th>
+            權限管理
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleName)
+        </td>
+        <td>
+
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

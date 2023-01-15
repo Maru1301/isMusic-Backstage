@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using iSMusic.Infrastructures.Extensions;
+using System.Data.Entity.Migrations;
+using System.Web.Security;
 
 namespace AdminManagement.Models.Repositories
 {
@@ -29,6 +31,10 @@ namespace AdminManagement.Models.Repositories
 			return db.Admins.FirstOrDefault(a => a.adminAccount == account);
 		}
 
+		public AdminDTO GetById(int id)
+		{
+			return db.Admins.FirstOrDefault(a=> a.id== id).ToDTO();
+		}
 
 		public void Create(AdminDTO dto)
 		{
@@ -36,19 +42,30 @@ namespace AdminManagement.Models.Repositories
 			db.SaveChanges();
 		}
 
-		public void CreateMetadata(int adminId, List<int> roleIdList)
+		public void Update(AdminDTO dto)
 		{
-			foreach (var role in roleIdList)
+			var entity = db.Admins.SingleOrDefault(a => a.id == dto.Id);
+			entity.adminAccount = dto.adminAccount;
+			entity.departmentId= dto.departmentId;
+			db.SaveChanges();
+		}
+
+		public void CreateMetadata(int adminId, int roleId)
+		{
+			var metadata = new Admin_Role_Metadata()
 			{
-				if (role == 0) break;
-				var metadata = new Admin_Role_Metadata()
-				{
-					adminId = adminId,
-					roleId = role,
-				};
-				db.Admin_Role_Metadata.Add(metadata);
-				db.SaveChanges();
-			}
+				adminId = adminId,
+				roleId = roleId,
+			};
+			db.Admin_Role_Metadata.Add(metadata);
+			db.SaveChanges();
+		}
+
+		public void DeleteMetadata(int adminId, int roleId)
+		{
+			var metadata = db.Admin_Role_Metadata.SingleOrDefault(m=>m.adminId == adminId&& m.roleId == roleId);
+			db.Admin_Role_Metadata.Remove(metadata);
+			db.SaveChanges();
 		}
 
 		public Admin Load(string account)
@@ -58,9 +75,23 @@ namespace AdminManagement.Models.Repositories
 			return query;
 		}
 
-		public bool IsExisted(string account)
+		public IQueryable<Admin_Role_Metadata> LoadMetadata(int adminId)
 		{
-			var entity = db.Admins.SingleOrDefault(x => x.adminAccount == account);
+			return db.Admin_Role_Metadata.Where(m => m.adminId == adminId);
+		}
+
+		public bool IsExisted(string account, int id = 0)
+		{
+			var admins = db.Admins;
+			Admin entity;
+			if(id == 0)
+			{
+				entity = db.Admins.SingleOrDefault(x => x.adminAccount == account);
+			}
+			else
+			{
+				entity = db.Admins.SingleOrDefault(x => x.adminAccount == account && x.id != id);
+			}
 
 			return (entity != null);
 
@@ -68,7 +99,7 @@ namespace AdminManagement.Models.Repositories
 
 		public IEnumerable<AdminDTO> Search(string adminAccount = null)
 		{
-			var data = db.Admin_Role_Metadata.Include("Admin").Include("Department").Include("Role").Select(x => new
+			var data = db.Admin_Role_Metadata.Include("Admin").Include("Department").Include("Role").Where(x=> x.roleId != 1).Select(x => new
 			{
 				x.Admin.id,
 				DepartmintId = x.Admin.departmentId,

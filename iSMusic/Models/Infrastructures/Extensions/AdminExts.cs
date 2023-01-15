@@ -15,11 +15,21 @@ namespace iSMusic.Infrastructures.Extensions
 		{
 			return new AdminIndexVM
 			{
+				Id = source.Id,
 				DepartmentName = source.DepartmentName,
-				adminAccount = source.adminAccount,
-				roleName = source.MainRoleName,
+				AdminAccount = source.adminAccount,
+				RoleName = source.MainRoleName,
 			};
 		}
+
+		public static AdminEditVM ToEditVM(this AdminDTO source)
+			=> new AdminEditVM
+			{
+				Id = source.Id,
+				adminAccount= source.adminAccount,
+				departmentId= source.departmentId,
+				RoleIdList = source.RoleIdList,
+			};
 
 		public static AdminDTO ToDTO(this Admin source)
 		{
@@ -27,6 +37,7 @@ namespace iSMusic.Infrastructures.Extensions
 			{
 				Id = source.id,
 				adminAccount = source.adminAccount,
+				departmentId= source.departmentId,
 				DepartmentName = source.Department.departmentName,
 				RoleIdList = source.Admin_Role_Metadata.Where(m => m.adminId == source.id).Select(x => x.roleId),
 			};
@@ -42,6 +53,15 @@ namespace iSMusic.Infrastructures.Extensions
 				RoleIdList = source.RoleIdList.Where(id => id != 0),
 			};
 		}
+
+		public static AdminDTO ToRequestDTO(this AdminEditVM source)
+			=> new AdminDTO
+			{
+				Id = source.Id,
+				departmentId = source.departmentId,
+				adminAccount = source.adminAccount,
+				RoleIdList = source.RoleIdList.Where(id => id != 0),
+			};
 
 		public static Admin ToEntity(this AdminDTO source)
 		{

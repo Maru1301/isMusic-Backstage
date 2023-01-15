@@ -36,10 +36,10 @@ else
             @Html.DisplayNameFor(model => model.DepartmentName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.adminAccount)
+            @Html.DisplayNameFor(model => model.AdminAccount)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.roleName)
+            @Html.DisplayNameFor(model => model.RoleName)
         </th>
         <th></th>
     </tr>
@@ -51,22 +51,22 @@ else
                 @Html.DisplayFor(modelItem => item.DepartmentName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.adminAccount)
+                @Html.DisplayFor(modelItem => item.AdminAccount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.roleName)
+                @Html.DisplayFor(modelItem => item.RoleName)
             </td>
             <td>
-                @if (item.roleName != "管理員" || roles.Contains("1"))
+                @if (item.RoleName != "管理員" || roles.Contains("1"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) @:|
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) @:|
                 }
                 else
                 {
                     @:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
                 }
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "Details", new {  id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
             </td>
         </tr>
     }

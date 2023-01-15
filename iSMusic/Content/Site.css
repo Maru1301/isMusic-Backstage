@@ -33,6 +33,14 @@ textarea {
     margin-top: 120px;
 }
 
+.ms-600px{
+    margin-left: 600px;
+}
+
+.ms-723px{
+    margin-left: 723px;
+}
+
 .orange-btn {
     background-color: #F68657;
     color: white;

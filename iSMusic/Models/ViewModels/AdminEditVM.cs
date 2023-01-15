@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 
-namespace isMusic.Models.ViewModels
+namespace iSMusic.Models.ViewModels
 {
-	public class AdminCreateVM
+	public class AdminEditVM
 	{
-		[Required(ErrorMessage = "尚未選擇部門")]
+		public int Id { get; set; }
+
+		[Required]
 		[Display(Name = "部門")]
 		public int departmentId { get; set; }
 
@@ -17,11 +20,6 @@ namespace isMusic.Models.ViewModels
 		[Display(Name = "帳號")]
 		public string adminAccount { get; set; }
 
-		[Required]
-		[StringLength(70)]
-		[Display(Name = "密碼")]
-		public string Password { get; set; }
-
-		public List<int> RoleIdList { get; set; }
+		public IEnumerable<int> RoleIdList { get; set; }
 	}
 }

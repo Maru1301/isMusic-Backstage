@@ -16,6 +16,7 @@ using System.Web.UI.WebControls;
 using isMusic.Models.ViewModels;
 using AdminManagement.Models.Repositories;
 using iSMusic.Infrastructures.Extensions;
+using System.Security.AccessControl;
 
 namespace AdminManagement.Controllers
 {
@@ -38,21 +39,27 @@ namespace AdminManagement.Controllers
 			string[] roles = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData.Split(',').Where(x => x.Length != 0).ToArray();
 
 			var data = service.Search();
+			var list = data.Select(x => x.ToVM());
+
+			return View(list);
+		}
+
+		public ActionResult DepartmentIndex()
+		{
+			var service = new AdminService(repository);
+
+			string[] roles = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData.Split(',').Where(x => x.Length != 0).ToArray();
+
+			var data = service.Search();
 			var list = new List<AdminIndexVM>();
 
-			if (roles.Contains("1"))
-			{
-				list = data.Select(x => x.ToVM()).ToList();
-			}
-			else
-			{
-				var departmentIds = roles.Where(r => r[1] == '3').Select(r => int.Parse(r.Substring(0, 1)));
-				foreach (int departmentId in departmentIds)
-				{
-					var tempList = data.Where(d => d.departmentId == departmentId).Select(x => x.ToVM()).ToList();
+			var departmentIds = roles.Where(r => r[1] == '3').Select(r => int.Parse(r.Substring(0, 1)));
 
-					list = list.Concat(tempList).ToList();
-				}
+			foreach (int departmentId in departmentIds)
+			{
+				var tempList = data.Where(d => d.departmentId == departmentId).Select(x => x.ToVM()).ToList();
+
+				list = list.Concat(tempList).ToList();
 			}
 
 			return View(list);
@@ -198,28 +205,67 @@ namespace AdminManagement.Controllers
 		// GET: Admins/Edit/5
 		public ActionResult Edit(int id)
 		{
-			return View();
+			var dto = repository.GetById(id);
+
+			//check permission level or the owner
+			if (QualifiedPermission(dto.adminAccount) == false) return RedirectToAction("Index", "Admins");
+
+			var data = dto.ToEditVM();
+
+			ViewBag.departmentId = new SelectList(GetDepartments(), "id", "departmentName", dto.departmentId);
+
+			return View(data);
+		}
+
+		private bool QualifiedPermission(string account)
+		{
+			var authTicket = FormsAuthentication.Decrypt(System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value);
+
+			var roles = authTicket.UserData.Split(',').Where(d=> d.Length> 0);
+
+			if (roles.Contains("1")) return true;
+
+			var permissions = roles.Where(r => r.Length > 1).Select(r => r[1]);
+
+			var departments = roles.Where(r => r.Length > 1).Select(r => r[0]);
+
+			return (authTicket.Name == account || permissions.Contains('3') || departments.Contains('5'));
 		}
 
 		// POST: Admins/Edit/5
 		[HttpPost]
-		public ActionResult Edit(int id, FormCollection collection)
+		public ActionResult Edit(AdminEditVM model)
 		{
-			try
+			if (!ModelState.IsValid)
 			{
-				// TODO: Add update logic here
+				return View(model);
+			}
 
+			var service = new AdminService(repository);
+
+			(bool IsSuccess, string ErrorMessage) response = service.EditAdmin(model.ToRequestDTO());
+
+			if (response.IsSuccess)
+			{
+				// 建檔成功 redirect to confirm page
 				return RedirectToAction("Index");
 			}
-			catch
+			else
 			{
-				return View();
+				ModelState.AddModelError(string.Empty, response.ErrorMessage);
+
 			}
+
+			ViewBag.departmentId = new SelectList(GetDepartments(), "id", "departmentName", model.Id);
+
+			return View(model);
 		}
 
 		// GET: Admins/Delete/5
 		public ActionResult Delete(int id)
 		{
+			//only superuser can execute delete action
+
 			return View();
 		}
 
@@ -237,6 +283,21 @@ namespace AdminManagement.Controllers
 			{
 				return View();
 			}
+		}
+
+		public static bool CheckPermission(int departmentId)
+		{
+			List<int> roles = FormsAuthentication.Decrypt(System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData.Split(',').Where(x => x.Length != 0).Select(r => int.Parse(r)).ToList();
+
+			int superUser = 1;
+
+			//if there exist a superUser in the roles, return true
+			if (roles.Contains(superUser)) return true;
+
+			//if the departmentId from the User involved the request departmentId, return true
+			if (roles.Select(r => r / 10).Contains(departmentId)) return true;
+
+			return false;
 		}
 	}
 }

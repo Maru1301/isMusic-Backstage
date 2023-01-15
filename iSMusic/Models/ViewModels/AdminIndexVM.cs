@@ -8,13 +8,15 @@ namespace isMusic.Models.ViewModels
 {
 	public class AdminIndexVM
 	{
+		public int Id { get; set; }
+
 		[Display(Name = "部門")]
 		public string DepartmentName { get; set; }
 
 		[Display(Name = "帳號")]
-		public string adminAccount { get; set; }
+		public string AdminAccount { get; set; }
 
 		[Display(Name = "身分")]
-		public string roleName { get; set; }
+		public string RoleName { get; set; }
 	}
 }
