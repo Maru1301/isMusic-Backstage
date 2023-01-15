@@ -29,6 +29,8 @@ namespace iSMusic.Models.Services.Interfaces
 
 		void Update(AdminDTO dto);
 
+		void Delete(int id);
+
 		string GetLastDefaultAccount();
 
 		void CreateMetadata(int adminId, int roleId);

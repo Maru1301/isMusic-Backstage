@@ -50,6 +50,13 @@ namespace AdminManagement.Models.Repositories
 			db.SaveChanges();
 		}
 
+		public void Delete(int id)
+		{
+			var entity = db.Admins.Find(id);
+			db.Admins.Remove(entity);
+			db.SaveChanges();
+		}
+
 		public void CreateMetadata(int adminId, int roleId)
 		{
 			var metadata = new Admin_Role_Metadata()

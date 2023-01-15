@@ -31,6 +31,14 @@ namespace iSMusic.Infrastructures.Extensions
 				RoleIdList = source.RoleIdList,
 			};
 
+		public static AdminDelVM ToDelVM(this AdminDTO source)
+			=> new AdminDelVM
+			{
+				adminAccount = source.adminAccount,
+				departmentName = source.DepartmentName,
+				MainRoleName = source.MainRoleName,
+			};
+
 		public static AdminDTO ToDTO(this Admin source)
 		{
 			return new AdminDTO

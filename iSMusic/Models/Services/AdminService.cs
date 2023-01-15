@@ -150,6 +150,18 @@ namespace iSMusic.Models.Services
 			return (true, null);
 		}
 
+		public (bool issuccess, string errormessage) Delete(int id)
+		{
+			var admin = repository.GetById(id);
+			if (repository.IsExisted(admin.adminAccount) == false)
+			{
+				return (false, "帳號已不存在");
+			}
+
+			repository.Delete(id);
+			return (true, null);
+		}
+
 		private void UpdateMetadata(List<int> oldIdList, List<int> newIdList, int adminId)
 		{
 			foreach(var id in newIdList)

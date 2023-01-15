@@ -264,25 +264,39 @@ namespace AdminManagement.Controllers
 		// GET: Admins/Delete/5
 		public ActionResult Delete(int id)
 		{
-			//only superuser can execute delete action
+			//superuser check
+			List<int> roles = FormsAuthentication.Decrypt(System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData.Split(',').Where(x => x.Length != 0).Select(r => int.Parse(r)).ToList();
+			if (roles.Contains('1') == false) return RedirectToAction("Index", "Admins");
 
-			return View();
+			//only superuser can execute delete action
+			var data = repository.GetById(id);
+
+			return View(data.ToDelVM());
 		}
 
 		// POST: Admins/Delete/5
 		[HttpPost]
-		public ActionResult Delete(int id, FormCollection collection)
+		public ActionResult Delete(AdminDelVM model)
 		{
+			var service = new AdminService(repository);
 			try
 			{
 				// TODO: Add delete logic here
+				service.Delete(model.Id);
 
 				return RedirectToAction("Index");
 			}
-			catch
+			catch(Exception ex)
 			{
-				return View();
+				ModelState.AddModelError(string.Empty, ex.Message);
 			}
+
+			if (ModelState.IsValid)
+			{
+				return RedirectToAction("Index");
+			}
+
+			return View(model);
 		}
 
 		public static bool CheckPermission(int departmentId)
