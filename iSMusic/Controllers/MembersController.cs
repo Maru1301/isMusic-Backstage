@@ -53,8 +53,8 @@ namespace iSMusic.Controllers
 		
 		private IPagedList<Member> GetPagedProducts(int? Id, string Account, int pageNumber)
 		{
-			var db = new AppDbContext();
-			int pageSize = 2;
+			//var db = new AppDbContext();
+			int pageSize = 3;
 
 			var query = db.Members.Include("Avatar").OrderBy(x => x.id);
 

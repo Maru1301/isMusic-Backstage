@@ -9,6 +9,7 @@
     ViewBag.Title = "會員管理";
 }
 
+
 <h2>會員總覽</h2>
 <form method="get">
     <div class="row">
@@ -21,63 +22,69 @@
         </div>
     </div>
     <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px;">
-        <input type="submit" class="btn btn-primary" value="Search" />
+        @*<input type="submit" class="btn btn-primary" value="Search" />*@
     </div>
 </form>
 
 <p>
     @Html.ActionLink("新增會員", "Register")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            memberNickName
-        </th>
-        <th>
-            memberAccount
-        </th>
-        <th>
-            memberEmail
-        </th>
-        <th>
-            memberAddress
-        </th>
-        <th>
-            memberCellphone
-        </th>
-        <th>
-            isConfirmed
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table table-hover">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.memberNickName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.memberAccount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.memberEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.memberAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.memberCellphone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isConfirmed)
-            </td>
-            <td>
-                @Html.ActionLink("編輯資料", "EditProfile", new { Id = item.id }) |
-                @Html.ActionLink("刪除", "DeleteAccount", new { id = item.id })
-            </td>
+            <th scope="col">
+                memberNickName
+            </th>
+            <th scope="col">
+                memberAccount
+            </th>
+            <th scope="col">
+                memberEmail
+            </th>
+            <th scope="col">
+                memberAddress
+            </th>
+            <th scope="col">
+                memberCellphone
+            </th>
+            <th scope="col">
+                isConfirmed
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+   
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr class="table-active">
+                <td>
+                    @Html.DisplayFor(modelItem => item.memberNickName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.memberAccount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.memberEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.memberAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.memberCellphone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isConfirmed)
+                </td>
+                <td>
+                    @Html.ActionLink("編輯資料", "EditProfile", new { Id = item.id }) |
+                    @Html.ActionLink("刪除", "DeleteAccount", new { id = item.id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    
 
 </table>
 @(Html.Pager(Model)
