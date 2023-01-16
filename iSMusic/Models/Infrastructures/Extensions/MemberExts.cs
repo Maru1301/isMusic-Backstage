@@ -10,7 +10,7 @@ namespace iSMusic.Models.Infrastructures.Extensions
 {
 	public static class MemberExts
 	{
-		public static MemberDTO ToDto(this Member entity)
+		public static MemberDTO ToDTO(this Member entity)
 		{
 			return entity == null
 				? null
@@ -24,7 +24,8 @@ namespace iSMusic.Models.Infrastructures.Extensions
 					Cellphone = entity.memberCellphone,
 					isConfirmed = entity.isConfirmed,
 					confirmCode = entity.confirmCode,
-					Address = entity.memberAddress
+					Address = entity.memberAddress,
+					DateOfBirth= entity.memberDateOfBirth,
 				};
 		}
 		public static EditProfileVM ToEditProfileVM(this MemberDTO source)
@@ -37,6 +38,8 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				Email = source.Email,
 				NickName = source.NickName,
 				Cellphone = source.Cellphone,
+				DateOfBirth= source.DateOfBirth,
+				isConfirmed = source.isConfirmed,
 
 			};
 		}
@@ -51,6 +54,8 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				Email = source.Email,
 				NickName = source.NickName,
 				Cellphone = source.Cellphone,
+				memberDateOfBirth=source.DateOfBirth,
+				isConfirmed= source.isConfirmed,
 
 			};
 		}
@@ -64,6 +69,8 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				Email = source.memberEmail,
 				NickName = source.memberNickName,
 				Cellphone = source.memberCellphone,
+				memberDateOfBirth=source.memberDateOfBirth, 
+				isConfirmed=source.isConfirmed,
 
 			};
 		}

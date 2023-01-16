@@ -49,13 +49,13 @@ namespace iSMusic.Models.Infrastructures.Repositories
 		{
 			return db.Members
 				.SingleOrDefault(x => x.memberAccount == Account)
-				.ToDto();
+				.ToDTO();
 		}
 		public MemberDTO GetById(int Id)
 		{
 			return db.Members
 				.SingleOrDefault(x => x.id == Id)
-				.ToDto();
+				.ToDTO();
 		}
 		public void Update(MemberDTO entity)
 		{
@@ -66,6 +66,8 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			member.memberNickName = entity.NickName;
 			member.memberCellphone = entity.Cellphone;
 			member.memberAddress = entity.Address;
+			member.memberDateOfBirth = entity.DateOfBirth;
+			member.isConfirmed = entity.isConfirmed;
 			db.SaveChanges();
 		}
 		public void Delete(MemberDTO entity)
