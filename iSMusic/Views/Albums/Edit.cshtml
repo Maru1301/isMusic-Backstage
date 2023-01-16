@@ -19,6 +19,25 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
+                    @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        <input type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
+                        @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
+                        <img id="preview" style="max-width: 250px; max-height:250px;" />
+                    </div>
+                </div>
+
+                <div class="form-group row mt-3">
+                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.description, new { @class = "form-control wide", @rows = "15", @style="max-width: 450px" })
+                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
                     @Html.LabelFor(model => model.typeId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownList("typeId", null, new { @class = "form-control" })
@@ -33,16 +52,6 @@
                         @Html.ValidationMessageFor(model => model.albumName, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-                <div class="form-group row mt-3">
-                    @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-3" })
-                    <div class="col-md-9">
-                        <input type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
-                        @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
-                    </div>
-                    <img id="preview" style="max-width: 350px; max-height:350px;" />
-                </div>
-
 
                 <div class="form-group row mt-3">
                     @Html.LabelFor(model => model.released, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -72,15 +81,6 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <button id="addSong" class="btn btn-outline-dark col-md-8" type="button">新增歌曲</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group row">
-                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.description, new { @class = "form-control", @rows = "20" })
-                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

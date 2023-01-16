@@ -21,7 +21,7 @@ namespace iSMusic.Models.Services
 		public SongService(ISongRepository repo)
 		{
 			repository = repo;
-			pageSize = 20;
+			pageSize = 2;
 		}
 
 		public List<SongIndexVM> Index()
