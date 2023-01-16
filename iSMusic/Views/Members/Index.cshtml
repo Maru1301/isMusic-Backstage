@@ -1,10 +1,29 @@
-﻿@model IEnumerable<iSMusic.Models.ViewModels.MemberVM>
+﻿@using X.PagedList.Mvc.Fluent
+@using iSMusic.Models.EFModels
+
+@model X.PagedList.IPagedList<Member>
+
+@*@model IEnumerable<iSMusic.Models.ViewModels.MemberVM>*@
 
 @{
     ViewBag.Title = "會員管理";
 }
 
 <h2>會員總覽</h2>
+<form method="get">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="caption">
+                <h3>Search</h3>
+                <div class="row">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px;">
+        <input type="submit" class="btn btn-primary" value="Search" />
+    </div>
+</form>
 
 <p>
     @Html.ActionLink("新增會員", "Register")
@@ -12,22 +31,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.memberNickName)
+            memberNickName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.memberAccount)
+            memberAccount
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.memberEmail)
+            memberEmail
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.memberAddress)
+            memberAddress
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.memberCellphone)
+            memberCellphone
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.isConfirmed)
+            isConfirmed
         </th>
         <th></th>
     </tr>
@@ -61,3 +80,6 @@
     }
 
 </table>
+@(Html.Pager(Model)
+    .Url(page => Url.Action("Index", new { pageNumber=page}))
+    .ClassicPlusFirstAndLast())

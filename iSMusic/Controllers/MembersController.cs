@@ -1,5 +1,6 @@
 ﻿using isMusic.Models.DTOs;
 using iSMusic.Models.DTOs;
+using iSMusic.Models.EFModels;
 using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services;
@@ -13,11 +14,13 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.Services.Description;
 using System.Web.UI.WebControls;
+using X.PagedList;
 
 namespace iSMusic.Controllers
 {
 	public class MembersController : Controller
 	{
+		private AppDbContext db = new AppDbContext();
 		private MemberService memberService;
 		private IMemberRepository repo;
 		public MembersController()
@@ -27,10 +30,35 @@ namespace iSMusic.Controllers
 		}
 
 		// GET: Member
-		public ActionResult Index()
+		//public ActionResult Index()
+		//{
+		//	var data = memberService.GetAll();
+		//	return View(data);
+		//}
+		public ActionResult Index(int? Id, string Account, int pageNumber = 1)
 		{
-			var data = memberService.GetAll();
-			return View(data);
+			pageNumber = pageNumber > 0 ? pageNumber : 1;
+
+			// 將篩選條件放在ViewBag,稍後在 view page取回
+			//ViewBag.Categories = GetCategories(categoryId);
+			ViewBag.Account = Account;
+			ViewBag.CategoryId = Id;
+
+			//ViewBag.QueryString = $"CategoryId={categoryId.ToString()}&ProductName={HttpUtility.UrlEncode(productName)}";
+
+			IPagedList<Member> pagedData = GetPagedProducts(Id, Account, pageNumber);
+
+			return View(pagedData);
+		}
+		
+		private IPagedList<Member> GetPagedProducts(int? Id, string Account, int pageNumber)
+		{
+			var db = new AppDbContext();
+			int pageSize = 2;
+
+			var query = db.Members.Include("Avatar").OrderBy(x => x.id);
+
+			return query.ToPagedList(pageNumber, pageSize);
 		}
 		// GET: Members/Register
 		public ActionResult Register()
