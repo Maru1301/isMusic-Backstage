@@ -58,7 +58,7 @@ else
             </td>
             <td class="d-flex">
                 <div class="col-md-2">
-                    @if (item.RoleName != "管理員" || roles.Contains("1"))
+                    @if (roles.Contains("51") == false)
                     {
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
                     }

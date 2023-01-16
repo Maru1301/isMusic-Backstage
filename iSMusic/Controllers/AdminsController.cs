@@ -17,6 +17,8 @@ using isMusic.Models.ViewModels;
 using AdminManagement.Models.Repositories;
 using iSMusic.Infrastructures.Extensions;
 using System.Security.AccessControl;
+using System.Runtime.Remoting.Contexts;
+using System.Security.Claims;
 
 namespace AdminManagement.Controllers
 {
@@ -180,9 +182,8 @@ namespace AdminManagement.Controllers
 					DateTime.Now.AddDays(2), // 到期日
 					rememberMe,     // 是否續存
 					roles,          // userdata
-					"/" // cookie位置
+			"/" // cookie位置
 				);
-
 
 			// 將它加密
 			string value = FormsAuthentication.Encrypt(ticket);
