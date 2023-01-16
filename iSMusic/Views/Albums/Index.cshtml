@@ -13,16 +13,11 @@
 
 <h2>專輯目錄</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
 <form method="get">
     @sortInfo.RenderHiddenInfo()
     <div class="row">
         <div class="col-xs-12">
             <div class="caption">
-                <h3>Search</h3>
                 <div class="row">
                     <div class="col-md-3">專輯類型:@Html.DropDownList("albumTypeId", typeList, new { @class = "form-control" })</div>
                     <div class="col-md-3">專輯名稱:<input type="text" name="input" class="form-control" value="@criteria.input"></div>
@@ -73,7 +68,7 @@
                 @Html.DisplayFor(modelItem => item.mainArtistName)
             </td>
             <td>
-                <a class="btn" style="background-color: #F68657; color: white" href="/Songs/Edit/@item.id">編輯</a>
+                <a class="btn" style="background-color: #F68657; color: white" href="/Albums/Edit/@item.id">編輯</a>
             </td>
         </tr>
     }
