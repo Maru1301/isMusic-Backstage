@@ -13,7 +13,7 @@ namespace iSMusic.Models.Services.Interfaces
 	{
 		IEnumerable<AdminDTO> FindAll();
 
-		Admin GetByAccount(string account);
+		AdminDTO GetByAccount(string account);
 
 		AdminDTO GetById(int id);
 

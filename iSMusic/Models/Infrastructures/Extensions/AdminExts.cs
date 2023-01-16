@@ -39,15 +39,25 @@ namespace iSMusic.Infrastructures.Extensions
 				MainRoleName = source.MainRoleName,
 			};
 
+		public static AdminDetailVM ToDetailVM(this AdminDTO source)
+			=> new AdminDetailVM
+			{
+				Id= source.Id,
+				adminAccount= source.adminAccount,
+				departmentName= source.DepartmentName,
+				RoleNameList= source.RoleNameList,
+			};
+
 		public static AdminDTO ToDTO(this Admin source)
 		{
 			return new AdminDTO
 			{
 				Id = source.id,
 				adminAccount = source.adminAccount,
-				departmentId= source.departmentId,
+				departmentId = source.departmentId,
 				DepartmentName = source.Department.departmentName,
 				RoleIdList = source.Admin_Role_Metadata.Where(m => m.adminId == source.id).Select(x => x.roleId),
+				RoleNameList = source.Admin_Role_Metadata.Where(m => m.adminId == source.id).Select(x => x.Role.roleName)
 			};
 		}
 

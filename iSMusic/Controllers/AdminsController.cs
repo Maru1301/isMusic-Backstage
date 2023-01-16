@@ -267,7 +267,7 @@ namespace AdminManagement.Controllers
 		public ActionResult Delete(int id)
 		{
 			//superuser check
-			List<int> roles = FormsAuthentication.Decrypt(System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData.Split(',').Where(x => x.Length != 0).Select(r => int.Parse(r)).ToList();
+			List<int> roles = FormsAuthentication.Decrypt(System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Name).UserData.Split(',').Where(x => x.Length != 0).Select(r => int.Parse(r)).ToList();
 			if (roles.Contains(1) == false) return RedirectToAction("Index", "Admins");
 
 			var service = new AdminService(repository);
@@ -303,9 +303,12 @@ namespace AdminManagement.Controllers
 			return View(model);
 		}
 
-		public ActionResult Details(string account)
+		public ActionResult Details()
 		{
+			var account = FormsAuthentication.Decrypt(System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+			var data = repository.GetByAccount(account);
 
+			return View(data.ToDetailVM());
 		}
 
 		public static bool CheckPermission(int departmentId)

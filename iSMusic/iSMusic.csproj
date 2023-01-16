@@ -302,6 +302,7 @@
     <Compile Include="Models\ViewModels\ActivityCreateVM.cs" />
     <Compile Include="Models\ViewModels\AdminCreateVM.cs" />
     <Compile Include="Models\ViewModels\AdminDelVM.cs" />
+    <Compile Include="Models\ViewModels\AdminDetailVM.cs" />
     <Compile Include="Models\ViewModels\AdminEditVM.cs" />
     <Compile Include="Models\ViewModels\AdminIndexVM.cs" />
     <Compile Include="Models\ViewModels\AdminLoginVM.cs" />
@@ -453,6 +454,7 @@
     <Content Include="Views\Admins\DepartmentIndex.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Admins\Delete.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

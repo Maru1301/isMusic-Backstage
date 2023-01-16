@@ -32,6 +32,8 @@ namespace iSMusic.Models.DTOs
 
 		public IEnumerable<int> RoleIdList { get; set; }
 
+		public IEnumerable<string> RoleNameList { get; set; }
+
 		public string MainRoleName { get; set; }
 	}
 }

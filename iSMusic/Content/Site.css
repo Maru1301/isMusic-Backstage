@@ -38,7 +38,7 @@ textarea {
 }
 
 .ms-723px{
-    margin-left: 723px;
+    margin-left: 723px !important;
 }
 
 .orange-btn {

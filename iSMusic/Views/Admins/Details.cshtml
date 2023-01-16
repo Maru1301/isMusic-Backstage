@@ -1,0 +1,51 @@
+﻿@model iSMusic.Models.ViewModels.AdminDetailVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>管理員資訊</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal p-4">
+        <div class="row">
+            <dt class="col-md-3">
+                @Html.DisplayNameFor(model => model.adminAccount)
+            </dt>
+
+            <dd class="col-md-9">
+                @Html.DisplayFor(model => model.adminAccount)
+            </dd>
+        </div>
+        <div class="row">
+            <dt class="col-md-3">
+                @Html.DisplayNameFor(model => model.departmentName)
+            </dt>
+
+            <dd class="col-md-9">
+                @Html.DisplayFor(model => model.departmentName)
+            </dd>
+        </div>
+        <div class="row">
+            <dt class="col-md-3">
+                @Html.DisplayNameFor(model => model.RoleNameList)
+            </dt>
+
+            <dd class="col-md-9">
+                <dl>
+                    @foreach (var roleName in Model.RoleNameList)
+                    {
+                        <dd>
+                            @roleName
+                        </dd>
+                    }
+                </dl>
+            </dd>
+        </div>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("回到主頁", "Index", "Home")
+</p>

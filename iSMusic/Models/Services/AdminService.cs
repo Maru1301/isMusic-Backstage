@@ -35,7 +35,7 @@ namespace iSMusic.Models.Services
 			return repository.FindAll();
 		}
 
-		public Admin GetByAccount(string account)
+		public AdminDTO GetByAccount(string account)
 		{
 			return repository.GetByAccount(account);
 		}

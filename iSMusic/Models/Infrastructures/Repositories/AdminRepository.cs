@@ -26,9 +26,9 @@ namespace AdminManagement.Models.Repositories
 			return db.Admins.Select(a => a.ToDTO());
 		}
 
-		public Admin GetByAccount(string account)
+		public AdminDTO GetByAccount(string account)
 		{
-			return db.Admins.FirstOrDefault(a => a.adminAccount == account);
+			return db.Admins.FirstOrDefault(a => a.adminAccount == account).ToDTO();
 		}
 
 		public AdminDTO GetById(int id)
