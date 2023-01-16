@@ -47,7 +47,7 @@ namespace iSMusic.Models.EFModels
         public string memberAccount { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string memberEncryptedPassword { get; set; }
 
         [Required]
