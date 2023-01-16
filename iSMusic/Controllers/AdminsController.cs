@@ -25,6 +25,8 @@ namespace AdminManagement.Controllers
 	{
 		public IAdminRepository repository;
 
+		private int departmentId = 5;
+
 		public AdminsController()
 		{
 			repository = new AdminRepository();
@@ -36,7 +38,7 @@ namespace AdminManagement.Controllers
 		{
 			var service = new AdminService(repository);
 
-			string[] roles = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData.Split(',').Where(x => x.Length != 0).ToArray();
+			if (CheckPermission(departmentId) == false) return RedirectToAction("Index", "Home");
 
 			var data = service.Search();
 			var list = data.Select(x => x.ToVM());
@@ -299,6 +301,11 @@ namespace AdminManagement.Controllers
 			}
 
 			return View(model);
+		}
+
+		public ActionResult Details(string account)
+		{
+
 		}
 
 		public static bool CheckPermission(int departmentId)
