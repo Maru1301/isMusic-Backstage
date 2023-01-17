@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AdminManagement.Controllers;
 using iSMusic.Models.EFModels;
 using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services;
@@ -20,10 +21,13 @@ namespace iSMusic.Controllers
     {
         AppDbContext db = new AppDbContext();
         private ProductService productService;
+        private int departmentId = 3;
+		private bool requestPermission;
 
-        public ProductsController()
+		public ProductsController()
         {
-            var db = new AppDbContext();
+			requestPermission = AdminsController.CheckPermission(departmentId);
+			var db = new AppDbContext();
             IProductRepository repo = new ProductRepository(db);
             this.productService = new ProductService(repo);
         }
@@ -31,7 +35,9 @@ namespace iSMusic.Controllers
         // GET: Products
         public ActionResult Index(int? categoryId, string productName, int pageNumber = 1 )
         {
-            pageNumber = pageNumber > 0 ? pageNumber : 1;
+			if (requestPermission == false) return Redirect("/Home/Index");
+
+			pageNumber = pageNumber > 0 ? pageNumber : 1;
 
             ViewBag.Categories = GetCategories(categoryId);
             ViewBag.ProductName = productName;

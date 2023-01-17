@@ -179,6 +179,8 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SongGenresController.cs" />
     <Compile Include="Controllers\SongsController.cs" />
+    <Compile Include="Filters\AuthorizeIdentityAttribute.cs" />
+    <Compile Include="Filters\CustomAuthenticationFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

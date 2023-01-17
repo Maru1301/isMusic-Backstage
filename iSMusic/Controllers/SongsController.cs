@@ -20,6 +20,7 @@ using static iSMusic.Controllers.ArtistsController;
 
 namespace iSMusic.Controllers
 {
+	[Authorize]
 	public class SongsController : Controller
 	{
 		private ISongRepository repository;
@@ -30,7 +31,7 @@ namespace iSMusic.Controllers
 
 		public SongsController()
 		{
-			requestPermission = AdminsController.CheckPermission(departmentId);
+			//requestPermission = AdminsController.CheckPermission(departmentId);
 
 			repository = new SongRepository();
 		}
