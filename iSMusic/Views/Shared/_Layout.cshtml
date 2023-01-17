@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -27,7 +25,6 @@
                                 <a class="dropdown-item" href="~/Albums/Index">專輯</a>
                                 <a class="dropdown-item" href="~/Artists/Index">演出者</a>
                                 <a class="dropdown-item" href="~/SongGenres/Index ">音樂種類</a>
-                                <div class="dropdown-divider"></div>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -99,7 +96,6 @@
             </div>
         </div>*@
     
-        </div>
         <div class="container body-content mt-120px">
             @RenderBody()
             <hr />
