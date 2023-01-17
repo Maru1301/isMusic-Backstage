@@ -9,7 +9,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using iSMusic.Models.Infrastructures.Extensions;
-using iSMusic.Models.Infrastructures;
 
 namespace iSMusic.Controllers
 {
@@ -25,75 +24,11 @@ namespace iSMusic.Controllers
 		}
 
 		// GET: Artists
-		public ActionResult Index(int pageNumber = 1)
+		public ActionResult Index()
 		{
-			// prepare the list for isband
-			var isBandList = new List<SelectListItem>() 
-			{ 
-				new SelectListItem{ Text = "全部"},
-				new SelectListItem{ Text = "單人", Value= "False"},
-				new SelectListItem{ Text = "樂團", Value= "True"},
-			};
-			ViewBag.IsBandList = isBandList;
+			var data = service.FindAll();
 
-			var criteria = PrepareCriteria();
-			ViewBag.Criteria = criteria;
-
-			IQueryable<Artist> query = service.GetQuery();
-			query = criteria.ApplyCriteria(query);
-
-			// 處理分頁功能
-			int pageSize = 3;
-
-			int totalRecords = query.Count();
-
-			var paginationInfo = new PaginationInfo(totalRecords, pageSize, pageNumber);
-			ViewBag.Pagination = paginationInfo;
-
-			IQueryable<Artist> data = query.OrderBy(t => t.artistName);
-
-			var list = paginationInfo.GetPagedData(data).ToList();
-
-			return View(list);
-		}
-
-		private Criteria PrepareCriteria()
-		{
-			var criteria = new Criteria { PerformerName = Request["PerformerName"] };
-			criteria.isBand = null;
-			if (bool.TryParse(Request.Params.Get(0), out bool value))
-			{
-				criteria.isBand = value;
-			}
-
-			return criteria;
-		}
-
-		public class Criteria
-		{
-			public bool? isBand { get; set; }
-			public string PerformerName { get; set; }
-
-			public string GetQueryString()
-			{
-				return $"isBand={HttpUtility.UrlEncode(isBand.ToString())}&PerformerName={HttpUtility.UrlEncode(PerformerName)}";
-			}
-
-			public IQueryable<Artist> ApplyCriteria(IQueryable<Artist> query)
-			{
-				if (isBand.HasValue)
-				{
-					query = query.Where(q => q.isBand == isBand);
-				}
-
-				if (!string.IsNullOrWhiteSpace(PerformerName))
-				{
-					query = query.Where(t => t.artistName.Contains(PerformerName));
-				}
-
-				return query;
-			}
-
+			return View(data);
 		}
 
 		// GET: Artists/Create

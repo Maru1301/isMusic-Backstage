@@ -1,95 +1,127 @@
-﻿using iSMusic.Models.Infrastructures.Extensions;
-using iSMusic.Models.DTOs;
+﻿using iSMusic.Models.DTOs;
 using iSMusic.Models.EFModels;
 using iSMusic.Models.Services.Interfaces;
-using iSMusic.Models.ViewModels;
+using iSMusic.Models.Infrastructures.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using iSMusic.Infrastructures.Extensions;
+using iSMusic.Models.Entities;
 
-namespace AdminManagement.Models.Repositories
+namespace iSMusic.Models.Infrastructures.Repositories
 {
-	public class AdminRepository : IAdminRepository
-	{
-		private AppDbContext db;
-		public AdminRepository()
-		{
-			db = new AppDbContext();
-		}
+    public class AdminRepository : IAdminRepository
+    {
+        private AppDbContext _db;
+        public AdminRepository(AppDbContext db)
+        {
+            _db = db;
+        }
+        public IEnumerable<AdminDTO> Search(int? adminId, string adminAccount)
+        {
+            IEnumerable<Admin_Role_Metadata> query = _db.Admin_Role_Metadata;
+	
+			query = query.OrderBy(x => x.Admin.adminAccount);
 
-		public IEnumerable<AdminDTO> FindAll()
-		{
-			return db.Admins.Select(a => a.ToDTO());
-		}
+            return query.Select(x => x.ToAdminDTO());
+        }
 
-		public Admin GetByAccount(string account)
-		{
-			return db.Admins.FirstOrDefault(a => a.adminAccount == account);
-		}
+        public bool IsExisted(string account)
+        {
+            Admin model;
+            var admins = _db.Admins;
+            model = admins.SingleOrDefault(x => x.adminAccount == account);
 
+            return model != null;
+        }
 
-		public void Create(AdminDTO dto)
-		{
-			db.Admins.Add(dto.ToEntity());
-			db.SaveChanges();
-		}
+        public void adminCreate(AdminDTO dto)
+        {
+            _db.Admins.Add(dto.ToAdminEntity());
+            _db.SaveChanges();
+        }
 
-		public void CreateMetadata(int adminId, List<int> roleIdList)
-		{
-			foreach (var role in roleIdList)
-			{
-				if (role == 0) break;
+        public void roleMedataCreate(int adminId, List<int> roleIdList)
+        {						
+            foreach(var role in roleIdList)
+            {
+				if(role == 0) break;
 				var metadata = new Admin_Role_Metadata()
 				{
 					adminId = adminId,
 					roleId = role,
 				};
-				db.Admin_Role_Metadata.Add(metadata);
-				db.SaveChanges();
-			}
+				
+				_db.Admin_Role_Metadata.Add(metadata);
+				_db.SaveChanges();
+			}               
+		}
+
+		public AdminDTO GetById(int id)
+        {
+			return _db.Admins.FirstOrDefault(a=> a.id== id).ToAdminDTO();
+		}
+
+		public AdminDTO GetByAccount(string account)
+		{
+			//return _db.Admins.FirstOrDefault(a => a.adminAccount == account).ToAdminDTO();
+			return _db.Admins.SingleOrDefault(a => a.adminAccount == account).ToAdminDTO();
 		}
 
 		public Admin Load(string account)
 		{
-			Admin query = db.Admins.SingleOrDefault(x => x.adminAccount == account);
+			Admin query = _db.Admins.SingleOrDefault(x => x.adminAccount == account);
 
 			return query;
+		}		
+
+		public void Edit(AdminDTO dto)
+        {
+            var data = _db.Admins.Find(dto.id);
+			data.adminAccount = dto.adminAccount;
+			data.departmentId = dto.departmentId;
+
+			_db.SaveChanges();
+
 		}
 
-		public bool IsExisted(string account)
+		public void roleMedataEdit(int adminId, List<int> roleIdList)
 		{
-			var entity = db.Admins.SingleOrDefault(x => x.adminAccount == account);
-
-			return (entity != null);
-
-		}
-
-		public IEnumerable<AdminDTO> Search(string adminAccount = null)
-		{
-			var data = db.Admin_Role_Metadata.Include("Admin").Include("Department").Include("Role").Select(x => new
+			var oldRoleMetadata = _db.Admin_Role_Metadata.Where(x => x.adminId == adminId).ToList();
+			
+			foreach(var role in oldRoleMetadata)
 			{
-				x.Admin.id,
-				DepartmintId = x.Admin.departmentId,
-				DepartmentName = x.Admin.Department.departmentName,
-				x.Admin.adminAccount,
-				roleId = new List<int> { x.roleId },
-			}).GroupBy(x => x.id).ToList().Select(x => new AdminDTO
-			{
-				Id = x.First().id,
-				departmentId = x.First().DepartmintId,
-				DepartmentName = x.First().DepartmentName,
-				adminAccount = x.First().adminAccount,
-				RoleIdList = x.SelectMany(r => r.roleId).Distinct(),
-			});
+				_db.Admin_Role_Metadata.Remove(role);
+			}
+			_db.SaveChanges();
 
-			return data;
+			roleMedataCreate(adminId, roleIdList);
+			_db.SaveChanges();
+
 		}
 
-		public string GetLastDefaultAccount()
+		public void Delete(string adminAccount)
+        {
+			var admin = _db.Admins.SingleOrDefault(x => x.adminAccount == adminAccount);
+			_db.Admins.Remove(admin);
+			_db.SaveChanges();
+		}
+
+        public int FindAdminId(string adminAccount)
+        {
+            var adminId = _db.Admins.SingleOrDefault(x => x.adminAccount == adminAccount).id;
+            return adminId;
+        }
+
+		public void roleDelete(int adminId)
 		{
-			return db.Admins.Where(a => a.adminAccount.StartsWith("iSMusic")).OrderBy(a => a.adminAccount).Select(a => a.adminAccount).ToList().LastOrDefault();
+			var oldRoleMetadata = _db.Admin_Role_Metadata.Where(x => x.adminId == adminId).ToList();
+
+			foreach (var role in oldRoleMetadata)
+			{
+				_db.Admin_Role_Metadata.Remove(role);
+			}
+			_db.SaveChanges();
 		}
 	}
 }

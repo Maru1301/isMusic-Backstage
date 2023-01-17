@@ -1,5 +1,4 @@
 ﻿using iSMusic.Models.EFModels;
-using iSMusic.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,7 +20,7 @@ namespace iSMusic.Models.ViewModels
 		public string songName { get; set; }
 
 		[Display(Name = "表演者")]
-		public IEnumerable<string> artistList { get; set; }
+		public List<string> artistList { get; set; }
 
 		[Display(Name = "音樂種類")]
 		public string genreName { get; set; }
@@ -40,34 +39,8 @@ namespace iSMusic.Models.ViewModels
 
 		public string songPath { get; set; }
 
-		[Display(Name = "播放次數")]
-		public int timesOfPlay { get; set; }
-
-		public bool status { get; set; }
-
 		public virtual ICollection<Song_Artist_Metadata> Song_Artist_Metadata { get; set; }
 
 		public virtual SongGenre SongGenre { get; set; }
-	}
-
-	public static partial class SongEntityExts
-	{
-		public static SongIndexVM ToIndexVM(this SongEntity source)
-		{
-			return new SongIndexVM
-			{
-				id = source.id,
-				songName = source.songName,
-				artistList = source.Song_Artist_Metadata.Select(m=>m.Artist).Select(a=>a.artistName),
-				genreName = source.SongGenre.genreName,
-				duration = source.duration,
-				language = source.language,
-				released= source.released,
-				songWriter = source.songWriter,
-				songPath = "/Uploads/Songs/" + source.songPath,
-				timesOfPlay = source.timesOfPlay,
-				status = source.status,
-			};
-		}
 	}
 }

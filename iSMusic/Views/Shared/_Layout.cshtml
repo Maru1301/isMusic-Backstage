@@ -1,112 +1,42 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <header class="mb-5">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
-            <div class="container-fluid ms-5">
-                <a class="navbar-brand" href="~/Home/Index">isMusic</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="其他選項">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                
-                <div class="collapse navbar-collapse" id="navbarColor02">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="dropdownMenuButton1">音樂</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <a class="dropdown-item" href="~/Songs/Index">音樂</a>
-                                <a class="dropdown-item" href="~/Albums/Index">專輯</a>
-                                <a class="dropdown-item" href="~/Artists/Index">演出者</a>
-                                <a class="dropdown-item" href="~/SongGenres/Index ">音樂種類</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Activities/Index">
-                                活動
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Products/Index">
-                                商品
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Members/Index">
-                                會員
-                            </a>
-                        </li>
-                    </ul>
-                    @*<form class="d-flex">
-                        <input class="form-control me-sm-2" type="search" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>*@
-                </div>
+                @Html.ActionLink("應用程式名稱", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-        </nav>
-    </header>
-  
-
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="其他選項">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("isMusic", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("音樂", "Index", "Songs")</li>
-                        <li>@Html.ActionLink("活動", "Index", "Activities")</li>
-                        <li>@Html.ActionLink("商品", "Index", "Products")</li>
-                        <li>@Html.ActionLink("會員", "Index", "Members")</li>
- ====================================================================================
-        <div class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">iSMusic</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a href="/Songs/Index" id="registerLink" class="nav-link">音樂</a></li>
-                        <li class="nav-item"><a href="/Activities/Index" id="registerLink" class="nav-link">活動</a></li>
-                        <li class="nav-item"><a href="/Products/Index" id="registerLink" class="nav-link">商城</a></li>
-                        <li class="nav-item"><a href="/Members/Index" id="registerLink" class="nav-link">會員</a></li>
-                        @{
-                            var authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
-                            if (authCookie != null)
-                            {
-                                var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                                string[] roles = authTicket.UserData.Split(',');
-                                string[] permissions = roles.Where(r => r.Length > 1).Select(r => r.Substring(1)).ToArray();
-                            }
-                        }
-                    </ul>
-                </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("音樂", "Index", "Songs")</li>
+                    <li>@Html.ActionLink("權限", "Index", "Admins")</li>                                     
+                </ul>
             </div>
-        </div>*@
-    
-        <div class="container body-content mt-120px">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
-            </footer>
         </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        </footer>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @*<script src="~/Scripts/bootstrap.bundle.min.js"></script>*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,8 +1,7 @@
 ﻿body {
-    margin: 0px;
-    padding: 0px;
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
-
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -10,15 +9,6 @@
     padding-right: 15px;
 }
 
-.padding-horizontal-25px
-{
-    padding-left: 100px !important;
-    padding-right: 100px !important;
-}
-
-.margin-top-120{
-    margin-top: 120px;
-}
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -37,21 +27,4 @@ textarea {
 .navbar-inverse .navbar-toggle:focus {
     background-color: #777;
     border-color: #fff
-}
-
-#dataTables_length>label{
-    display: flex !important;
-}
-
-#dataTable thead {
-
-}
-
-.mt-120px{
-    margin-top: 120px;
-}
-
-.orange-btn {
-    background-color: #F68657;
-    color: white;
 }

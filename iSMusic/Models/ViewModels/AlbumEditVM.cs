@@ -14,10 +14,6 @@ namespace iSMusic.Models.ViewModels
 		public int id { get; set; }
 
 		[Required]
-		[Display(Name = "專輯類別*")]
-		public int typeId { get; set; }
-
-		[Required]
 		[StringLength(50)]
 		[Display(Name = "專輯名稱*")]
 		public string albumName { get; set; }
@@ -38,8 +34,6 @@ namespace iSMusic.Models.ViewModels
 
 		[Display(Name = "主要表演者*")]
 		public int mainArtistId { get; set; }
-
-		public string ArtistName { get; set; }
 
 		[Display(Name = "歌曲*")]
 		public List<int> songIdList { get; set; }

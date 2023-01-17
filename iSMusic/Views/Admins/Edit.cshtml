@@ -1,0 +1,77 @@
+﻿@model iSMusic.Models.ViewModels.AdminEditVM
+
+@{
+    ViewBag.Title = "Edit";
+    var departments = ViewBag.departments as IEnumerable<SelectListItem>;
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>AdminEditVM</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.departmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.departmentName, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.departmentId, departments, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.departmentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.adminAccount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.adminAccount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.adminAccount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <h2 class="mb-3">權限</h2>
+        @foreach (var department in departments)
+        {
+            <div class="form-group select d-flex" id="@department.Value">
+                <h5 class="control-label col-md-2 mb-3" for="radiobtn">@(department.Text)部門權限</h5>
+                <div class="col-md-10 radiobtn" name="RoleIdList">
+                    @Html.RadioButton(department.Value, Int32.Parse(department.Value + 3), new { @class = "radio-btn form-check-input" }) <span class="h5">管理員</span>
+                    @Html.RadioButton(department.Value, Int32.Parse(department.Value + 2), new { @class = "radio-btn form-check-input" }) <span class="h5">編輯者</span>
+                    @Html.RadioButton(department.Value, Int32.Parse(department.Value + 1), new { @class = "radio-btn form-check-input" }) <span class="h5">訪客</span>
+                </div>
+            </div>
+            @Html.TextBoxFor(model => model.roleIdList, new { @class = $"form-control input{department.Value} d-none", @id = "department" + department.Value })
+        }
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function (){
+            $(".radio-btn").click(function(e){
+                $(this).parent().parent().next().val(e.target.value)
+            })
+        })
+
+    </script>
+}

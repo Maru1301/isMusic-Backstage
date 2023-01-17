@@ -1,54 +1,24 @@
-﻿@using iSMusic.Controllers
-@using iSMusic.Models.Infrastructures
-@model IEnumerable<iSMusic.Models.ViewModels.AlbumIndexVM>
+﻿@model IEnumerable<iSMusic.Models.ViewModels.AlbumIndexVM>
 
 @{
     ViewBag.Title = "Index";
-
-    var pagedInfo = (PaginationInfo)ViewBag.Pagination;
-    var sortInfo = (AlbumsController.SortInfo)ViewBag.SortInfo;
-    var criteria = (AlbumsController.AlbumCriteria)ViewBag.Criteria;
-    var typeList = (IEnumerable<SelectListItem>)ViewBag.TypeList;
 }
-<div class="container">
-    <div class="row d-flex">
-        <h1>專輯目錄</h1>
-    </div>
-</div>
 
-<form method="get" class="mt-3">
-    @sortInfo.RenderHiddenInfo()
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="caption">
-                <div class="row">
-                    <div class="col-md-3">專輯類型:@Html.DropDownList("albumTypeId", typeList, new { @class = "form-control" })</div>
-                    <div class="col-md-3">專輯名稱:<input type="text" name="input" class="form-control" value="@criteria.input"></div>
-                    <div class="col-md-4 d-flex">
-                        <input type="submit" class="btn btn-dark mt-4 col-md-3" value="搜尋" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<div>
-    <a class="btn btn-dark col-md-1 mt-4" href="/Albums/Create">新增</a>
-</div>
+<h2>Index</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.typeName)
+            @Html.DisplayNameFor(model => model.albumName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.albumName)@sortInfo.RenderItem(AlbumsController.EnumColumn.albumName)
+            @Html.DisplayNameFor(model => model.released)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.released)@sortInfo.RenderItem(AlbumsController.EnumColumn.released)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.mainArtistName)@sortInfo.RenderItem(AlbumsController.EnumColumn.mainArtistName)
+            @Html.DisplayNameFor(model => model.mainArtistName)
         </th>
         <th></th>
     </tr>
@@ -56,9 +26,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.typeName)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.albumName)
             </td>
@@ -69,24 +36,11 @@
                 @Html.DisplayFor(modelItem => item.mainArtistName)
             </td>
             <td>
-                <a class="btn" style="background-color: #F68657; color: white" href="/Albums/Edit/@item.id">編輯</a>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
     }
 
 </table>
-<div class="d-flex justify-content-center">
-    @pagedInfo.RenderPager(page => "/Albums/Index?PageNumber=" + page + "&" + sortInfo.GetQueryString() + "&" + criteria.GetQueryString())
-</div>
-
-@section Scripts
-{
-    <script>
-$(document).ready(function () {
-@if (criteria.AlbumTypeId.HasValue)
-    {
-        @:$("#albumTypeId").val("@criteria.AlbumTypeId")
-    }
-})
-    </script>
-}

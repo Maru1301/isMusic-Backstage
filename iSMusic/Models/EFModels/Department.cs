@@ -22,11 +22,5 @@ namespace iSMusic.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Admin> Admins { get; set; }
-
-		public IEnumerable<Department> GetAll()
-		{
-			var db = new AppDbContext();
-			return db.Departments;
-		}
-	}
+    }
 }

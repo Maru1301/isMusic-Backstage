@@ -1,28 +1,7 @@
-﻿@model IEnumerable<isMusic.Models.ViewModels.AdminIndexVM>
+﻿@model IEnumerable<iSMusic.Models.ViewModels.AdminIndexVM>
 
 @{
     ViewBag.Title = "Index";
-    var authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
-    var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-    string[] roles = authTicket.UserData.Split(',').Where(x => x.Length != 0).ToArray();
-    char[] departments = roles.Where(r => r.Length > 1).Select(r => r[0]).ToArray();
-}
-
-@*@foreach (var role in roles)
-    {
-        <span>@role</span>
-
-    }*@
-
-@if (roles.Contains("1"))
-{
-    <h1>Welcome, @User.Identity.Name SuperUser</h1>
-}
-else
-{
-    <h1>
-        Welcome, @User.Identity.Name Administrator
-    </h1>
 }
 
 <h2>Index</h2>
@@ -30,45 +9,47 @@ else
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.adminAccount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.roleName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table" id="table123">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.adminAccount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.roleName)
-            </td>
-            <td>
-                @if (item.roleName != "管理員" || roles.Contains("1"))
-                {
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) @:|
-                }
-                else
-                {
-                    @:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
-                }
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.departmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.adminAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.roleName)
+            </th>
+            <th></th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.departmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adminAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.roleName)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { account = item.adminAccount }) |*@
+            @Html.ActionLink("Edit", "Edit", new { adminAccount = item.adminAccount }) |            
+            @Html.ActionLink("Delete", "Delete", new { adminAccount = item.adminAccount })
+        </td>
+    </tr>
+}
+</tbody>
 </table>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+     $('#table123').DataTable();
+});</script>
+    } 

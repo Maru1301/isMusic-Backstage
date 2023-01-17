@@ -28,11 +28,6 @@ namespace iSMusic.Models.Services
 			//return new ArtistDAO().FindById(id);
 		}
 
-		public IQueryable<Artist> GetQuery()
-		{
-			return repository.GetQuery();
-		}
-
 		public void Create(ArtistDTO dto)
 		{
 			//check existence

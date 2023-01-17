@@ -28,11 +28,6 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			return db.Artists.Find(id);
 		}
 
-		public IQueryable<Artist> GetQuery()
-		{
-			return db.Artists;
-		} 
-
 		public void Create(ArtistDTO dto)
 		{
 			db.Artists.Add(dto.ToEntity());

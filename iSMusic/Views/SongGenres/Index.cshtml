@@ -1,22 +1,21 @@
 ﻿@using iSMusic.Controllers
-@using iSMusic.Models.Infrastructures
 @model IEnumerable<iSMusic.Models.EFModels.SongGenre>
 
 @{
     ViewBag.Title = "Index";
 
-    var pagedInfo = (PaginationInfo)ViewBag.Pagination;
+    var pagedInfo = (SongGenresController.PaginationInfo)ViewBag.Pagination;
     var pageSizeList = (IEnumerable<SelectListItem>)ViewBag.PageSizeList;
     var genreName = ViewBag.GenreName as string;
 }
 
-<h1>歌曲種類</h1>
+<h2>歌曲種類</h2>
 
 @*<input type="text" name="genreName" id="genreName" class="form-control" value="@genreName" />*@
 <table class="table">
     <tr>
         <th>
-            種類名稱
+            @Html.DisplayNameFor(model => model.genreName)
         </th>
         <th></th>
     </tr>
@@ -34,6 +33,4 @@
     }
 
 </table>
-<div class="d-flex justify-content-center">
-    @pagedInfo.RenderPager(page => "/SongGenres/Index?PageNumber=" + page)
-</div>
+@pagedInfo.RenderPager(page => "/SongGenres/Index?PageNumber=" + page)

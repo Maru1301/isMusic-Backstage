@@ -1,241 +1,73 @@
-﻿@using iSMusic.Controllers
-@using iSMusic.Models.Infrastructures
-@model IEnumerable<iSMusic.Models.ViewModels.SongIndexVM>
+﻿@model IEnumerable<iSMusic.Models.ViewModels.SongIndexVM>
 
 @{
     ViewBag.Title = "Index";
-
-    var pagedInfo = (PaginationInfo)ViewBag.Pagination;
-    var sortInfo = (SongsController.SortInfo)ViewBag.SortInfo;
-    var criteria = (SongsController.SongCriteria)ViewBag.Criteria;
-
-    var languageList = (IEnumerable<SelectListItem>)ViewBag.LanguageList;
-    var statusList = (IEnumerable<SelectListItem>)ViewBag.StatusList;
-    var songGenreList = (IEnumerable<SelectListItem>)ViewBag.SongGenreList;
 }
 
-<style>
-    .recall {
-        background-color: lightgrey;
-        color: dimgrey;
-    }
-</style>
+<h2>Index</h2>
 
-<div class="container">
-    <div class="row d-flex">
-        <div class="col-md-10">
-            <h1>音樂目錄</h1>
-        </div>
-    </div>
-</div>
-    <form method="get" class="mt-3">
-        @sortInfo.RenderHiddenInfo()
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="caption">
-                    <div class="row">
-                        <div class="col-md-3">上架狀態:@Html.DropDownList("status", statusList, new { @class = "form-control" })</div>
-                        <div class="col-md-3">歌曲種類:@Html.DropDownList("songGenreId", songGenreList, new { @class = "form-control" })</div>
-                        <div class="col-md-3">語言:@Html.DropDownList("language", languageList, new { @class = "form-control" })</div>
-                        <div class="col-md-3">歌曲名稱:<input type="text" name="input" class="form-control" value="@criteria.input"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 mt-3 d-flex">
-                <div class="col-md-1">
-                    <button id="launch" class="btn btn-outline-secondary" type="button">上架</button>
-                </div>
-                <div claass="col-md-1">
-                    <button id="recall" class="btn btn-outline-secondary" type="button">下架</button>
-                </div>
-                <div class="col-md-1 ms-auto">
-                    <a class="btn btn-dark col-10 ms-auto" href="/Songs/Create">新增</a>
-                </div>
-                <div class="col-md-1">
-                    <input type="submit" class="btn btn-primary" value="搜尋" />
-                </div>
-            </div>
-        </div>
-    </form>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
 
-    <p>
-        
-        
-    </p>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.songName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.artistList)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.genreName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.language)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.released)
+        </th>
+        <th></th>
+    </tr>
 
-    <table class="table">
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                <input type="checkbox" id="index" />
-            </th>
-            <th></th>
-            <th>
-                    @Html.DisplayNameFor(model => model.songName)
-                    @sortInfo.RenderItem(SongsController.EnumColumn.songName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.artistList)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.genreName)@sortInfo.RenderItem(SongsController.EnumColumn.SongGenreName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.duration)@sortInfo.RenderItem(SongsController.EnumColumn.duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.language)@sortInfo.RenderItem(SongsController.EnumColumn.Language)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.released)@sortInfo.RenderItem(SongsController.EnumColumn.released)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.timesOfPlay)@sortInfo.RenderItem(SongsController.EnumColumn.TimesOfPlay)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr class="align-middle @if (item.status == false) { @: recall
-            }">
-                <td>
-                    <span class="d-none">@item.id</span>
-                    <input type="checkbox" class="checkbox" />
-                </td>
-                @*<td>
-                    @if (item.status == false)
-                    {
-                        @:<span class="col-md-1">已下架</span>
-                    }
-                </td>*@
-                <td>
-                    <i class="fa-regular fa-circle-play fa-2x" id="play_@item.id"></i>
-                    <i class="fa-regular fa-circle-pause fa-2x d-none"></i>
-                    <audio controls class="d-none">
-                        <source src=@item.songPath type="audio/mp3" />
-                    </audio>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.songName)
-                </td>
-                <td>
-                    <div class="d-block">
-                        @foreach (var name in item.artistList)
-                        {
-                            <div>
-                                @Html.DisplayFor(modelItem => name)
-                            </div>
-                        }
-                    </div>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.genreName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.duration, "duration")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.language)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.released, "Date")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.timesOfPlay, "DollarFormat")
-                </td>
-                <td>
-                    <a class="btn" style="background-color: #F68657; color: white" href="/Songs/Edit/@item.id">編輯</a>
-                </td>
-            </tr>
-        }
-
-    </table>
-    <div class="d-flex justify-content-center">
-        @pagedInfo.RenderPager(page => "/Songs/Index?PageNumber=" + page + "&" + sortInfo.GetQueryString() + "&" + criteria.GetQueryString())
-    </div>
-    
-
-@section Scripts
-{
-    <script>
-        $(document).ready(function () {
-            $("td.recall").parent().attr("class", "recall");
-
-            $("#index").on("click", function (event) {
-                if (event.target.checked == true) {
-                    $(".checkbox").prop("checked", true);
-                } else {
-                    $(".checkbox").prop("checked", false);
+            <td>
+                <audio controls>
+                    <source src=@item.songPath type="audio/mp3" />
+                </audio>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.songName)
+            </td>
+            <td>
+                @foreach (var name in item.artistList)
+                {
+                    @Html.DisplayFor(modelItem => name)
                 }
-            })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genreName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.language)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.released)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id })
+            </td>
+        </tr>
+    }
 
-            $("#launch").on("click", function () {
-                let idList = [];
-                let checked = $("input.checkbox:checked");
-                $(checked).siblings().each(function () {
-                    idList.push({ "Id": $(this).text() });
-                })
-                @*//@Url.Actoin()*@
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Content("~/Songs/LaunchSong")",
-                    data: JSON.stringify(idList),
-                    contentType: "application/json",
-                    dataType:"json"
-                }).done(function (message) {
-                    //$(checked).parent().next().text("");
-                    $(checked).parent().parent().removeClass("recall");
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR.responseText);
-                });
-                @*fetch("@Url.Content("~/Songs/LaunchSong")", {
-                    method: "PUT",
-                    body: JSON.stringify(idList),
-                     headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                    })*@
-            })
-
-            $("#recall").on("click", function () {
-                let idList = [];
-                let checked = $("input.checkbox:checked");
-                $(checked).siblings().each(function () {
-                    idList.push({ "Id": $(this).text() });
-                })
-
-                $.ajax({
-                    type: "POST",
-                    url: "https://localhost:44373/Songs/RecallSong",
-                    data: JSON.stringify(idList),
-                    contentType: "application/json"
-                }).done(function (message) {
-                    //$(checked).parent().next().text("已下架");
-                    $(checked).parent().parent().addClass("recall");
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR.responseText);
-                });
-            })
-
-            $(".fa-circle-play").on("click", function () {
-                $(this).addClass("d-none");
-                $(this).next().removeClass("d-none");
-                $("audio").each(function () {
-                    if (!this.paused) {
-                        this.pause();
-                        $(this).prev().prev().removeClass("d-none");
-                        $(this).prev().addClass("d-none");
-                    }
-                })
-                $(this).next().next()[0].play();
-            })
-
-            $(".fa-circle-pause").on("click", function () {
-                $(this).addClass("d-none");
-                $(this).prev().removeClass("d-none");
-                $(this).next()[0].pause();
-            })
-        })
-    </script>
-}
+</table>

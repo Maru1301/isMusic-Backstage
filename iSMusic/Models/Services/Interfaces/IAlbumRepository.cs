@@ -17,8 +17,6 @@ namespace iSMusic.Models.Services.Interfaces
 
 		Album Search(AlbumDTO dto, int albumId = 0);
 
-		IQueryable<AlbumIndexVM> GetQuery();
-
 		void AddNewAlbum(AlbumDTO dto);
 
 		void UpdateAlbum(AlbumDTO dto);

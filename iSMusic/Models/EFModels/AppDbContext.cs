@@ -171,11 +171,6 @@ namespace iSMusic.Models.EFModels
 				.WithRequired(e => e.Artist)
 				.WillCascadeOnDelete(false);
 
-			modelBuilder.Entity<Avatar>()
-				.HasMany(e => e.Members)
-				.WithRequired(e => e.Avatar)
-				.WillCascadeOnDelete(false);
-
 			modelBuilder.Entity<Cart>()
 				.HasMany(e => e.CartItems)
 				.WithRequired(e => e.Cart)
@@ -539,5 +534,8 @@ namespace iSMusic.Models.EFModels
 				.WithRequired(e => e.Tag)
 				.WillCascadeOnDelete(false);
 		}
-	}
+
+
+        public System.Data.Entity.DbSet<iSMusic.Models.ViewModels.AdminIndexVM> AdminIndexVMs { get; set; }
+    }
 }

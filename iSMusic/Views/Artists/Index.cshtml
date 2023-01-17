@@ -1,56 +1,31 @@
-﻿@using iSMusic.Controllers
-@using iSMusic.Models.Infrastructures
-@model IEnumerable<iSMusic.Models.EFModels.Artist>
+﻿@model IEnumerable<iSMusic.Models.EFModels.Artist>
 
 @{
     ViewBag.Title = "Index";
-
-    var pagedInfo = (PaginationInfo)ViewBag.Pagination;
-    var criteria = (ArtistsController.Criteria)ViewBag.Criteria;
-    var isBandList = (IEnumerable<SelectListItem>)ViewBag.IsBandList;
 }
-<div class="container">
-    <div class="row d-flex">
-        <h1>表演者目錄</h1>
-        </div>
-    </div>
-<form method="get" class="mt-3">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="caption">
-                <div class="row">
-                    <div class="col-md-3">分類:@Html.DropDownList("isBand", isBandList, new { @class = "form-control" })</div>
-                    <div class="col-md-3">表演者名稱:<input type="text" name="PerformerName" class="form-control" value="@criteria.PerformerName"></div>
-                    <div class="col-md-4 d-flex">
-                        <input type="submit" class="btn btn-dark mt-4 col-md-3" value="搜尋" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 
-<div>
-    <a class="btn btn-dark col-md-1 mt-4" href="/Artists/Create">新增</a>
-</div>
+<h2>Index</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
-    <tr class="row">
-        <th class="col-md-2">
+    <tr>
+        <th>
         </th>
-        <th class="col-md-4">
-            表演者名稱
+        <th>
+            @Html.DisplayNameFor(model => model.artistName)
         </th>
-        <th class="col-md-4">
-            性別
+        <th>
+            @Html.DisplayNameFor(model => model.artistGender)
         </th>
-        <th class="col-md-2"></th>
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr class="row">
-            <td class="col-md-2">
+        <tr>
+            <td>
                 @if (item.isBand == true)
                 {
                     <span>樂團</span>
@@ -61,11 +36,11 @@
                 }
             </td>
 
-            <td class="col-md-4">
+            <td>
                 @Html.DisplayFor(modelItem => item.artistName)
             </td>
 
-            <td class="col-md-4">
+            <td>
                 @if (item.artistGender == true)
                 {
                     <span>男</span>
@@ -78,26 +53,12 @@
                 {
                 }
             </td>
-            <td class="col-md-2">
-                <a class="btn" style="background-color: #F68657; color: white" href="/Artists/Edit/@item.id">編輯</a>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id })
             </td>
         </tr>
     }
 
 </table>
 
-<div class="d-flex justify-content-center">
-    @pagedInfo.RenderPager(page => "/Artists/Index?" + criteria.GetQueryString() + "&PageNumber=" + page)
-</div>
-
-@section Scripts
-{
-    <script>
-        $(document).ready(function () {
-        @if (criteria.isBand.HasValue)
-            {
-                @:$("#isBand").val("@criteria.isBand")
-            }
-        })
-    </script>
-}

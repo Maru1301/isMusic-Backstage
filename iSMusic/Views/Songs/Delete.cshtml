@@ -1,84 +1,120 @@
-﻿@model iSMusic.Models.ViewModels.SongDeleteVM
+﻿@model iSMusic.Models.ViewModels.SongEditVM
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>刪除歌曲</h2>
+<h2>Delete</h2>
 
-<h3>確認要刪除這首歌?</h3>
+<h3>Are you sure you want to delete this?</h3>
 <div>
+    <h4>SongEditVM</h4>
     <hr />
-    <dl class="dl-horizontal p-4">
-        <div class="row">
-            <dt class="col-md-3">
-                @Html.DisplayNameFor(model => model.SongName)
-            </dt>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.songName)
+        </dt>
 
-            <dd class="col-md-9">
-                @Html.DisplayFor(model => model.SongName)
-            </dd>
-        </div>
+        <dd>
+            @Html.DisplayFor(model => model.songName)
+        </dd>
 
-        <div class="row">
-            <dt class="col-md-3">
-                @Html.DisplayNameFor(model => model.SingersName)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.genreId)
+        </dt>
 
-            <dd class="col-md-9 d-block">
-                @foreach (string singerName in Model.SingersName)
-                {
-                    <div>@singerName</div>
-                }
-            </dd>
-        </div>
+        <dd>
+            @Html.DisplayFor(model => model.genreId)
+        </dd>
 
-        <div class="row">
-            <dt class="col-md-3">
-                @Html.DisplayNameFor(model => model.GenreName)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.duration)
+        </dt>
 
-            <dd class="col-md-9">
-                @Html.DisplayFor(model => model.GenreName)
-            </dd>
-        </div>
+        <dd>
+            @Html.DisplayFor(model => model.duration)
+        </dd>
 
-        <div class="row">
-            <dt class="col-md-3">
-                @Html.DisplayNameFor(model => model.Language)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.isInstrumental)
+        </dt>
 
-            <dd class="col-md-9">
-                @Html.DisplayFor(model => model.Language)
-            </dd>
-        </div>
+        <dd>
+            @Html.DisplayFor(model => model.isInstrumental)
+        </dd>
 
-        <div class="row">
-            <dt class="col-md-3">
-                @Html.DisplayNameFor(model => model.Released)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.language)
+        </dt>
 
-            <dd class="col-md-9">
-                @Html.DisplayFor(model => model.Released, "ChineseDate")
-            </dd>
-        </div>
+        <dd>
+            @Html.DisplayFor(model => model.language)
+        </dd>
 
-        <div class="row">
-            <dt class="col-md-3">
-                @Html.DisplayNameFor(model => model.Status)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.isExplicit)
+        </dt>
 
-            <dd class="col-md-9">
-                @if (Model.Status == true)
-                {
-                    @:已上架
-                }
-                else
-                {
-                    @:已下架
-                }
-            </dd>
-        </div>
+        <dd>
+            @Html.DisplayFor(model => model.isExplicit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.released)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.released)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.songWriter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.songWriter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lyric)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lyric)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.songCoverPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.songCoverPath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.songPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.songPath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.timesOfPlay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.timesOfPlay)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm())
@@ -86,8 +122,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            @Html.ActionLink("Back to List", "Index") |
-            <input type="submit" value="刪除" class="btn btn-outline-dark" />
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>

@@ -10,24 +10,6 @@ namespace iSMusic.Models.Infrastructures.Extensions
 {
 	public static class SongExts
 	{
-		public static SongDTO ToDTO(this Song source)
-		{
-			return new SongDTO
-			{
-				id= source.id,
-				songName = source.songName,
-				artistList = source.Song_Artist_Metadata.Where(m=>m.songId == source.id).Select(m=> m.Artist.artistName).ToList(),
-				genreName = source.SongGenre.genreName,
-				duration = source.duration,
-				isInstrumental = source.isInstrumental,
-				language = source.language,
-				isExplicit = source.isExplicit,
-				released = source.released,
-				songWriter = source.songWriter,
-				songPath= source.songPath,
-			};
-		}
-
 		public static SongDTO ToDTO(this SongCreateVM source)
 		{
 			return new SongDTO
@@ -86,56 +68,8 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				songCoverPath = source.songCoverPath,
 				songPath = source.songPath,
 				status = source.status,
-				timesOfPlay = source.timesOfPlay,
+				timesOfPlay = source.timeOfPlay,
 			};
 		}
-
-		public static SongIndexVM ToIndexVM(this SongDTO source)
-		{
-			return new SongIndexVM
-			{
-				id = source.id,
-				songName = source.songName,
-				songPath= source.songPath,
-				artistList = source.Song_Artist_Metadata.Where(m=>m.songId == source.id).Select(x=> x.Artist.artistName).ToList(),
-				genreName = source.songName,
-				duration = source.duration,
-				language = source.language,
-				released= source.released,
-				status= source.status,
-			};
-		}
-
-		public static SongEditVM ToEditVM(this SongDTO source)
-			=> new SongEditVM
-			{
-				id = source.id,
-				songName = source.songName,
-				genreId= source.genreId,
-				artistIdList= source.artistIdList,
-				released = source.released,
-				status= source.status,
-				language= source.language,
-				lyric = source.lyric,
-				songCoverPath= source.songCoverPath,
-				songPath = source.songPath,
-				songWriter = source.songWriter,
-				duration=source.duration,
-				isExplicit=source.isExplicit,
-				isInstrumental=source.isInstrumental,
-				timesOfPlay	= source.timesOfPlay,
-			};
-
-		public static SongDeleteVM ToDeleteVM(this SongDTO source)
-		=> new SongDeleteVM
-		{
-			id = source.id,
-			SongName= source.songName,
-			SingersName= source.artistList,
-			GenreName= source.genreName,
-			Language= source.language,
-			Released= source.released,
-			Status= source.status,
-		};
 	}
 }

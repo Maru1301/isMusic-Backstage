@@ -1,13 +1,11 @@
 ﻿using iSMusic.Models.DTOs;
 using iSMusic.Models.EFModels;
-using iSMusic.Models.Entities;
 using iSMusic.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static iSMusic.Controllers.SongsController;
 
 namespace iSMusic.Models.Services.Interfaces
 {
@@ -15,23 +13,13 @@ namespace iSMusic.Models.Services.Interfaces
 	{
 		List<SongIndexVM> FindAll();
 
-		IQueryable<SongEntity> GetQuery();
-
-		Song Find(int id);
-
-		void LaunchSong(Song song);
-
-		void RecallSong(Song song);
-
-		SongDTO FindById(int id);
+		SongEditVM FindById(int id);
 
 		void AddNewSong(SongDTO dto);
 
 		void EditSong(SongDTO dto);
 
 		Song Search(SongDTO dto);
-
-		IEnumerable<SongEntity> Search(SongCriteria criteria, SortInfo sortInfo);
 
 		void DeleteSong(SongDTO dto);
 

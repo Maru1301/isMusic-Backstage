@@ -5,7 +5,6 @@ namespace iSMusic.Models.EFModels
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Runtime.CompilerServices;
 
     public partial class Artist
     {
@@ -22,18 +21,14 @@ namespace iSMusic.Models.EFModels
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "姓名*")]
         public string artistName { get; set; }
 
-        [Display(Name = "是否為樂團*")]
         public bool isBand { get; set; }
 
-        [Display(Name = "性別*")]
         public bool? artistGender { get; set; }
 
         [Required]
         [StringLength(500)]
-        [Display(Name = "關於*")]
         public string artistAbout { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

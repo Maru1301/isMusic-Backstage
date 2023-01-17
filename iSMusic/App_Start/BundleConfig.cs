@@ -20,20 +20,14 @@ namespace iSMusic
 						"~/Scripts/modernizr-*"));
 
 			bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-					  "~/Scripts/bootstrap.bundle.js",
-					  "~/Scripts/jquery-3.6.3.js",
+					  "~/Scripts/bootstrap.js",
 					  "~/Scripts/jquery.dataTables.min.js",
-					  "~/Scripts/dataTables.bootstrap5.min.js",
-					  "~/Scripts/fontawesome-free-6.2.1-web/js/all.js"
-					  ));
+					  "~/Scripts/jquery-3.5.1.js"));
 
-			bundles.Add(new Bundle("~/Content/css").Include(
+			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
-					  "~/Content/bootstrap.min.css",
-					  "~/Content/lux.css",
-					  "~/Content/fontawesome-free-6.2.1-web/css/all.css",
-					  "~/Content/site.css"
-					  ));
+					  "~/Content/jquery.dataTables.min.css",
+					  "~/Content/site.css"));
 		}
 	}
 }
