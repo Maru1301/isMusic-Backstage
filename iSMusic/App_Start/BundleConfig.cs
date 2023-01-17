@@ -20,7 +20,7 @@ namespace iSMusic
 						"~/Scripts/modernizr-*"));
 
 			bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-					  "~/Scripts/bootstrap.js"));
+					  "~/Scripts/bootstrap.js",
 					  "~/Scripts/fontawesome-free-6.2.1-web/js/all.js"
 					  ));
 
