@@ -66,7 +66,7 @@
                                 @Html.DisplayFor(modelItem => item.activityName)
                             </td>
                             <td>
-                                 @Html.DisplayFor(modelItem => item.activityInfo)
+                                @Html.DisplayFor(modelItem => item.activityInfo)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.activityLocation)
@@ -82,21 +82,31 @@
                             </td>
 
                             @*<td class="align-middle">
-                                    @Html.DisplayFor(modelItem => item.memberAccount)
-                                </td>*@
+            @Html.DisplayFor(modelItem => item.memberAccount)
+        </td>*@
                             @*<td>
-                                    @Html.DisplayFor(modelItem => item.activityImagePath)
-                                </td>*@
+            @Html.DisplayFor(modelItem => item.activityImagePath)
+        </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.publishedStatus)
                             </td>
                             @*<td>
-                                    @Html.DisplayFor(modelItem => item.checkedBy)
-                                </td>*@
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.id })
-                                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            @Html.DisplayFor(modelItem => item.checkedBy)
+        </td>*@
+                            
+                            <td class="text-nowrap">
+                                <a class="btn btn-outline-secondary" href="@Url.Action("Edit", "Activities", new { id = item.id })">
+                                <i class="fa fa-pencil-square-o"></i>
+                                編輯</a>
+                                <button value="@item.id" class="btn btn-outline-danger delete">
+                                <i class="fa fa-trash-o"></i>刪除</button>
                             </td>
+
+                            @*<button type="button" class="btn btn-warning" href="~/Activities/Edit">Warning</button>*@
+                            @*<button type="button" class="btn btn-danger">Danger</button>*@
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-warning" })*@
+                            @*@Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                          
                         </tr>
                     }
                 </tbody>
@@ -130,7 +140,66 @@
     <script>
         $(document).ready(function () {
             $('ul.pagination > li.disabled > a').addClass('page-link');
-            $('.activityTable').DataTable();
+            //卡片頁面
+            $('.container').addClass("min-width", "500px");
+            $('.activityTable').DataTable({
+                "columns": [
+                    { "width": "16%", "visible": true },
+                    { "width": "20%" },
+                    { "width": "12%" },
+                    { "width": "12%" },
+                    { "width": "11%" },
+                    { "width": "11%" },
+                    { "width": "10%", "visible": true },
+                    { "width": "8%", "visible": true }
+                ],
+                responsive: {
+                    breakpoints: [
+                        { name: 'desktop', width: Infinity },
+                        { name: 'tablet', width: 1024 },
+                        { name: 'fablet', width: 768 },
+                        { name: 'phone', width: 480 }
+                    ],
+                    columns: [
+                        //name
+                        { visible: true },
+                        //info
+                        { visible: true },
+                        //location
+                        { visible: false, target: 'fablet phone' },
+                        //st
+                        { visible: false, target: 'fablet phone' },
+                        //et
+                        { visible: false, target: 'fablet phone' },
+                        //type
+                        { visible: false, target: 'fablet phone'},
+                        //checked
+                        { visible: true },
+                        //edit
+                        { visible: true }
+                    ]
+                },
+                columnDefs: [
+                    {
+                        className: 'control',
+                        orderable: false,
+                        targets: -1
+                    },
+                    {
+                        responsivePriority: 1,
+                        targets: 0
+                    },
+                    {
+                        responsivePriority: 2,
+                        targets: -2
+                    },
+                    {
+                        responsivePriority: 3,
+                        targets: -1
+                    }
+                ],
+                order: [0, 'asc']
+            });
             //資料顯示排版
             $('#dataTable_length').addClass("w-100");
             $('#dataTable_length label').addClass("d-flex align-items-center justify-content-center h5");
@@ -141,10 +210,40 @@
             $('#dataTable_filter input').addClass("d-flex align-items-center ms-3 me-3 w-50");
             //表格排版
             $('#dataTable_wrapper').children(".row").eq(0).addClass("mb-3");
-            $('#dataTable tr th').addClass("p-3");
-            $('#dataTable tr').children("th").eq(1).addClass("width", "20px");
+            $('#dataTable thead tr th').addClass("p-2");
+            $('#dataTable tbody tr td').addClass("ps-3 pt-2 pb-2");
+            $('tbody tr').find("td:eq(6)").children("input").addClass("middle-align");
+            $('tbody tr').find("td:eq(7)").addClass("ps-2 pt-2 pb-2 pe-0").removeClass("diabled", "disabled");
+            $('tbody tr').find("td:eq(3)").addClass("fs-14px");
+            $('tbody tr').find("td:eq(4)").addClass("fs-14px");
 
+
+            //刪除鍵
+            $(".delete").unbind().click(function () {
+                 var entryId = $(this).val();
+            if (confirm("Are you sure you want to delete?"))
+            {
+            var selected = $(this).parents("tr").addClass("selected");
+            $.ajax(
+            {
+                url: '@Url.Action("Delete", "Activities")',
+                type: "POST",
+                dataType: "json",
+                data: { id: entryId }
+            })
+            .done(function (data) {
+                if (data == 1) {
+                    table.row(".selected").remove().draw(false); // Delete row from view
+                }
+                else {
+                    Alert("Something went wrong...")
+                }
+            });
+            }
 
         });
+
+
+    });
     </script>
 }

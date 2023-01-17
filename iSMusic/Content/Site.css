@@ -55,3 +55,17 @@ textarea {
     background-color: #F68657;
     color: white;
 }
+
+.padding-0px{
+    padding: 0px !important;
+}
+
+.middle-align{
+    vertical-align: middle;
+    display: block;
+    margin: auto;
+}
+
+.fs-14px{
+    font-size: 14px !important;
+}
