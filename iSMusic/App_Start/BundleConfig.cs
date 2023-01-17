@@ -14,13 +14,13 @@ namespace iSMusic
 			bundles.Add(new Bundle("~/bundles/jqueryval").Include(
 						"~/Scripts/jquery.validate*"));
 
-			// Use the development version of Modernizr to develop with and learn from. Then, when you're
-			// ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
+			// 使用開發版本的 Modernizr 進行開發並學習。然後，當您
+			// 準備好可進行生產時，請使用 https://modernizr.com 的建置工具，只挑選您需要的測試。
 			bundles.Add(new Bundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));
 
 			bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-					  "~/Scripts/bootstrap.min.js",
+					  "~/Scripts/bootstrap.js"));
 					  "~/Scripts/fontawesome-free-6.2.1-web/js/all.js"
 					  ));
 

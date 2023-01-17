@@ -34,6 +34,7 @@ namespace iSMusic.Models.EFModels
             Orders = new HashSet<Order>();
             SubscriptionRecords = new HashSet<SubscriptionRecord>();
             TagPunishments = new HashSet<TagPunishment>();
+            avatarId = 1;
         }
 
         public int id { get; set; }
@@ -47,7 +48,7 @@ namespace iSMusic.Models.EFModels
         public string memberAccount { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string memberEncryptedPassword { get; set; }
 
         [Required]
