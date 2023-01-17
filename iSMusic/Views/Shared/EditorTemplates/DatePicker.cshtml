@@ -2,7 +2,4 @@
 @{
     var shortDate = DateTime.Parse(DateTime.Now.ToString()).ToString("yyyy-MM-dd");
 }
-@Html.TextBoxFor(m => m, new { @class = "form-control", @type = "date", @Value = shortDate})
-
-
-
+@Html.TextBoxFor(m => m, new { @class = "form-control", @type = "date", @Value = shortDate })
