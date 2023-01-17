@@ -39,17 +39,16 @@ namespace isMusic.ViewModels
         public string memberAccount { get; set; }
 
 
-        [Display(Name = "活動照片")]
-
-        [Required]
-        [StringLength(50)]
-        public string activityImagePath { get; set; }
+        //[Display(Name = "活動照片")]
+        //[Required]
+        //[StringLength(50)]
+        //public string activityImagePath { get; set; }
 
         [Display(Name = "審核完成")]
         public bool publishedStatus { get; set; }
 
-        [Display(Name = "審核者")]
-        public string checkedBy { get; set; }
+        //[Display(Name = "審核者")]
+        //public string checkedBy { get; set; }
 
     }
 
@@ -66,10 +65,10 @@ namespace isMusic.ViewModels
                 activityLocation = source.activityLocation,
                 activityType = source.activityType.typeName,
                 activityInfo = source.activityInfo,
-                activityImagePath = source.activityImagePath,
+                //activityImagePath = source.activityImagePath,
                 memberAccount = source.member.memberAccount,
                 publishedStatus = source.publishedStatus,
-                checkedBy = source.admin.adminAccount,
+                //checkedBy = source.admin.adminAccount,
             };
         }
     }

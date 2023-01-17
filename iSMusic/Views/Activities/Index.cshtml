@@ -1,88 +1,150 @@
-﻿@model IEnumerable<isMusic.ViewModels.ActivityVM>
+﻿@using X.PagedList.Mvc;
+@using X.PagedList;
+
+@model IEnumerable<isMusic.ViewModels.ActivityVM>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>活動管理</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.activityName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.activityStartTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.activityEndTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.activityLocation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.activityType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.activityInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.memberAccount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.activityImagePath)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.publishedStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.checkedBy)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.activityName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.activityStartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.activityEndTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.activityLocation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.activityType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.activityInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.memberAccount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.activityImagePath)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.publishedStatus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.checkedBy)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+@*DATATABLE*@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h4 class="m-0 font-weight-bold text-primary">活動列表</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered dt-res activityTable" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle" style="cursor:pointer" >
+                            @Html.DisplayNameFor(model => model.activityName)
+                        </th>
+                        <th class="text-center align-middle"  style="cursor:pointer">
+                            @Html.DisplayNameFor(model => model.activityInfo)
+                        </th>
+                        <th class="text-center align-middle"  style="cursor:pointer">
+                            @Html.DisplayNameFor(model => model.activityLocation)
+                        </th>
+                        <th class="text-center align-middle"  style="cursor:pointer">
+                            @Html.DisplayNameFor(model => model.activityStartTime)
+                        </th>
+                        <th class="text-center align-middle"  style="cursor:pointer">
+                            @Html.DisplayNameFor(model => model.activityEndTime)
+                        </th>
+
+                        <th class="text-center align-middle"  style="cursor:pointer">
+                            @Html.DisplayNameFor(model => model.activityType)
+                        </th>
+
+                        @*<th>
+                                 @Html.DisplayNameFor(model => model.memberAccount)
+                            </th>*@
+                        @*<th>
+                                 @Html.DisplayNameFor(model => model.activityImagePath)
+                            </th>*@
+                        <th class="text-center"  style="cursor:pointer">
+                            @Html.DisplayNameFor(model => model.publishedStatus)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.checkedBy)
+                            </th>*@
+                        <th></th>
+                        </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="align-middle fs-5">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.activityName)
+                            </td>
+                            <td>
+                                 @Html.DisplayFor(modelItem => item.activityInfo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.activityLocation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.activityStartTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.activityEndTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.activityType)
+                            </td>
+
+                            @*<td class="align-middle">
+                                    @Html.DisplayFor(modelItem => item.memberAccount)
+                                </td>*@
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.activityImagePath)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.publishedStatus)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.checkedBy)
+                                </td>*@
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.id })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+@*@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+      new X.PagedList.Mvc.Common.PagedListRenderOptions
+      {
+          DisplayItemSliceAndTotal = false,
+          ContainerDivClasses = new[] { "navigation", "d-flex justify-content-end" },
+          LiElementClasses = new[] { "page-item" },
+          PageClasses = new[] { "page-link" },
+          DisplayLinkToFirstPage = X.PagedList.Web.Common.PagedListDisplayMode.Always,
+          LinkToFirstPageFormat = "首頁",
+          DisplayLinkToLastPage = X.PagedList.Web.Common.PagedListDisplayMode.Always,
+          LinkToLastPageFormat = " 末頁"
+      })*@
+
+
+
+
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('ul.pagination > li.disabled > a').addClass('page-link');
+            $('.activityTable').DataTable();
+            //資料顯示排版
+            $('#dataTable_length').addClass("w-100");
+            $('#dataTable_length label').addClass("d-flex align-items-center justify-content-center h5");
+            $('#dataTable_length select').addClass("d-flex align-items-center ms-3 me-3 w-50");
+            //搜尋排版
+            $('#dataTable_filter').addClass("w-100");
+            $('#dataTable_filter label').addClass("d-flex align-items-center justify-content-center h5");
+            $('#dataTable_filter input').addClass("d-flex align-items-center ms-3 me-3 w-50");
+            //表格排版
+            $('#dataTable_wrapper').children(".row").eq(0).addClass("mb-3");
+            $('#dataTable tr th').addClass("p-3");
+            $('#dataTable tr').children("th").eq(1).addClass("width", "20px");
+
+
+        });
+    </script>
 }
-
-</table>
-
-

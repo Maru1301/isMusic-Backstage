@@ -93,5 +93,23 @@ namespace isMusic.Infrastructures.Extensions
                 checkedById = source.checkedById,
             };
         }
+
+        public static ActivityEditDTO ToActivityEditDTOForEdit(this Activity source)
+        {
+            return new ActivityEditDTO
+            {
+                id = source.id,
+                activityName = source.activityName,
+                activityStartTime = source.activityStartTime,
+                activityEndTime = source.activityEndTime,
+                activityLocation = source.activityLocation,
+                activityTypeId = source.activityTypeId,
+                activityInfo = source.activityInfo,
+                activityImagePath = source.activityImagePath,
+                activityOrganizerId = source.activityOrganizerId,
+                publishedStatus = source.publishedStatus,
+                checkedById = source.checkedById,
+            };
+        }
     }
 }

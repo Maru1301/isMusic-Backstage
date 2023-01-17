@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Edit";
     var activities = ViewBag.activityType as IEnumerable<SelectListItem>;
-    var admins = ViewBag.checkedById as IEnumerable<SelectListItem>;
-    var members = ViewBag.activityOrganizerId as IEnumerable<SelectListItem>;
+    var admins = ViewBag.checkedBy as IEnumerable<SelectListItem>;
+    var members = ViewBag.activityOrganizer as IEnumerable<SelectListItem>;
 }
 
 <h2>Edit</h2>
@@ -71,7 +71,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.activityOrganizerId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.activityOrganizerId, members,new { @class = "form-control" } )
+                @Html.DropDownListFor(model => model.activityOrganizerId, members, new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.activityOrganizerId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -97,7 +97,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.checkedById, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.checkedById, admins,new { @class = "form-control" } )
+                @Html.DropDownListFor(model => model.checkedById, admins, new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.checkedById, "", new { @class = "text-danger" })
             </div>
         </div>

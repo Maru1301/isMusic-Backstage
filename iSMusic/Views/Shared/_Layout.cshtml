@@ -9,40 +9,86 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="其他選項">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+    <header class="mb-5">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
+            <div class="container-fluid ms-5">
+                <a class="navbar-brand" href="~/Home/Index">isMusic</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                @Html.ActionLink("應用程式名稱", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                
+                <div class="collapse navbar-collapse" id="navbarColor02">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="dropdownMenuButton1">音樂</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <a class="dropdown-item" href="~/Songs/Index">音樂</a>
+                                <a class="dropdown-item" href="~/Albums/Index">專輯</a>
+                                <a class="dropdown-item" href="~/Artists/Index">演出者</a>
+                                <a class="dropdown-item" href="~/SongGenres/Index ">音樂種類</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Activities/Index">
+                                活動
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Products/Index">
+                                商品
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Members/Index">
+                                會員
+                            </a>
+                        </li>
+                    </ul>
+                    @*<form class="d-flex">
+                        <input class="form-control me-sm-2" type="search" placeholder="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form>*@
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("音樂", "Index", "Songs")</li>
-                    <li>@Html.ActionLink("活動", "Index", "Activities")</li>
-                    <li>@Html.ActionLink("商品", "Index", "Products")</li>
-                    <li>@Html.ActionLink("會員", "Index", "Members")</li>
-                    @{
-                        var authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
-                        if (authCookie != null)
-                        {
-                            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                            string[] roles = authTicket.UserData.Split(',');
-                            string[] permissions = roles.Where(r => r.Length > 1).Select(r => r.Substring(1)).ToArray();
-                            if (permissions.Contains("3") || roles.Contains("1"))
+        </nav>
+    </header>
+  
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="其他選項">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("isMusic", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("音樂", "Index", "Songs")</li>
+                        <li>@Html.ActionLink("活動", "Index", "Activities")</li>
+                        <li>@Html.ActionLink("商品", "Index", "Products")</li>
+                        <li>@Html.ActionLink("會員", "Index", "Members")</li>
+                        @{
+                            var authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+                            if (authCookie != null)
                             {
-                                <li>@Html.ActionLink("管理員權限", "Index", "Admins")</li>
+                                var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                                string[] roles = authTicket.UserData.Split(',');
+                                string[] permissions = roles.Where(r => r.Length > 1).Select(r => r.Substring(1)).ToArray();
+                                if (permissions.Contains("3") || roles.Contains("1"))
+                                {
+                                    <li>@Html.ActionLink("管理員權限", "Index", "Admins")</li>
+                                }
                             }
                         }
-                    }
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="container body-content">
+        </div>*@
+    <div class="container body-content margin-top-120">
         @RenderBody()
         <hr />
         <footer>

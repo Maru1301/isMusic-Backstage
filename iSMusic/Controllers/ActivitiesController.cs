@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using isMusic.Infrastructures.Repositories;
 using isMusic.Infrastructures.Extensions;
+using X.PagedList;
 
 namespace isMusic.Controllers
 {
@@ -32,9 +33,13 @@ namespace isMusic.Controllers
         // GET: Activities
         public ActionResult Index()
         {
+            //if not specific then default to page 1
+            //var pageNumber = page ?? 1;
+            //int pageSize = 5;
 
             var data = activityService.Search(null, null).Select(x => x.ToActivityVM()).ToList();
 
+            //var result = data.ToPagedList(pageNumber, pageSize);
 
             return View(data);
         }
@@ -78,10 +83,11 @@ namespace isMusic.Controllers
         // GET: Activities/Edit/1
         public ActionResult Edit(int id)
         {
-            ViewBag.activityTypeId = new SelectList(db.ActivityTypes, "id", "typeName");
-            ViewBag.checkedById = new SelectList(db.Admins, "id", "adminAccount");
-            ViewBag.activityOrganizerId = new SelectList(db.Members, "id", "memberAccount");
             var data = activityService.GetById(id);
+            ViewBag.activityType = new SelectList(db.ActivityTypes, "id", "typeName");
+            ViewBag.checkedBy = new SelectList(db.Admins, "id", "adminAccount", data.admin);
+            ViewBag.activityOrganizer = new SelectList(db.Members, "id", "memberAccount", data.member);
+            
             return View(data.ToActivityEditVM());
         }
 
