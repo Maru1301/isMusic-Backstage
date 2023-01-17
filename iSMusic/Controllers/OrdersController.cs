@@ -127,8 +127,8 @@ namespace iSMusic.Controllers
         // GET: Orders/Create
         public ActionResult Create()
         {
-            ViewBag.couponId = new SelectList(db.Coupons, "id", "couponText");
-            ViewBag.memberId = new SelectList(db.Members, "id", "memberNickName");
+            ViewBag.couponId = new SelectList(db.Coupons, "id", "couponText").Prepend(new SelectListItem { Value= string.Empty,Text="請選擇"});
+            ViewBag.memberId = new SelectList(db.Members, "id", "memberNickName").Prepend(new SelectListItem { Value = string.Empty, Text = "請選擇" });
             DateTime date= DateTime.Now;
             ViewBag.date = date;
 
