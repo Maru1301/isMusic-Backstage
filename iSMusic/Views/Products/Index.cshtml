@@ -5,11 +5,7 @@
 
 @model X.PagedList.IPagedList<Product>
 
-@mode2 YourModel
-<form method="post" action="YourAction">
-    <!-- Form fields go here -->
-    <input type="submit" value="Save">
-</form>
+
 
 
 
@@ -17,25 +13,31 @@
     ViewBag.Title = "庫存";
     var categories = ViewBag.Categories as IEnumerable<SelectListItem>;
     var productName = ViewBag.ProductName as string;
+    var Categories2 = ViewBag.Categories2 as string;
+
+
+    var Coupon = ViewBag.Coupon as IEnumerable<SelectListItem>;
 }
 
+
 <h2>庫存</h2>
+
 
 <form method="get">
     <div class="row">
         <div class="col-xs-12">
             <div class="caption">
-                <h3>Search</h3>
                 <div class="row">
-                    <div class="col-md-4">分類:@Html.DropDownList("categoryId", categories, new { @class = "form-control" })</div>
-                    <div class="col-md-4">商品名稱:<input type="text" name="productName" class="form-control" value="@productName"></div>
+                    <div class="col-md-4">語言:@Html.DropDownList("categoryId", categories, new { @class = "form-control form-select " })</div>
+                    <div class="col-md-4">關鍵字搜尋:<input type="text" name="productName" class="form-control" value="@productName"></div>
+                    <div class="row " style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px; max-width:250px ">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Search" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px;">
-        <input type="submit" class="btn btn-primary" value="Search" />
-    </div>
+    
 </form>
 
 
@@ -47,23 +49,23 @@
 <table class="table">
     <tr>
         <th>
-            categoryName
+            語言
         </th>
+        @*<th>
+            專輯
+        </th>*@
         <th>
-            album
-        </th>
-        <th>
-            productName
+            商品名稱
         </th>
 
         <th>
-            productPrice
+            價錢
         </th>
         <th>
-            stock
+            庫存
         </th>
         <th>
-            上架status
+            上架狀態
         </th>
 
 
@@ -76,9 +78,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ProductCategory.categoryName)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Album.albumName)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.productName)
             </td>
@@ -91,14 +93,13 @@
             </td>
             <td>
                 <div class="delItem">
-                    @Html.EditorFor(modelItem => item.status)
+                    @Html.DisplayFor(modelItem => item.status)
                 </div>
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
                 @*@Html.ActionLink("Details", "Details", new { id = item.id }) |*@
                 @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                @Html.ActionLink("上架", "UpdateStatus")
             </td>
 
         </tr>
@@ -107,15 +108,8 @@
 
 </table>
 @(Html.Pager(Model)
-    .Url(page => Url.Action("Index", new { pageNumber=page, CategoryId= ViewBag.CategoryId, ProductName = ViewBag.ProductName }))
+    .Url(page => Url.Action("Index", new { pageNumber=page, CategoryId= ViewBag.Categories2, ProductName = ViewBag.ProductName }))
     .ClassicPlusFirstAndLast())
-
-
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input id="btnSelect" type="submit" value="上架" class="btn btn-default" />
-    </div>
-</div>
 
 @section scripts{
     <script>

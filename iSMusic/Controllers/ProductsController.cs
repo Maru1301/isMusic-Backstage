@@ -36,7 +36,10 @@ namespace iSMusic.Controllers
             ViewBag.Categories = GetCategories(categoryId);
             ViewBag.ProductName = productName;
 
-            
+            ViewBag.Categories2 = categoryId;
+
+
+
 
             IPagedList<Product> pagedData = GetPagedProducts(categoryId, productName, pageNumber);
             return View(pagedData);
@@ -58,7 +61,7 @@ namespace iSMusic.Controllers
 
         private IPagedList<Product> GetPagedProducts(int? categoryId, string productName, int pageNumber)
         {
-            int pageSize = 4;
+            int pageSize = 3;
 
             var query = db.Products.Include(x => x.ProductCategory);
 
