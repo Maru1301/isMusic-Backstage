@@ -85,25 +85,25 @@ namespace iSMusic.Models.Infrastructures
             <li class=""page-item {className}""><a class=""page-link"" href=""{url}"">{currentPageNumber}</a></li>";
 			}
 
-			if (pagedInfo.PageNumber > pagedInfo.Pages)
+			if (pagedInfo.PageNumber < pagedInfo.Pages && pagedInfo.Pages != 1)
 			{
 				string nextUrl = urlGenerator(pagedInfo.PageItemNextNumber);
 				result += $@"
-            <li class=""page-item"">
-                <a href=""{nextUrl}"" aria-label=""Next"">
-                    <span aria-hidden=""true"">&raquo;</span>
-                </a>
-            </li>";
+				<li class=""page-item"">
+					<a class=""page-link"" href=""{nextUrl}"" aria-label=""Next"">
+						<span aria-hidden=""true"">&raquo;</span>
+					</a>
+				</li>";
 			}
 			else
 			{
 				string nextUrl = urlGenerator(pagedInfo.PageItemNextNumber);
 				result += $@"
-            <li class=""page-item disabled"">
-                <a class=""page-link"" href=""{nextUrl}"" aria-label=""Next"">
-                    <span aria-hidden=""true"">&raquo;</span>
-                </a>
-            </li>";
+				<li class=""page-item disabled"">
+					<a class=""page-link"" href=""{nextUrl}"" aria-label=""Next"">
+						<span aria-hidden=""true"">&raquo;</span>
+					</a>
+				</li>";
 			}
 
 			result += @"

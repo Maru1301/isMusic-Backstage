@@ -67,13 +67,13 @@ namespace iSMusic.Models.Infrastructures
 			if (this.ColumnName == column && this.Direction == direction)
 			{
 				return (direction == EnumDirection.Asc)
-					? "<i style='color:red;'>↑</i>"
-					: "<i style='color:red;'>↓</i>";
+					? "<i class=\"fa-solid fa-caret-up\" style='color:#F68657'></i>"
+					: "<i class=\"fa-solid fa-caret-down\" style='color:#F68657'></i>";
 			}
 
 			return (direction == EnumDirection.Asc)
-				? "<i>↑</i>"
-				: "<i>↓</i>";
+				? "<i class=\"fa-solid fa-caret-up\"></i>"
+				: "<i class=\"fa-solid fa-caret-down\"></i>";
 		}
 
 		private string GetUrl(string column, EnumDirection direction)

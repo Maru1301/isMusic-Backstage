@@ -48,7 +48,7 @@ namespace iSMusic.Models.DTOs
 
 		public bool status { get; set; }
 
-		public int timeOfPlay { get; set; }
+		public int timesOfPlay { get; set; }
 
 		public virtual ICollection<Song_Artist_Metadata> Song_Artist_Metadata { get; set; }
 

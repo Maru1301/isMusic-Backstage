@@ -37,6 +37,7 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			return db.Albums.Include("Album_Song_Metadata").Include("Artist").Select(a => new AlbumEditVM
 			{
 				id = a.id,
+				typeId = a.albumTypeId,
 				albumName = a.albumName,
 				albumCoverPath = a.albumCoverPath,
 				released = a.released,

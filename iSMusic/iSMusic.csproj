@@ -315,6 +315,7 @@
     <Compile Include="Models\ViewModels\ProductVM.cs" />
     <Compile Include="Models\ViewModels\RegisterVM.cs" />
     <Compile Include="Models\ViewModels\SongCreateVM.cs" />
+    <Compile Include="Models\ViewModels\SongDeleteVM.cs" />
     <Compile Include="Models\ViewModels\SongEditVM.cs" />
     <Compile Include="Models\ViewModels\SongIndexVM.cs" />
     <Compile Include="Models\ViewModels\SongListItemVM.cs" />
@@ -448,6 +449,9 @@
     <Content Include="Views\Admins\Index.cshtml" />
     <Content Include="Views\Admins\Create.cshtml" />
     <Content Include="Views\Admins\Login.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DatePicker.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ChineseDate.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DollarFormat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
