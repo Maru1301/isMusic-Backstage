@@ -6,15 +6,18 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.UI;
 using System.Xml;
+using iSMusic.Filters;
 using iSMusic.Models.EFModels;
 using iSMusic.Models.ViewModels;
 using Microsoft.Ajax.Utilities;
 
 namespace iSMusic.Controllers
 {
-    public class OrdersController : Controller
+	[CustomAuthorize(Roles = "1, 31, 32, 33")]
+	public class OrdersController : Controller
     {
         private AppDbContext db = new AppDbContext();
 

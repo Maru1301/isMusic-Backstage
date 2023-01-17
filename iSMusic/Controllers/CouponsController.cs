@@ -6,11 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using iSMusic.Filters;
+using System.Web.Security;
 using iSMusic.Models.EFModels;
 
 namespace iSMusic.Controllers
 {
-    public class CouponsController : Controller
+	[CustomAuthorize(Roles = "1, 31, 32, 33")]
+	public class CouponsController : Controller
     {
         private AppDbContext db = new AppDbContext();
 

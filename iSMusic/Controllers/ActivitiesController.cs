@@ -13,24 +13,22 @@ using System.Web.UI.WebControls;
 using isMusic.Infrastructures.Repositories;
 using isMusic.Infrastructures.Extensions;
 using AdminManagement.Controllers;
+using iSMusic.Filters;
+using System.Web.Security;
 
 namespace isMusic.Controllers
 {
-    public class ActivitiesController : Controller
+	[CustomAuthorize("1", "21", "22", "23")]
+	public class ActivitiesController : Controller
     {
         private ActivityService activityService;
 
-        private int departmentId = 2;
-
-        private bool requestPermission;
 
         //這個要換到REPO
         private AppDbContext db = new AppDbContext();
 
         public ActivitiesController()
         {
-            requestPermission = AdminsController.CheckPermission(departmentId);
-
 			var db = new AppDbContext();
             IActivityRepository repo = new ActivityRepository(db);
             this.activityService = new ActivityService(repo);
@@ -39,8 +37,6 @@ namespace isMusic.Controllers
         // GET: Activities
         public ActionResult Index()
         {
-            if (requestPermission == false) return Redirect("/Home/Index");
-
 			var data = activityService.Search(null, null).Select(x => x.ToActivityVM()).ToList();
 
 

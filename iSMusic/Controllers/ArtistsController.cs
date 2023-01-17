@@ -9,10 +9,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using iSMusic.Models.Infrastructures.Extensions;
+using iSMusic.Filters;
+using System.Web.Security;
 
 namespace iSMusic.Controllers
 {
-    public class ArtistsController : Controller
+	[CustomAuthorize(Roles = "1, 11, 12, 13")]
+	public class ArtistsController : Controller
     {
 		private IArtistRepository repository;
 		private ArtistService service;

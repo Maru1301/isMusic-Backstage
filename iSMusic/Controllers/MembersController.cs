@@ -1,5 +1,6 @@
 ﻿using AdminManagement.Controllers;
 using isMusic.Models.DTOs;
+using iSMusic.Filters;
 using iSMusic.Models.DTOs;
 using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Infrastructures.Repositories;
@@ -17,15 +18,13 @@ using System.Web.UI.WebControls;
 
 namespace iSMusic.Controllers
 {
+	[CustomAuthorize("1", "41", "42", "43")]
 	public class MembersController : Controller
 	{
 		private MemberService memberService;
 		private IMemberRepository repo;
-		private int departmentId = 4;
-		private bool requestPermission;
 		public MembersController()
 		{
-			requestPermission = AdminsController.CheckPermission(departmentId);
 			repo = new MemberRepository();
 			this.memberService = new MemberService(repo);
 		}
@@ -33,7 +32,6 @@ namespace iSMusic.Controllers
 		// GET: Member
 		public ActionResult Index()
 		{
-			if (requestPermission == false) return Redirect("/Home/Index");
 			var data = memberService.GetAll();
 			return View(data);
 		}

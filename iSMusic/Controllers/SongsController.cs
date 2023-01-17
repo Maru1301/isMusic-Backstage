@@ -1,4 +1,5 @@
 ﻿using AdminManagement.Controllers;
+using iSMusic.Filters;
 using iSMusic.Models.DTOs;
 using iSMusic.Models.EFModels;
 using iSMusic.Models.Entities;
@@ -20,26 +21,18 @@ using static iSMusic.Controllers.ArtistsController;
 
 namespace iSMusic.Controllers
 {
-	
+	[CustomAuthorize("1", "11", "12", "13")]
 	public class SongsController : Controller
 	{
 		private ISongRepository repository;
 
-		private int departmentId = 1;
-
-		private bool requestPermission;
-
 		public SongsController()
 		{
-			//requestPermission = AdminsController.CheckPermission(departmentId);
-
 			repository = new SongRepository();
 		}
 		// GET: Songs
 		public ActionResult Index(SongCriteria criteria, string columnName, string direction, int pageNumber = 1)
 		{
-			if (requestPermission == false) return Redirect("/Home/Index");
-
 			var service = new SongService(repository);
 
 			ViewBag.Criteria = criteria;

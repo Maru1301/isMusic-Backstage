@@ -23,7 +23,7 @@ using iSMusic.Filters;
 
 namespace AdminManagement.Controllers
 {
-	
+	[CustomAuthorize("1", "51", "52", "53")]
 	public class AdminsController : Controller
 	{
 		public IAdminRepository repository;
@@ -36,7 +36,6 @@ namespace AdminManagement.Controllers
 		}
 
 		// GET: Admins
-		[Authorize]
 		public ActionResult Index()
 		{
 			var service = new AdminService(repository);
@@ -198,6 +197,7 @@ namespace AdminManagement.Controllers
 			return url;
 		}
 
+		[AllowAnonymous]
 		public ActionResult Logout()
 		{
 			FormsAuthentication.SignOut();

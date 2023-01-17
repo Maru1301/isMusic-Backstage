@@ -7,7 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using AdminManagement.Controllers;
+using iSMusic.Filters;
 using iSMusic.Models.EFModels;
 using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services;
@@ -17,16 +19,14 @@ using X.PagedList;
 
 namespace iSMusic.Controllers
 {
-    public class ProductsController : Controller
+	[CustomAuthorize("1", "31", "32", "33")]
+	public class ProductsController : Controller
     {
         AppDbContext db = new AppDbContext();
         private ProductService productService;
-        private int departmentId = 3;
-		private bool requestPermission;
 
 		public ProductsController()
         {
-			requestPermission = AdminsController.CheckPermission(departmentId);
 			var db = new AppDbContext();
             IProductRepository repo = new ProductRepository(db);
             this.productService = new ProductService(repo);
@@ -35,8 +35,6 @@ namespace iSMusic.Controllers
         // GET: Products
         public ActionResult Index(int? categoryId, string productName, int pageNumber = 1 )
         {
-			if (requestPermission == false) return Redirect("/Home/Index");
-
 			pageNumber = pageNumber > 0 ? pageNumber : 1;
 
             ViewBag.Categories = GetCategories(categoryId);

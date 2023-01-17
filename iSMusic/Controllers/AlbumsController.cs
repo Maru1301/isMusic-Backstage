@@ -1,4 +1,5 @@
-﻿using iSMusic.Models.EFModels;
+﻿using iSMusic.Filters;
+using iSMusic.Models.EFModels;
 using iSMusic.Models.Infrastructures;
 using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Infrastructures.Repositories;
@@ -10,11 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.UI.WebControls;
 using static iSMusic.Controllers.ArtistsController;
 
 namespace iSMusic.Controllers
 {
+	[CustomAuthorize(Roles = "1, 11, 12, 13")]
 	public class AlbumsController : Controller
 	{
 		private IAlbumRepository repository;

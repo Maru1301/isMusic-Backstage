@@ -1,4 +1,5 @@
-﻿using iSMusic.Models.EFModels;
+﻿using iSMusic.Filters;
+using iSMusic.Models.EFModels;
 using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services;
@@ -7,10 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace iSMusic.Controllers
 {
-    public class SongGenresController : Controller
+	[CustomAuthorize(Roles = "1, 11, 12, 13")]
+	public class SongGenresController : Controller
     {
 		private SongGenreRepository repository;
 		private SongGenreService service;
