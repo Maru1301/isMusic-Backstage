@@ -116,14 +116,16 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			return query.ToList().Select(q => q.ToEntity());
 		}
 
-		public SongEditVM FindById(int id)
+		public SongDTO FindById(int id)
 		{
-			return db.Songs.Include("Song_Artist_Metadata").Select(x => new SongEditVM()
+			return db.Songs.Include("Song_Artist_Metadata").Select(x => new SongDTO()
 			{
 				id = x.id,
 				songName = x.songName,
+				artistList = x.Song_Artist_Metadata.Where(m=> m.songId == id).Select(m=> m.Artist.artistName).ToList(),
 				artistIdList = x.Song_Artist_Metadata.Where(m => m.songId == id).Select(a => a.artistId).ToList(),
-				genreId = x.genreId,
+				genreId= x.genreId,
+				genreName = x.SongGenre.genreName,
 				duration = x.duration,
 				isInstrumental = x.isInstrumental,
 				language = x.language,

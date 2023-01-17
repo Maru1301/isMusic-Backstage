@@ -78,6 +78,8 @@ namespace iSMusic.Models.Services
 			entity.Cellphone = request.Cellphone;
 			entity.Account = request.Account;
 			entity.Address = request.Address;
+			entity.DateOfBirth = request.memberDateOfBirth;
+			entity.isConfirmed = request.isConfirmed;
 
 
 			_repository.Update(entity);

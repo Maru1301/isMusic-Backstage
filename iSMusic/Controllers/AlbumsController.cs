@@ -114,6 +114,8 @@ namespace iSMusic.Controllers
 		// GET: Albums/Edit/id
 		public ActionResult Edit(int id)
 		{
+			var data = repository.FindById(id);
+			data.albumCoverPath = "/Uploads/Covers/" + data.albumCoverPath;
 
 			ViewBag.ArtistList = GetArtistList();
 
@@ -130,10 +132,7 @@ namespace iSMusic.Controllers
 				new SelectListItem{Text = "EP", Value = "2"},
 				new SelectListItem{Text = "單曲", Value = "3"}
 			};
-			ViewBag.TypeList = typeList;
-
-			var data = repository.FindById(id);
-			data.albumCoverPath = "/Uploads/Covers/" + data.albumCoverPath;
+			ViewBag.typeId = new SelectList(new AppDbContext().AlbumTypes, "id", "typeName", data.typeId);
 
 			return View(data);
 		}

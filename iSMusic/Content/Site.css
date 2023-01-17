@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 20px;
 }
 
@@ -27,4 +27,13 @@ textarea {
 .navbar-inverse .navbar-toggle:focus {
     background-color: #777;
     border-color: #fff
+}
+
+.mt-120px{
+    margin-top: 120px;
+}
+
+.orange-btn {
+    background-color: #F68657;
+    color: white;
 }

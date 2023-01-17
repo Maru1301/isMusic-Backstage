@@ -315,6 +315,7 @@
     <Compile Include="Models\ViewModels\ProductVM.cs" />
     <Compile Include="Models\ViewModels\RegisterVM.cs" />
     <Compile Include="Models\ViewModels\SongCreateVM.cs" />
+    <Compile Include="Models\ViewModels\SongDeleteVM.cs" />
     <Compile Include="Models\ViewModels\SongEditVM.cs" />
     <Compile Include="Models\ViewModels\SongIndexVM.cs" />
     <Compile Include="Models\ViewModels\SongListItemVM.cs" />
@@ -335,6 +336,7 @@
     <Content Include="Content\bootstrap-utilities.rtl.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\lux.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
@@ -434,19 +436,23 @@
     <Content Include="Views\Coupons\Edit.cshtml" />
     <Content Include="Views\Coupons\Index.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DateTimePicker2.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DatePicker.cshtml" />
+    <Content Include="Views\Products\UpdateStatus.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Duration.cshtml" />
     <Content Include="Views\Creators\Index.cshtml" />
     <Content Include="Views\Creators\Details.cshtml" />
     <Content Include="Views\Members\DeleteAccount.cshtml" />
-    <Content Include="Views\Members\EditProfile.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Members\Register.cshtml" />
     <Content Include="Views\Members\RegisterConfirm.cshtml" />
     <Content Include="Views\Admins\Index.cshtml" />
     <Content Include="Views\Admins\Create.cshtml" />
     <Content Include="Views\Admins\Login.cshtml" />
+    <Content Include="Views\Members\EditProfile.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DatePicker.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ChineseDate.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DollarFormat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -455,6 +461,10 @@
     <Folder Include="Uploads\Songs\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />

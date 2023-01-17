@@ -19,10 +19,12 @@ namespace iSMusic.Models.DTOs
 
 		public string Cellphone { get; set; }
 
-		public bool? isConfirmed { get; set; }
+		public bool isConfirmed { get; set; }
 
 		public string confirmCode { get; set; }
 		public string Address { get; set; }
 		public bool ReceivedMessage { get; set; }
+		public DateTime? DateOfBirth { get; set; }
+
 	}
 }
