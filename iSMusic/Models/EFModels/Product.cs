@@ -17,18 +17,24 @@ namespace iSMusic.Models.EFModels
 
         public int id { get; set; }
 
+        [Display(Name ="語言")]
         public int productCategoryId { get; set; }
 
+        [Display(Name = "價錢")]
         public decimal productPrice { get; set; }
 
+        [Display(Name = "專輯")]
         public int albumId { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "商品名稱")]
         public string productName { get; set; }
 
+        [Display(Name ="庫存")]
         public int stock { get; set; }
 
+        [Display(Name ="狀態")]
         public bool status { get; set; }
 
         public virtual Album Album { get; set; }
