@@ -61,13 +61,11 @@
                         @Html.ValidationMessageFor(model => model.artistGender, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="form-group row">
+                <div class="form-group row mt-3">
                     @Html.LabelFor(model => model.artistAbout, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.artistAbout, new { @class = "form-control", @rows="10" })
+                        @Html.TextAreaFor(model => model.artistAbout, new { @class = "form-control", @rows = "10" })
                         @Html.ValidationMessageFor(model => model.artistAbout, "", new { @class = "text-danger" })
                     </div>
                 </div>

@@ -23,14 +23,16 @@
                     <div class="col-md-9">
                         <input type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
                         @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
-                        <img id="preview" style="max-width: 250px; max-height:250px;" />
+                        <div>
+                            <img id="preview" style="width: 200px; height:200px;" />
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row mt-3">
                     @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.description, new { @class = "form-control wide", @rows = "15", @style="max-width: 450px" })
+                        @Html.TextAreaFor(model => model.description, new { @class = "form-control wide", @rows = "10", @style="max-width: 350px" })
                         @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
                     </div>
                 </div>

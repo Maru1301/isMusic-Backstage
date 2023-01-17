@@ -19,6 +19,27 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row">
             <div class="col-md-6">
+                <div class="form-group row mt-3">
+                    @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        <input data-val="true" data-val-required="請選一張圖片" type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
+                        @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
+                        <div style="width: 200px; height: 200px;">
+                            <img id="preview" style="max-height:200px;" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.description, new { @class = "form-control", @style = "max-width: 350px", @rows = "10" })
+                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="form-group row">
                     @Html.LabelFor(model => model.typeId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -34,16 +55,6 @@
                         @Html.ValidationMessageFor(model => model.albumName, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-                <div class="form-group row mt-3">
-                    @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-3" })
-                    <div class="col-md-9">
-                        <input data-val="true" data-val-required="請選一張圖片" type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
-                        @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
-                    </div>
-                    <img id="preview" style="max-height:200px;" />
-                </div>
-
 
                 <div class="form-group row mt-3">
                     @Html.LabelFor(model => model.released, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -73,15 +84,6 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <button id="addSong" class="btn btn-outline-dark col-md-8" type="button">新增歌曲</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group row">
-                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.description, new { @class = "form-control", @style = "max-width: '30px'",@rows = "20" })
-                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

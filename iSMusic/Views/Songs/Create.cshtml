@@ -146,7 +146,7 @@
                 <div class="form-group row mt-3">
                     @Html.LabelFor(model => model.lyric, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.lyric, new { @class = "form-control", @rows = "18" })
+                        @Html.TextAreaFor(model => model.lyric, new { @class = "form-control", @rows = "18", @style="max-width: 350px" })
                         @Html.ValidationMessageFor(model => model.lyric, "", new { @class = "text-danger" })
                     </div>
                 </div>
