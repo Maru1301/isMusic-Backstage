@@ -2,6 +2,7 @@
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,35 +15,24 @@ namespace iSMusic.Filters
 	public class CustomAuthorizeAttribute : AuthorizeAttribute
 	{
 		private readonly string[] allowedroles;
+
+		private readonly string superUser = "1";
 		public CustomAuthorizeAttribute(params string[] roles)
 		{
 			this.allowedroles = roles;
 		}
-		//protected override bool AuthorizeCore(HttpContextBase httpContext)
-		//{
-		//	var userRole = FormsAuthentication.Decrypt(httpContext.Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData;
-		//	bool authorize = false;
-		//	var userId = Convert.ToString(httpContext.Session["UserId"]);
-		//	if (!string.IsNullOrEmpty(userId))
-		//		using (var context = new AppDbContext())
-		//		{
-		//			var userRole = (from a in context.Admins
-		//							join m in context.Admin_Role_Metadata on a.id equals m.adminId
-		//							join r in context.Roles on m.roleId equals r.id
-		//							where a.id == userId
-		//							select new
-		//							{
-		//								r.Name
-		//							}).FirstOrDefault();
-		//			foreach (var role in allowedroles)
-		//			{
-		//				if (role == userRole.Name) return true;
-		//			}
-		//		}
+		protected override bool AuthorizeCore(HttpContextBase httpContext)
+		{
+			List<string> userRoles = FormsAuthentication.Decrypt(System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData.Split(',').Where(x => x.Length != 0).ToList();
 
+			if (userRoles.Contains(superUser)) return true;
 
-		//	return authorize;
-		//}
+			bool authorize = false;
+
+			if(userRoles.Any(r=> allowedroles.Contains(r))) authorize = true;
+
+			return authorize;
+		}
 
 		protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
 		{

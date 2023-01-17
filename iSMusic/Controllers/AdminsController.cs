@@ -19,10 +19,11 @@ using iSMusic.Infrastructures.Extensions;
 using System.Security.AccessControl;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Claims;
+using iSMusic.Filters;
 
 namespace AdminManagement.Controllers
 {
-	[Authorize]
+	
 	public class AdminsController : Controller
 	{
 		public IAdminRepository repository;
