@@ -104,7 +104,7 @@ namespace iSMusic.Controllers
             var price = order.price;
             var qty = order.qty;
             var discounts = order.discounts;
-            var total = price  * qty;
+            var total = price * qty;
             if (discounts[0] == '*')
             {
                 decimal discountNumber = decimal.Parse(discounts.Substring(1));
@@ -127,9 +127,9 @@ namespace iSMusic.Controllers
         // GET: Orders/Create
         public ActionResult Create()
         {
-            ViewBag.couponId = new SelectList(db.Coupons, "id", "couponText");
-            ViewBag.memberId = new SelectList(db.Members, "id", "memberNickName");
-            DateTime date= DateTime.Now;
+            ViewBag.couponId = new SelectList(db.Coupons, "id", "couponText").Prepend(new SelectListItem { Value = string.Empty, Text = "請選擇" });
+            ViewBag.memberId = new SelectList(db.Members, "id", "memberNickName").Prepend(new SelectListItem { Value = string.Empty, Text = "請選擇" });
+            DateTime date = DateTime.Now;
             ViewBag.date = date;
 
             return View();

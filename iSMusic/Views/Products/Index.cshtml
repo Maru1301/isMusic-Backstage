@@ -28,32 +28,32 @@
         <div class="col-xs-12">
             <div class="caption">
                 <div class="row">
-                    <div class="col-md-4">語言:@Html.DropDownList("categoryId", categories, new { @class = "form-control form-select " })</div>
-                    <div class="col-md-4">關鍵字搜尋:<input type="text" name="productName" class="form-control" value="@productName"></div>
-                    <div class="row " style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px; max-width:250px ">
-                        <input type="submit" class="btn btn-primary btn-lg" value="Search" />
+                    <div class="col-md-4">語言:@Html.DropDownList("categoryId", categories, new { @class = "form-control form-select rounded-4" })</div>
+                    <div class="col-md-4">關鍵字搜尋:<input type="text" name="productName" class="form-control rounded-4" value="@productName"></div>
+                    <div class="row " style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px; max-width:250px">
+                        <input type="submit" class="btn btn-primary disabled; max-height:50px" value="Search" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
 </form>
 
 
 
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { })
 </p>
-<table class="table">
-    <tr>
+<table class="table ">
+    <tr class="table-dark">
         <th>
             語言
         </th>
         @*<th>
-            專輯
-        </th>*@
+                專輯
+            </th>*@
         <th>
             商品名稱
         </th>
@@ -79,8 +79,8 @@
                 @Html.DisplayFor(modelItem => item.ProductCategory.categoryName)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.Album.albumName)
-            </td>*@
+                    @Html.DisplayFor(modelItem => item.Album.albumName)
+                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.productName)
             </td>
