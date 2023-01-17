@@ -20,7 +20,10 @@ namespace iSMusic
 						"~/Scripts/modernizr-*"));
 
 			bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-
+					  "~/Scripts/bootstrap.bundle.js",
+					  "~/Scripts/jquery-3.5.1.js",
+					  "~/Scripts/jquery.dataTables.min.js",
+					  "~/Scripts/dataTables.bootstrap5.min.js"));
 					  "~/Scripts/bootstrap.js",
 					  "~/Scripts/fontawesome-free-6.2.1-web/js/all.js"
 					  ));

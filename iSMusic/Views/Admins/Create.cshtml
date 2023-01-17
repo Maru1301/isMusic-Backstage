@@ -62,7 +62,7 @@
                     @Html.RadioButton(department.Value, Int32.Parse(department.Value + 1), new { @class = "radio-btn" }) 訪客
                 </div>
             </div>
-            @Html.TextBoxFor(model => model.RoleIdList, new { @class = $"form-control input{department.Value} hidden" })
+            @Html.TextBoxFor(model => model.RoleIdList, new { @class = $"form-control input{department.Value} visually-hidden" })
         }
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

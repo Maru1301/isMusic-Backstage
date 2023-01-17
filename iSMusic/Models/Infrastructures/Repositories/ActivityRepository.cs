@@ -66,6 +66,7 @@ namespace isMusic.Infrastructures.Repositories
             return _db.Activities.SingleOrDefault(x => x.id == id).ToActivityDTO();
         }
 
+
         public ActivityDTO GetByActivityName(string activityName)
         {
             return _db.Activities.SingleOrDefault(x => x.activityName == activityName).ToActivityDTO();

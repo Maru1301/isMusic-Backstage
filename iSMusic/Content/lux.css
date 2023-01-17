@@ -3713,6 +3713,7 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: space-between;
   padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
+  margin-top: 0px;
 }
 .navbar > .container,
 .navbar > .container-fluid,

@@ -16,7 +16,8 @@
     
     <div class="form-horizontal">
         <h4>ActivityCreateVM</h4>
-        <hr />
+        <hr /> 
+        <form>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.activityName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -51,9 +52,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.activityTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.activityTypeId, htmlAttributes: new { @class = "control-label col-md-2 form-label mt-4" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model =>model.activityTypeId, activities, new { @class = "form-control" })
+                @Html.DropDownListFor(model =>model.activityTypeId, activities, new { @class = "form-control " })
                 @Html.ValidationMessageFor(model => model.activityTypeId, "", new { @class = "text-danger" })
             </div>
         </div>

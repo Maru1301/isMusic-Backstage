@@ -20,6 +20,7 @@ namespace isMusic.Services.Interfaces
 
         ActivityDTO GetById(int id);
 
+
         Activity IsExistForCreate(ActivityCreateDTO entity);
 
         Activity IsExistForEdit(ActivityEditDTO entity);

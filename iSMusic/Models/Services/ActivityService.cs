@@ -52,6 +52,9 @@ namespace isMusic.Services
             _repository.Create(dto);
         }
 
+        //public ActivityDTO GetByIdForEdit(int id)
+        //    => _repository.GetByIdForEdit(id);
+
         public void Edit(ActivityEditDTO dto)
         {
 

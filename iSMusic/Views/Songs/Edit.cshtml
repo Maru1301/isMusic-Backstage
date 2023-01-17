@@ -19,9 +19,9 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-3" })
-                    <div class="col-md-9">
-                        <input type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
+                    @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input class="form-control" type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
                         @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -76,12 +76,12 @@
                     <div class="col-md-10">
                         @Html.RadioButtonFor(model => model.isInstrumental, true, new
                             {
-                                @class = "isInstrumental",
+                                @class = "isInstrumental form-check-input",
                                 id = "isInstrumentalTrue"
                             }) 是
                         @Html.RadioButtonFor(model => model.isInstrumental, false, new
                             {
-                                @class = "isInstrumental",
+                                @class = "isInstrumental form-check-input",
                                 id = "isInstrumentalFalse"
                             }) 否
                         @Html.ValidationMessageFor(model => model.isInstrumental, "", new { @class = "text-danger" })
@@ -101,12 +101,12 @@
                     <div class="col-md-10">
                         @Html.RadioButtonFor(model => model.isExplicit, true, new
                            {
-                               @class = "isExplicit",
+                               @class = "isExplicit form-check-input",
                                id = "isExplicitTrue"
                            }) 是
                         @Html.RadioButtonFor(model => model.isExplicit, false, new
                            {
-                               @class = "isExplicit",
+                               @class = "isExplicit form-check-input",
                                id = "isExplicitFalse"
                            }) 否
                         @Html.ValidationMessageFor(model => model.isExplicit, "", new { @class = "text-danger" })
@@ -133,7 +133,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.SongFile, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-9">
-                        <input type="file" name="SongFile" id="mySong" accept="audio/*" />
+                        <input class="form-control" type="file" name="SongFile" id="mySong" accept="audio/*" />
                         @Html.ValidationMessageFor(model => model.SongFile, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-2"></div>
