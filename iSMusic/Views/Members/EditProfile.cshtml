@@ -92,7 +92,7 @@
 <script>
     @if (Model.DateOfBirth.HasValue)
     {
-        @:$("#DateOfBirth").val("@Model.DateOfBirth.Value.ToString()")
+        @:$("#DateOfBirth").val("@Model.DateOfBirth.Value.ToString("yyyy-MM-dd")")
     }
 else
     {
