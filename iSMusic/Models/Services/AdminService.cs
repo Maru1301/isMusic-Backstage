@@ -1,6 +1,5 @@
 ﻿using iSMusic.Models.DTOs;
 using iSMusic.Models.EFModels;
-using iSMusic.Models.Infrastructures;
 using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
 using System;
@@ -12,133 +11,67 @@ namespace iSMusic.Models.Services
 {
 	public class AdminService
 	{
-		public IAdminRepository repository;
-
-		private Dictionary<int, string> roleName = new Dictionary<int, string>()
-		{
-			[0] = "超級使用者",
-			[1] = "訪客",
-			[2] = "編輯者",
-			[3] = "管理員",
-			[52] = "權限編輯者",
-			[53] = "權限管理員"
-		};
-
+		public IAdminRepository adminRepository;
 
 		public AdminService(IAdminRepository repo)
 		{
-			this.repository = repo;
+			adminRepository = repo;
 		}
 
-		public IEnumerable<AdminDTO> FindAll()
+		public IEnumerable<AdminDTO> Search(int? adminId, string adminAccount)
 		{
-			return repository.FindAll();
-		}
+			var admins = adminRepository.Search(adminId, adminAccount);
 
-		public Admin GetByAccount(string account)
-		{
-			return repository.GetByAccount(account);
-		}
-
-		public IEnumerable<AdminDTO> Search()
-		{
-			var admins = repository.Search().ToList();
-
-			for (int i = 0; i < admins.Count(); i++)
-			{
-				var roleIdList = admins[i].RoleIdList;
-				if (roleIdList.Contains(1))
-				{
-					admins[i].MainRoleName = roleName[0];
-				}
-				else if (roleIdList.Contains(53))
-				{
-					admins[i].MainRoleName = roleName[53];
-				}
-				else if (roleIdList.Contains(52))
-				{
-					admins[i].MainRoleName = roleName[52];
-				}
-				else
-				{
-					var mainRoleId = roleIdList.First(id => id.ToString().Contains(admins[i].departmentId.ToString()));
-
-					admins[i].MainRoleName = roleName[mainRoleId % 10];
-				}
-
-			}
-
+			//var result1 = admins.Where(x => x.Role.id == adminId).ToString().Contains("3");
+			//var result2 = admins.Where(x => x.Role.id == adminId).ToString().Substring(0, 1).Contains("5");
+			//if(result1 && result2)
+			//{
+			//    return admins;
+			//}
+			//else
+			//{
+			//    return admins.Where(x => x.Role.id ==  x.departmentId * 10 +2 );
+			//}
 			return admins;
 		}
 
-		public (bool issuccess, string errormessage) CreateNewAdmin(AdminDTO dto)
+		public (bool, string) adminCreate(AdminDTO dto)
 		{
-			if (repository.IsExisted(dto.adminAccount))
+			if (adminRepository.IsExisted(dto.adminAccount))
 			{
 				return (false, "帳號已存在");
 			}
+			adminRepository.adminCreate(dto);
 
-			if (dto.RoleIdList.All(x => x == 0))
-			{
-				return (false, "未選擇權限");
-			}
+			var admindata = adminRepository.Load(dto.adminAccount);
 
-			//Permissions of others departments cannot be higher than the main department permission => todo
-			var otherDepartmentRoleIdList = dto.RoleIdList.Where(Id => Id / 10 != dto.departmentId);
-			var mainDepartmentRoleId = dto.RoleIdList.SingleOrDefault(single => single / 10 == dto.departmentId);
-
-			if (mainDepartmentRoleId == 0)
-			{
-				return (false, "未選擇主部門權限");
-			}
-
-			if (otherDepartmentRoleIdList.Any(Id => (Id % 10) > (mainDepartmentRoleId % 10)))
-			{
-				return (false, "其他部門權限不得大於主部門權限");
-			}
-
-			repository.Create(dto);
-
-			var admindata = repository.Load(dto.adminAccount);
-
-			repository.CreateMetadata(admindata.id, dto.RoleIdList.ToList());
+			adminRepository.roleMedataCreate(admindata.id, dto.roleIdList.ToList());
 
 			return (true, null);
 		}
 
-		public string GetNewAccount()
+		public AdminDTO GetByAccount(string account)
+		 => adminRepository.GetByAccount(account);
+
+		public AdminDTO GetById(int id)
+		 => adminRepository.GetById(id);
+
+		public void Edit(AdminDTO dto)
 		{
-			var lastAccount = repository.GetLastDefaultAccount();
-			string result = "iSMusic";
+			//if (adminRepository.IsExisted(dto.adminAccount)) throw new Exception("此帳號已存在");
 
-			if (lastAccount == null)
-			{
-				result += "0001";
-			}
-			else
-			{
-				var number = int.Parse(lastAccount.Substring(7));
-				number++;
-				result += number.ToString().PadLeft(4, '0'); ;
-			}
+			adminRepository.Edit(dto);
+			var admindata = adminRepository.Load(dto.adminAccount);
 
-			return result;
+			adminRepository.roleMedataEdit(admindata.id, dto.roleIdList.ToList());
 		}
 
-		public (bool issuccess, string errormessage) Login(string account, string password)
+		public void Delete(AdminDTO dto)
 		{
-			Admin admin = repository.Load(account);
+			var admindata = adminRepository.Load(dto.adminAccount);
+			adminRepository.roleDelete(admindata.id);
 
-			if (admin == null)
-			{
-				return (false, "帳密有誤");
-			}
-
-			string encryptedPwd = HashUtility.ToSHA256(password, Admin.SALT);
-
-			return (String.CompareOrdinal(admin.adminEncryptedPassword, encryptedPwd) == 0)
-				? (true, string.Empty)
-				: (false, "帳密有誤");
+			adminRepository.Delete(dto.adminAccount);
 		}
 	}
 }

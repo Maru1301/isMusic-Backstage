@@ -16,7 +16,7 @@ namespace isMusic.Models.DTOs
 
     public static class AdminDTOExts
     {
-        public static AdminEntity ToAdminDTO(this Admin source)
+        public static AdminEntity ToAdminEntity(this Admin source)
         {
             return new AdminEntity
             {

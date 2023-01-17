@@ -1,6 +1,5 @@
 ﻿using iSMusic.Models.DTOs;
 using iSMusic.Models.EFModels;
-using iSMusic.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +10,31 @@ namespace iSMusic.Models.Services.Interfaces
 {
 	public interface IAdminRepository
 	{
-		IEnumerable<AdminDTO> FindAll();
-
-		Admin GetByAccount(string account);
-
-		IEnumerable<AdminDTO> Search(string adminAccount = null);
-
-		Admin Load(string account);
+		IEnumerable<AdminDTO> Search(int? activityId, string activityName);
 
 		bool IsExisted(string account);
 
-		void Create(AdminDTO dto);
+		void adminCreate(AdminDTO dto);
 
-		string GetLastDefaultAccount();
+		void roleMedataCreate(int adminId, List<int> roleIdList);
 
-		void CreateMetadata(int adminId, List<int> roleIdList);
+		AdminDTO GetById(int id);
+
+		AdminDTO GetByAccount(string account);
+
+		void Edit(AdminDTO dto);
+
+		void roleMedataEdit(int adminId, List<int> roleIdList);
+
+		Admin Load(string account);
+
+
+		void Delete(string adminAccount);
+
+		int FindAdminId(string adminAccount);
+
+		void roleDelete(int adminId);
+
+
 	}
 }

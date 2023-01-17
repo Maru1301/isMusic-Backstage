@@ -1,6 +1,8 @@
-﻿using iSMusic.Models.Infrastructures;
+﻿using iSMusic.Models.EFModels;
+using iSMusic.Models.Infrastructures;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,15 +10,15 @@ namespace iSMusic.Models.DTOs
 {
 	public class AdminDTO
 	{
-		private string SALT = "!@#$%^*AWRH()&%^";
+		public static string SALT = "!@#$%^*AWRH()&%^";
 
-		public int Id { get; set; }
+		public int id { get; set; }
+
+		public string adminAccount { get; set; }
 
 		public int departmentId { get; set; }
 
-		public string DepartmentName { get; set; }
-
-		public string adminAccount { get; set; }
+		public string departmentName { get; set; }
 
 		public string Password { get; set; }
 
@@ -30,8 +32,12 @@ namespace iSMusic.Models.DTOs
 			}
 		}
 
-		public IEnumerable<int> RoleIdList { get; set; }
+		public virtual Admin Admin { get; set; }
 
-		public string MainRoleName { get; set; }
+		public virtual Role Role { get; set; }
+
+		public virtual Department Department { get; set; }
+
+		public IEnumerable<int> roleIdList { get; set; }
 	}
 }

@@ -1,5 +1,6 @@
 ﻿
 using iSMusic.Models.EFModels;
+using iSMusic.Models.Infrastructures.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -52,7 +53,7 @@ namespace isMusic.Models.DTOs
                 activityImagePath = source.activityImagePath,
                 member = source.Member.ToMemeberDTO(),
                 publishedStatus = source.publishedStatus,
-                admin = source.Admin.ToAdminDTO(),
+                admin = source.Admin.ToAdminEntity(),
             };
         }
 
