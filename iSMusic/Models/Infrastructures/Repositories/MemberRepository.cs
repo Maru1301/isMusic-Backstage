@@ -47,15 +47,17 @@ namespace iSMusic.Models.Infrastructures.Repositories
 		}
 		public MemberDTO GetByAccount(string Account)
 		{
-			return db.Members
-				.SingleOrDefault(x => x.memberAccount == Account)
-				.ToDTO();
+			var data = db.Members
+				.SingleOrDefault(x => x.memberAccount == Account);
+
+			return data.ToDTO();
 		}
 		public MemberDTO GetById(int Id)
 		{
-			return db.Members
-				.SingleOrDefault(x => x.id == Id)
-				.ToDTO();
+			var data = db.Members
+				.SingleOrDefault(x => x.id == Id);
+
+			return data.ToDTO();
 		}
 		public void Update(MemberDTO entity)
 		{
