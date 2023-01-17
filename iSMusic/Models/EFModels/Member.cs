@@ -37,6 +37,7 @@ namespace iSMusic.Models.EFModels
             avatarId = 1;
         }
 
+        [Display(Name ="≠q¡ §H")]
         public int id { get; set; }
 
         [Required]
