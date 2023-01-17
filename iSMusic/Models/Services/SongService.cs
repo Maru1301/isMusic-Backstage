@@ -21,7 +21,7 @@ namespace iSMusic.Models.Services
 		public SongService(ISongRepository repo)
 		{
 			repository = repo;
-			pageSize = 20;
+			pageSize = 2;
 		}
 
 		public List<SongIndexVM> Index()
@@ -126,7 +126,7 @@ namespace iSMusic.Models.Services
 				dto.status = true;
 			}
 
-			dto.timeOfPlay = 0;
+			dto.timesOfPlay = 0;
 
 			//create new song data in the database
 			repository.AddNewSong(dto);
@@ -189,7 +189,7 @@ namespace iSMusic.Models.Services
 			}
 
 			dto.status = song.status;
-			dto.timeOfPlay = song.timesOfPlay;
+			dto.timesOfPlay = song.timesOfPlay;
 
 			//create new song data in the database
 			repository.EditSong(dto);
@@ -235,7 +235,7 @@ namespace iSMusic.Models.Services
 				metadataRepository.DeleteMetadata(dto.id, artistId);
 			}
 			
-			repository.DeleteSong(song.ToDTO());
+			repository.DeleteSong(song);
 		}
 
 		private bool IsInAlbum(int id)

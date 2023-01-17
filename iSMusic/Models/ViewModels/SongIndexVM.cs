@@ -40,6 +40,9 @@ namespace iSMusic.Models.ViewModels
 
 		public string songPath { get; set; }
 
+		[Display(Name = "播放次數")]
+		public int timesOfPlay { get; set; }
+
 		public bool status { get; set; }
 
 		public virtual ICollection<Song_Artist_Metadata> Song_Artist_Metadata { get; set; }
@@ -62,6 +65,7 @@ namespace iSMusic.Models.ViewModels
 				released= source.released,
 				songWriter = source.songWriter,
 				songPath = "/Uploads/Songs/" + source.songPath,
+				timesOfPlay = source.timesOfPlay,
 				status = source.status,
 			};
 		}

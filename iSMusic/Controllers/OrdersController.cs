@@ -11,6 +11,7 @@ using System.Xml;
 using iSMusic.Models.EFModels;
 using iSMusic.Models.ViewModels;
 using Microsoft.Ajax.Utilities;
+using X.PagedList;
 
 namespace iSMusic.Controllers
 {
@@ -18,31 +19,73 @@ namespace iSMusic.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
-        
-    
 
-        // GET: Orders
         //public ActionResult Index()
         //{
-        //    var orders = db.Orders.Include(o => o.Coupon).Include(o => o.Member);
+        //    var orders = db.Orders.Include(o => o.Coupon).Include(o => o.Member).ToList().Select(x => new OrderIndexVM
+        //    {
+        //        id = x.id,
+        //        memberNickName = x.Member.memberNickName,
+        //        //memberId = x.memberId,
+        //        //paymentName = PaymentList[x.payments-2],
+        //        paymentName = x.PaymentList[x.payments-1],
+        //        orderStatus = x.orderStatus,
+        //        paid = x.paid,
+        //        created = x.created,
+        //        receiver = x.receiver,
+        //    });
         //    return View(orders.ToList());
         //}
-        public ActionResult Index()
+
+        public ActionResult Index(int? payments, string memberNickName, int pageNumber = 1)
         {
-            var orders = db.Orders.Include(o => o.Coupon).Include(o => o.Member).ToList().Select(x => new OrderIndexVM
-            {
-                id = x.id,
-                memberNickName = x.Member.memberNickName,
-                //memberId = x.memberId,
-                //paymentName = PaymentList[x.payments-2],
-                paymentName = x.PaymentList[x.payments-1],
-                orderStatus = x.orderStatus,
-                paid = x.paid,
-                created = x.created,
-                receiver = x.receiver,
-            });
-            return View(orders.ToList());
+            var paymentlist = new Order().PaymentList;   //這要改成 讓下面呼叫
+
+            pageNumber = pageNumber > 0 ? pageNumber : 1;
+
+            ViewBag.Categories = GetCategories(payments); //如果要改變數名稱也要改  目前有抓到值 但是是抓錯資料  
+            ViewBag.memberNickName = memberNickName;
+
+
+
+            IPagedList<Order> pagedData = GetPagedProducts(payments, memberNickName, pageNumber);
+            return View(pagedData);
+
         }
+
+        private IEnumerable<SelectListItem> GetCategories(int? payments)
+        {
+            string pay = payments.ToString();
+
+            var items = db.Orders
+                .Select(c => new SelectListItem
+                { Value = c.id.ToString(), Text = pay, Selected = (payments.HasValue && c.id == payments.Value) })
+                .ToList()
+                .Prepend(new SelectListItem { Value = string.Empty, Text = "請選擇" });
+
+            return items;
+        }
+
+
+
+        private IPagedList<Order> GetPagedProducts(int? payments, string memberNickName, int pageNumber)
+        {
+            int pageSize = 3;
+
+            var query = db.Orders.Include(x => x.Member);
+
+            // 若有篩選categoryid
+            if (payments.HasValue) query = query.Where(p => p.payments == payments.Value);
+
+            // 若有篩選 productName
+            if (string.IsNullOrEmpty(memberNickName) == false) query = query.Where(p => p.Member.memberNickName.Contains(memberNickName));
+
+            query = query.OrderBy(x => x.Member.memberNickName);
+            return query.ToPagedList(pageNumber, pageSize);
+        }
+
+
+
 
         //public ActionResult Order_Product_Metadata()
         //{

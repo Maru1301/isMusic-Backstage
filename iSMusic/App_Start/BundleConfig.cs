@@ -24,11 +24,17 @@ namespace iSMusic
 					  "~/Scripts/jquery-3.5.1.js",
 					  "~/Scripts/jquery.dataTables.min.js",
 					  "~/Scripts/dataTables.bootstrap5.min.js"));
+					  "~/Scripts/bootstrap.js",
+					  "~/Scripts/fontawesome-free-6.2.1-web/js/all.js"
+					  ));
 
-			bundles.Add(new StyleBundle("~/Content/css").Include(
+			bundles.Add(new Bundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/lux.css"));
+					  "~/Content/bootstrap.min.css",
+					  "~/Content/lux.css",
+					  "~/Content/fontawesome-free-6.2.1-web/css/all.css",
+					  "~/Content/site.css"
+					  ));
 		}
 	}
 }

@@ -29,8 +29,10 @@ namespace iSMusic.Models.ViewModels
         [Display(Name = "付款方式")]
         public string payments { get; set; }
 
+        [Display(Name = "訂單狀態")]
         public bool orderStatus { get; set; }
 
+        [Display(Name = "付款狀態")]
         public bool paid { get; set; }
 
         [Column(TypeName = "date")]

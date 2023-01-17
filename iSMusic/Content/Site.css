@@ -46,3 +46,12 @@ textarea {
 #dataTable thead {
 
 }
+
+.mt-120px{
+    margin-top: 120px;
+}
+
+.orange-btn {
+    background-color: #F68657;
+    color: white;
+}
