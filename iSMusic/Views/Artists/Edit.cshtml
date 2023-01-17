@@ -30,16 +30,16 @@
                     @Html.LabelFor(model => model.isBand, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-9">
                         @Html.RadioButtonFor(model => model.isBand, true, new
-                        {
-                            id = "BandTrueValue",
-                            @class = "btn band"
-                        }) 樂團
+                   {
+                       id = "BandTrueValue",
+                       @class = "band form-check-input"
+                   }) 樂團
 
                         @Html.RadioButtonFor(model => model.isBand, false, new
-                        {
-                            id = "BandFalseValue",
-                            @class = "btn band"
-                        }) 單人
+                   {
+                       id = "BandFalseValue",
+                       @class = "band form-check-input"
+                   }) 單人
                         @Html.ValidationMessageFor(model => model.isBand, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -48,16 +48,16 @@
                     @Html.LabelFor(model => model.artistGender, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-9">
                         @Html.RadioButtonFor(model => model.artistGender, true, new
-                        {
-                            id = "GenderTrueValue",
-                            @class = "btn gender"
-                        }) 男
+                   {
+                       id = "GenderTrueValue",
+                       @class = "gender form-check-input"
+                   }) 男
 
                         @Html.RadioButtonFor(model => model.artistGender, false, new
-                        {
-                            id = "GenderFalseValue",
-                            @class = "btn gender"
-                        }) 女
+                   {
+                       id = "GenderFalseValue",
+                       @class = "gender form-check-input"
+                   }) 女
                         @Html.ValidationMessageFor(model => model.artistGender, "", new { @class = "text-danger" })
                     </div>
                 </div>
