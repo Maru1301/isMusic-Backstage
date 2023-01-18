@@ -223,7 +223,7 @@
             //刪除鍵
             $(".delete").unbind().click(function () {
                  var entryId = $(this).val();
-            if (confirm("Are you sure you want to delete?"))
+            if (confirm("您確定是否要刪除?"))
             {
             var selected = $(this).parents("tr").addClass("selected");
             $.ajax(

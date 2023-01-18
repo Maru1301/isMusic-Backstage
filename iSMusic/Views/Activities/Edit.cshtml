@@ -14,100 +14,104 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>ActivityEditVM</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
+<form>
+    <fieldset>
+        <legend class="visually-hidden">活動表格</legend>
+        <div class="d-flex">
+            <div class="form-horizontal col-6">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.activityName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.activityName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.activityName, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.activityName, htmlAttributes: new { @class = "form-label mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.activityName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.activityName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.activityStartTime, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.activityStartTime, "DateTimePicker", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.activityStartTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.activityEndTime, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.activityEndTime, "DateTimePicker", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.activityEndTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.activityLocation, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.activityLocation, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.activityLocation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.activityTypeId, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.activityTypeId, activities, new { @class = "form-control " })
+                        @Html.ValidationMessageFor(model => model.activityTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="col-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.activityInfo, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.activityInfo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.activityInfo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.activityStartTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.activityStartTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.activityStartTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.activityOrganizerId, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.activityOrganizerId, members, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.activityOrganizerId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.activityEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.activityEndTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.activityEndTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.activityImagePath, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.activityImagePath, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.activityImagePath, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.activityLocation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.activityLocation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.activityLocation, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group d-flex mt-5">
+                    @Html.LabelFor(model => model.publishedStatus, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10 margin-top-16px">
+                        <div class="checkbox w-100 ms-3 margin-top-16px">
+                            @Html.CheckBoxFor(model => model.publishedStatus, new { htmlAttributes = new { @class = "form-control checkbox-size" } })
+                            @Html.ValidationMessageFor(model => model.publishedStatus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.activityTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.activityTypeId, activities, new { @class = "form-control" } )
-                @Html.ValidationMessageFor(model => model.activityTypeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.activityInfo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.activityInfo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.activityInfo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.activityOrganizerId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.activityOrganizerId, members, new { @class = "form-control" } )
-                @Html.ValidationMessageFor(model => model.activityOrganizerId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.activityImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.activityImagePath, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.activityImagePath, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.publishedStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.publishedStatus)
-                    @Html.ValidationMessageFor(model => model.publishedStatus, "", new { @class = "text-danger" })
+                <div class="form-group mt-3">
+                    @Html.LabelFor(model => model.checkedById, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.checkedById, admins, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.checkedById, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.checkedById, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.checkedById, admins, new { @class = "form-control" } )
-                @Html.ValidationMessageFor(model => model.checkedById, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
+        <div class="form-group d-block m-5 ms-auto">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-outline-secondary" />
             </div>
         </div>
-    </div>
+    </fieldset>
+</form>
 }
 
 <div>

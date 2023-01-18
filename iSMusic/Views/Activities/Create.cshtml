@@ -17,8 +17,8 @@
 <form>
     <fieldset>
         <legend class="visually-hidden">活動表格</legend>
-        <div>
-            <div class="form-horizontal">
+        <div class="d-flex">
+            <div class="form-horizontal col-6">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="form-group">
@@ -60,8 +60,8 @@
                         @Html.ValidationMessageFor(model => model.activityTypeId, "", new { @class = "text-danger" })
                     </div>
                 </div>
-           </div>
-            <div>
+            </div>
+            <div class="col-6">
                 <div class="form-group">
                     @Html.LabelFor(model => model.activityInfo, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
                     <div class="col-md-10">
@@ -86,9 +86,9 @@
                     </div>
                 </div>
 
-                <div class="form-group d-flex ">
+                <div class="form-group d-flex mt-5">
                     @Html.LabelFor(model => model.publishedStatus, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
-                    <div class="col-md-10">
+                    <div class="col-md-10 margin-top-16px">
                         <div class="checkbox w-100 ms-3 margin-top-16px">
                             @Html.CheckBoxFor(model => model.publishedStatus, new { htmlAttributes = new { @class = "form-control checkbox-size" } })
                             @Html.ValidationMessageFor(model => model.publishedStatus, "", new { @class = "text-danger" })
@@ -96,7 +96,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-3">
                     @Html.LabelFor(model => model.checkedById, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.checkedById, admins, new { @class = "form-control" })
@@ -104,20 +104,19 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+        </div>
+        <div class="form-group d-block m-5 ms-auto">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-outline-secondary" />
             </div>
-
         </div>
     </fieldset>
 </form>
  }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
