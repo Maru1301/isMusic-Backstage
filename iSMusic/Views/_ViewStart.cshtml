@@ -1,7 +1,7 @@
 ﻿@{
     string CurrentName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
 
-    if(CurrentName == "Songs" || CurrentName == "Artists" || CurrentName == "SongGenres" || CurrentName == "Albums" || CurrentName == "Creators")
+    if (CurrentName == "Songs" || CurrentName == "Artists" || CurrentName == "SongGenres" || CurrentName == "Albums" || CurrentName == "Creators")
     {
         Layout = "~/Views/Shared/_SongLayout.cshtml";
     }
@@ -9,7 +9,17 @@
     {
         Layout = "~/Views/Shared/_ProductLayout.cshtml";
     }
-    else
+    else if (CurrentName == "Activities")
+    {
+        Layout = "/Views/Shared/_ActivityLayout.cshtml";
+    }
+    else if (CurrentName == "Admins")
+    {
+        Layout = "/Views/Shared/_AdminLayout.cshtml";
+    }else if (CurrentName == "Members")
+    {
+        Layout = "/Views/Shared/_MemberLayout.cshtml";
+    }else
     {
         Layout = "/Views/Shared/_Layout.cshtml";
     }

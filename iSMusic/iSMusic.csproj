@@ -571,6 +571,9 @@
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Admins\Delete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTimePicker2.cshtml" />
+    <Content Include="Views\Shared\_ActivityLayout.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Shared\_MemberLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

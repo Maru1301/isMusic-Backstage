@@ -85,6 +85,17 @@ textarea {
 }
 
 .margin-left{
-    margin-left: 100px;
+    margin-left: 80px;
 }
 
+.nav-bgc {
+    background-color: #1f1f1f !important;
+}
+
+.theme-color{
+    color: #f6b352;
+}
+
+.white{
+    color: white;
+}

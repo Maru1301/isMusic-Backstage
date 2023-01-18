@@ -19,10 +19,6 @@ namespace iSMusic.Models.ViewModels
 		[Display(Name = "帳號")]
 		public string adminAccount { get; set; }
 
-		[Required]
-		[Display(Name = "身分")]
-		public string roleName { get; set; }
-
 		public IEnumerable<int> roleIdList { get; set; }
 	}
 }
