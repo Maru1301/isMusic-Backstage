@@ -63,7 +63,6 @@ namespace isMusic.Controllers
                 ViewBag.activityType = new SelectList(db.ActivityTypes, "id", "typeName");
                 ViewBag.checkedById = new SelectList(db.Admins, "id", "adminAccount");
                 ViewBag.activityOrganizerId = new SelectList(db.Members, "id", "memberAccount");
-                string selectedValue = Request.Form["MyDropdown"];
 
                 activityService.Create(model.ToActivityCreateDTO());
             }
@@ -142,7 +141,6 @@ namespace isMusic.Controllers
             }
 
             return View();
-            //
         }
     }
 }
