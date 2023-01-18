@@ -51,6 +51,8 @@ textarea {
     margin-top: 120px;
 }
 
+
+
 .orange-btn {
     background-color: #F68657;
     color: white;
@@ -69,3 +71,20 @@ textarea {
 .fs-14px{
     font-size: 14px !important;
 }
+
+.fs-12px {
+    font-size: 12px !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+.pagination:focus{
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.margin-left{
+    margin-left: 100px;
+}
+
