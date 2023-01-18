@@ -4,7 +4,7 @@
     ViewBag.Title = "EditProfile";
 }
 
-<h2>EditProfile</h2>
+<h2>修改個人資料</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>EditProfileVM</h4>
+        <h4> </h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -92,7 +92,7 @@
 <script>
     @if (Model.DateOfBirth.HasValue)
     {
-        @:$("#DateOfBirth").val("@Model.DateOfBirth.Value.ToString("yyyy-MM-dd")")
+        @:$("#DateOfBirth").val("@Model.DateOfBirth.Value.ToString("yyyy-MM-dd")")  
     }
 else
     {
