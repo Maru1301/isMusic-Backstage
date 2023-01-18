@@ -99,3 +99,11 @@ textarea {
 .white{
     color: white;
 }
+
+.checkbox input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+.margin-top-16px{
+    margin-top: 27px;
+}
