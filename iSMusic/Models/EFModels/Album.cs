@@ -29,6 +29,8 @@ namespace iSMusic.Models.EFModels
 
         public int albumTypeId { get; set; }
 
+        public int albumGenreId { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime released { get; set; }
 
@@ -44,6 +46,8 @@ namespace iSMusic.Models.EFModels
         public virtual AlbumType AlbumType { get; set; }
 
         public virtual Artist Artist { get; set; }
+
+        public virtual SongGenre SongGenre { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Library_Album_Metadata> Library_Album_Metadata { get; set; }

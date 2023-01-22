@@ -16,6 +16,9 @@ namespace iSMusic.Models.EFModels
 
         public int displayOrder { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime addedTime { get; set; }
+
         public virtual Song Song { get; set; }
 
         public virtual Playlist Playlist { get; set; }

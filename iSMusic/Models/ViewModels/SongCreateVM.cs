@@ -39,11 +39,9 @@ namespace iSMusic.Models.ViewModels
 		[Display(Name = "純音樂")]
 		public bool isInstrumental { get; set; }
 
-		[Required]
 		[Display(Name = "語言")]
 		public string language { get; set; }
 
-		[Required]
 		[Display(Name = "敏感字詞")]
 		public bool? isExplicit { get; set; }
 
@@ -51,7 +49,6 @@ namespace iSMusic.Models.ViewModels
 		[Display(Name = "上架日期")]
 		public DateTime released { get; set; }
 
-		[Required]
 		[StringLength(50)]
 		[Display(Name = "作曲/作詞")]
 		public string songWriter { get; set; }

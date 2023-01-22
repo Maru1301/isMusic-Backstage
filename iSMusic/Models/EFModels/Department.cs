@@ -5,6 +5,7 @@ namespace iSMusic.Models.EFModels
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     public partial class Department
     {
@@ -22,11 +23,9 @@ namespace iSMusic.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Admin> Admins { get; set; }
-
-		public IEnumerable<Department> GetAll()
-		{
-			var db = new AppDbContext();
-			return db.Departments;
-		}
-	}
+        public IEnumerable<Department> GetAll()
+        {
+            return new AppDbContext().Departments.AsEnumerable();
+        }
+    }
 }

@@ -18,7 +18,6 @@ namespace iSMusic.Models.EFModels
             CensorSongs = new HashSet<CensorSong>();
             CensorTags = new HashSet<CensorTag>();
         }
-
 		public static string SALT = "!@#$%^*AWRH()&%^";
 
 		public int id { get; set; }

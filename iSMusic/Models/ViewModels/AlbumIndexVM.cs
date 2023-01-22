@@ -18,6 +18,9 @@ namespace iSMusic.Models.ViewModels
 		[Display(Name = "專輯類型")]
 		public string typeName { get; set; }
 
+		[Display(Name = "專輯音樂種類")]
+		public string albumGenreName { get; set; }
+
 		[Display(Name = "發行時間")]
 		[DataType(DataType.Date)]
 		public DateTime released { get; set; }

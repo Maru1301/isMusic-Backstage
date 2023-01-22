@@ -25,9 +25,10 @@ namespace iSMusic.Models.Services
 
 		public void AddNewAlbum(string coverPath, AlbumDTO dto)
 		{
-			if (dto.songIdList == null) throw new Exception("No artist is chosen");
+			if (ExistDupSong(dto.songIdList) == true) throw new Exception("專輯內有重複歌曲");
+			if (dto.songIdList == null) throw new Exception("未選中演出者");
 			//check if the song has existed in the database
-			if (repository.Search(dto) != null) throw new Exception("Album has existed");
+			if (repository.Search(dto) != null) throw new Exception("專輯已存在");
 
 			// Upload cover
 			if (dto.CoverFile == null || string.IsNullOrEmpty(dto.CoverFile.FileName) || dto.CoverFile.ContentLength == 0)
@@ -61,6 +62,7 @@ namespace iSMusic.Models.Services
 		{
 			var album = repository.FindById(dto.id);
 			if (ExistDupSong(dto.songIdList) == true) throw new Exception("專輯內有重複歌曲");
+			if (dto.songIdList == null) throw new Exception("未選中演出者");
 			if (repository.Search(dto, dto.id) != null) throw new Exception("擁有相同資料的專輯已存在");
 
 			if (dto.CoverFile == null || string.IsNullOrEmpty(dto.CoverFile.FileName) || dto.CoverFile.ContentLength == 0)

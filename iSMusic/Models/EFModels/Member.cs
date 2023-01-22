@@ -34,11 +34,10 @@ namespace iSMusic.Models.EFModels
             Orders = new HashSet<Order>();
             SubscriptionRecords = new HashSet<SubscriptionRecord>();
             TagPunishments = new HashSet<TagPunishment>();
-            avatarId = 1;
-        }
-
-        [Display(Name ="≠q¡ §H")]
-        public int id { get; set; }
+			avatarId = 1;
+		}
+		[Display(Name = "≠q¡ §H")]
+		public int id { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -65,7 +64,7 @@ namespace iSMusic.Models.EFModels
         [Column(TypeName = "date")]
         public DateTime? memberDateOfBirth { get; set; }
 
-        public int avatarId { get; set; }
+        public int? avatarId { get; set; }
 
         public bool memberReceivedMessage { get; set; }
 

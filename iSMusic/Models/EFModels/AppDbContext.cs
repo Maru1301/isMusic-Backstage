@@ -171,11 +171,6 @@ namespace iSMusic.Models.EFModels
 				.WithRequired(e => e.Artist)
 				.WillCascadeOnDelete(false);
 
-			modelBuilder.Entity<Avatar>()
-				.HasMany(e => e.Members)
-				.WithRequired(e => e.Avatar)
-				.WillCascadeOnDelete(false);
-
 			modelBuilder.Entity<Cart>()
 				.HasMany(e => e.CartItems)
 				.WithRequired(e => e.Cart)
@@ -465,10 +460,6 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Queue>()
-				.Property(e => e.currentSongTime)
-				.IsFixedLength();
-
-			modelBuilder.Entity<Queue>()
 				.HasMany(e => e.QueueSongs)
 				.WithRequired(e => e.Queue)
 				.WillCascadeOnDelete(false);
@@ -476,6 +467,12 @@ namespace iSMusic.Models.EFModels
 			modelBuilder.Entity<Role>()
 				.HasMany(e => e.Admin_Role_Metadata)
 				.WithRequired(e => e.Role)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<SongGenre>()
+				.HasMany(e => e.Albums)
+				.WithRequired(e => e.SongGenre)
+				.HasForeignKey(e => e.albumGenreId)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<SongGenre>()

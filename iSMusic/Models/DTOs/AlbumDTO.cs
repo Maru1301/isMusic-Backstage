@@ -18,6 +18,8 @@ namespace iSMusic.Models.DTOs
 
 		public int typeId { get; set; }
 
+		public int GenreId { get; set; }
+
 		public DateTime released { get; set; }
 
 		public string description { get; set; }

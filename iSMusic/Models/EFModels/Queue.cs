@@ -22,10 +22,11 @@ namespace iSMusic.Models.EFModels
 
         public int currentSongId { get; set; }
 
-        [Column(TypeName = "timestamp")]
-        [MaxLength(8)]
-        [Timestamp]
-        public byte[] currentSongTime { get; set; }
+        public int currentSongTime { get; set; }
+
+        public bool isShuffle { get; set; }
+
+        public bool isRepeat { get; set; }
 
         public virtual Song Song { get; set; }
 

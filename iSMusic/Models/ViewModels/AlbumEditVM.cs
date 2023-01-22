@@ -17,6 +17,9 @@ namespace iSMusic.Models.ViewModels
 		[Display(Name = "專輯類別*")]
 		public int typeId { get; set; }
 
+		[Display(Name = "專輯音樂種類")]
+		public int albumGenreId { get; set; }
+
 		[Required]
 		[StringLength(50)]
 		[Display(Name = "專輯名稱*")]

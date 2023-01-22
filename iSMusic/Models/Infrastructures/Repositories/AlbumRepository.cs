@@ -39,6 +39,7 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				id = a.id,
 				typeId = a.albumTypeId,
 				albumName = a.albumName,
+				albumGenreId= a.albumGenreId,
 				albumCoverPath = a.albumCoverPath,
 				released = a.released,
 				description = a.description,
@@ -69,14 +70,15 @@ namespace iSMusic.Models.Infrastructures.Repositories
 
 		public IQueryable<AlbumIndexVM> GetQuery()
 		{
-			return db.Albums.Include("Artist").Select(a=> new AlbumIndexVM
+			return db.Albums.Include("Artist").Include("SongGenre").Select(a=> new AlbumIndexVM
 			{
 				id = a.id,
 				albumName = a.albumName,
 				released= a.released,
 				mainArtistName = a.Artist.artistName,
 				typeName = a.AlbumType.typeName,
-				albumTypeId = a.albumTypeId
+				albumTypeId = a.albumTypeId,
+				albumGenreName = a.SongGenre.genreName
 			});
 		}
 

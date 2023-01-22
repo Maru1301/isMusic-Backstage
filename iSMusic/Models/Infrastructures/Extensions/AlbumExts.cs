@@ -16,11 +16,12 @@ namespace iSMusic.Models.Infrastructures.Extensions
 			{
 				albumName = source.albumName,
 				typeId= source.typeId,
+				GenreId = source.albumGenreId,
 				songIdList = source.songIdList,
 				description = source.description,
 				mainArtistId = source.mainArtistId,
 				released = source.released,
-				CoverFile = source.CoverFile
+				CoverFile = source.CoverFile,
 			};
 		}
 
@@ -31,6 +32,7 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				id = source.id,
 				albumName = source.albumName,
 				typeId = source.typeId,
+				GenreId = source.albumGenreId,
 				songIdList = source.songIdList,
 				description = source.description,
 				mainArtistId = source.mainArtistId,
@@ -46,6 +48,7 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				id = source.id,
 				albumName = source.albumName,
 				albumTypeId = source.typeId,
+				albumGenreId = source.GenreId,
 				albumCoverPath = source.albumCoverPath,
 				released = source.released,
 				description = source.description,

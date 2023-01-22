@@ -84,6 +84,8 @@ namespace iSMusic.Controllers
 			};
 			ViewBag.TypeList = typeList;
 
+			ViewBag.albumGenreId = new SelectList(new AppDbContext().SongGenres, "id", "genreName").Prepend(new SelectListItem() { Text="請選擇", Value=string.Empty});
+
 			return View();
 		}
 
@@ -107,6 +109,24 @@ namespace iSMusic.Controllers
 			{
 				return RedirectToAction("Index");
 			}
+			ViewBag.ArtistList = GetArtistList();
+
+			var songList = new List<SelectListItem>()
+			{
+				new SelectListItem{Text = "請選擇", Value = string.Empty}
+			};
+			ViewBag.SongList = songList;
+
+			var typeList = new List<SelectListItem>()
+			{
+				new SelectListItem{Text = "請選擇", Value = string.Empty},
+				new SelectListItem{Text = "專輯", Value = "1"},
+				new SelectListItem{Text = "EP", Value = "2"},
+				new SelectListItem{Text = "單曲", Value = "3"}
+			};
+			ViewBag.TypeList = typeList;
+
+			ViewBag.albumGenreId = new SelectList(new AppDbContext().SongGenres, "id", "genreName").Prepend(new SelectListItem() { Text = "請選擇", Value = string.Empty });
 
 			return View(model);
 		}
@@ -125,14 +145,8 @@ namespace iSMusic.Controllers
 			};
 			ViewBag.SongList = songList;
 
-			var typeList = new List<SelectListItem>()
-			{
-				new SelectListItem{Text = "請選擇", Value = string.Empty},
-				new SelectListItem{Text = "專輯", Value = "1"},
-				new SelectListItem{Text = "EP", Value = "2"},
-				new SelectListItem{Text = "單曲", Value = "3"}
-			};
 			ViewBag.typeId = new SelectList(new AppDbContext().AlbumTypes, "id", "typeName", data.typeId);
+			ViewBag.albumGenreId = new SelectList(new AppDbContext().SongGenres, "id", "genreName", data.albumGenreId);
 
 			return View(data);
 		}
@@ -164,6 +178,9 @@ namespace iSMusic.Controllers
 			{
 				new SelectListItem{Text = "請選擇", Value = string.Empty}
 			};
+
+			ViewBag.typeId = new SelectList(new AppDbContext().AlbumTypes, "id", "typeName", model.typeId);
+			ViewBag.albumGenreId = new SelectList(new AppDbContext().SongGenres, "id", "genreName", model.albumGenreId);
 
 			ViewBag.SongList = songList;
 
