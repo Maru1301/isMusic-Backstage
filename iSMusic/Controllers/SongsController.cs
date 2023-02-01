@@ -206,6 +206,7 @@ namespace iSMusic.Controllers
 		[HttpPost]
 		public ActionResult Edit(SongEditVM model)
 		{
+			
 			var service = new SongService(repository);
 			try
 			{
@@ -241,8 +242,8 @@ namespace iSMusic.Controllers
 
 		// POST: Songs/Delete/5
 		[HttpPost]
-		public ActionResult Delete(SongEditVM model)
-		{
+		public ActionResult Delete(SongDeleteVM model)
+		{			
 			var service = new SongService(repository);
 			try
 			{

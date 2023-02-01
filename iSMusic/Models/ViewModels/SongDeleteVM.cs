@@ -11,6 +11,7 @@ namespace iSMusic.Models.ViewModels
 	{
 		public int id { get; set; }
 
+		[Required]
 		[Display(Name = "歌曲名稱")]
 		public string SongName { get; set; }
 
