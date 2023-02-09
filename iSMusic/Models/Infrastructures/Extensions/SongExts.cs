@@ -67,6 +67,20 @@ namespace iSMusic.Models.Infrastructures.Extensions
 			};
 		}
 
+		public static SongDTO ToDTO(this SongDeleteVM source)
+		{
+			return new SongDTO
+			{
+				id = source.id,
+				songName = source.SongName,
+				artistList = source.SingersName,
+				genreName = source.GenreName,								
+				language = source.Language,				
+				released = source.Released,
+				status = source.Status,
+			};
+		}
+
 		public static Song ToEntity(this SongDTO source)
 		{
 			return new Song
