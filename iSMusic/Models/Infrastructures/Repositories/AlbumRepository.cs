@@ -24,11 +24,13 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			db.Albums.Add(dto.ToEntity());
 			db.SaveChanges();
 
+			var albumId = db.Albums.OrderByDescending(album => album.id).First().id;
+
 			foreach(var songId in dto.songIdList)
 			{
 				var song = db.Songs.Single(s => s.id == songId);
 
-				song.albumId = dto.id;
+				song.albumId = albumId;
 			}
 
 			db.SaveChanges();
