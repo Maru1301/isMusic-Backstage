@@ -13,47 +13,32 @@ namespace iSMusic.Models.EFModels
 		}
 
 		public virtual DbSet<Activity> Activities { get; set; }
+		public virtual DbSet<Activity_Tag_Metadata> Activity_Tag_Metadata { get; set; }
 		public virtual DbSet<ActivityFollow> ActivityFollows { get; set; }
+		public virtual DbSet<ActivityTag> ActivityTags { get; set; }
 		public virtual DbSet<ActivityType> ActivityTypes { get; set; }
 		public virtual DbSet<Admin_Role_Metadata> Admin_Role_Metadata { get; set; }
 		public virtual DbSet<Admin> Admins { get; set; }
-		public virtual DbSet<Album_Song_Metadata> Album_Song_Metadata { get; set; }
 		public virtual DbSet<Album> Albums { get; set; }
 		public virtual DbSet<AlbumType> AlbumTypes { get; set; }
-		public virtual DbSet<Article_Tag_Metadata> Article_Tag_Metadata { get; set; }
-		public virtual DbSet<ArticlePunishemt> ArticlePunishemts { get; set; }
 		public virtual DbSet<ArtistFollow> ArtistFollows { get; set; }
 		public virtual DbSet<Artist> Artists { get; set; }
 		public virtual DbSet<Avatar> Avatars { get; set; }
 		public virtual DbSet<CartItem> CartItems { get; set; }
 		public virtual DbSet<Cart> Carts { get; set; }
-		public virtual DbSet<CensorArticle> CensorArticles { get; set; }
-		public virtual DbSet<CensorComment> CensorComments { get; set; }
-		public virtual DbSet<CensorReason> CensorReasons { get; set; }
-		public virtual DbSet<CensorSong> CensorSongs { get; set; }
-		public virtual DbSet<CensorTag> CensorTags { get; set; }
-		public virtual DbSet<CommentPunishment> CommentPunishments { get; set; }
 		public virtual DbSet<Coupon> Coupons { get; set; }
+		public virtual DbSet<CreatorFollow> CreatorFollows { get; set; }
 		public virtual DbSet<Creator> Creators { get; set; }
 		public virtual DbSet<CreditCard> CreditCards { get; set; }
 		public virtual DbSet<Department> Departments { get; set; }
-		public virtual DbSet<ForumArticleLike> ForumArticleLikes { get; set; }
-		public virtual DbSet<ForumArticle> ForumArticles { get; set; }
-		public virtual DbSet<ForumCategory> ForumCategories { get; set; }
-		public virtual DbSet<ForumCollection> ForumCollections { get; set; }
-		public virtual DbSet<ForumCommentLike> ForumCommentLikes { get; set; }
-		public virtual DbSet<ForumComment> ForumComments { get; set; }
-		public virtual DbSet<ForumFollow> ForumFollows { get; set; }
-		public virtual DbSet<Library> Libraries { get; set; }
-		public virtual DbSet<Library_Album_Metadata> Library_Album_Metadata { get; set; }
-		public virtual DbSet<Library_Artist_Metadata> Library_Artist_Metadata { get; set; }
-		public virtual DbSet<Library_PlayList_Metadata> Library_PlayList_Metadata { get; set; }
+		public virtual DbSet<LikedActivity> LikedActivities { get; set; }
 		public virtual DbSet<LikedAlbum> LikedAlbums { get; set; }
+		public virtual DbSet<LikedPlaylist> LikedPlaylists { get; set; }
 		public virtual DbSet<LikedSong> LikedSongs { get; set; }
 		public virtual DbSet<Member> Members { get; set; }
 		public virtual DbSet<Order_Product_Metadata> Order_Product_Metadata { get; set; }
 		public virtual DbSet<Order> Orders { get; set; }
-		public virtual DbSet<PlayList_Song_Metadata> PlayList_Song_Metadata { get; set; }
+		public virtual DbSet<Playlist_Song_Metadata> Playlist_Song_Metadata { get; set; }
 		public virtual DbSet<Playlist> Playlists { get; set; }
 		public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 		public virtual DbSet<Product> Products { get; set; }
@@ -63,12 +48,10 @@ namespace iSMusic.Models.EFModels
 		public virtual DbSet<Song_Artist_Metadata> Song_Artist_Metadata { get; set; }
 		public virtual DbSet<Song_Creator_Metadata> Song_Creator_Metadata { get; set; }
 		public virtual DbSet<SongGenre> SongGenres { get; set; }
+		public virtual DbSet<SongPlayedRecord> SongPlayedRecords { get; set; }
 		public virtual DbSet<Song> Songs { get; set; }
 		public virtual DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
 		public virtual DbSet<SubscriptionRecord> SubscriptionRecords { get; set; }
-		public virtual DbSet<TagPunishment> TagPunishments { get; set; }
-		public virtual DbSet<Tag> Tags { get; set; }
-		public virtual DbSet<BanWord> BanWords { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
@@ -77,8 +60,24 @@ namespace iSMusic.Models.EFModels
 				.IsUnicode(false);
 
 			modelBuilder.Entity<Activity>()
+				.HasMany(e => e.Activity_Tag_Metadata)
+				.WithRequired(e => e.Activity)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Activity>()
 				.HasMany(e => e.ActivityFollows)
 				.WithRequired(e => e.Activity)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Activity>()
+				.HasMany(e => e.LikedActivities)
+				.WithRequired(e => e.Activity)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<ActivityTag>()
+				.HasMany(e => e.Activity_Tag_Metadata)
+				.WithRequired(e => e.ActivityTag)
+				.HasForeignKey(e => e.tagId)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<ActivityType>()
@@ -103,36 +102,6 @@ namespace iSMusic.Models.EFModels
 			modelBuilder.Entity<Admin>()
 				.HasMany(e => e.Admin_Role_Metadata)
 				.WithRequired(e => e.Admin)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Admin>()
-				.HasMany(e => e.CensorArticles)
-				.WithRequired(e => e.Admin)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Admin>()
-				.HasMany(e => e.CensorComments)
-				.WithRequired(e => e.Admin)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Admin>()
-				.HasMany(e => e.CensorSongs)
-				.WithRequired(e => e.Admin)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Admin>()
-				.HasMany(e => e.CensorTags)
-				.WithRequired(e => e.Admin)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Album>()
-				.HasMany(e => e.Album_Song_Metadata)
-				.WithRequired(e => e.Album)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Album>()
-				.HasMany(e => e.Library_Album_Metadata)
-				.WithRequired(e => e.Album)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Album>()
@@ -162,11 +131,6 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Artist>()
-				.HasMany(e => e.Library_Artist_Metadata)
-				.WithRequired(e => e.Artist)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Artist>()
 				.HasMany(e => e.Song_Artist_Metadata)
 				.WithRequired(e => e.Artist)
 				.WillCascadeOnDelete(false);
@@ -176,44 +140,14 @@ namespace iSMusic.Models.EFModels
 				.WithRequired(e => e.Cart)
 				.WillCascadeOnDelete(false);
 
-			modelBuilder.Entity<CensorArticle>()
-				.HasMany(e => e.ArticlePunishemts)
-				.WithRequired(e => e.CensorArticle)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<CensorComment>()
-				.HasMany(e => e.CommentPunishments)
-				.WithRequired(e => e.CensorComment)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<CensorReason>()
-				.HasMany(e => e.CensorArticles)
-				.WithRequired(e => e.CensorReason)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<CensorReason>()
-				.HasMany(e => e.CensorComments)
-				.WithRequired(e => e.CensorReason)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<CensorReason>()
-				.HasMany(e => e.CensorSongs)
-				.WithRequired(e => e.CensorReason)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<CensorReason>()
-				.HasMany(e => e.CensorTags)
-				.WithRequired(e => e.CensorReason)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<CensorTag>()
-				.HasMany(e => e.TagPunishments)
-				.WithRequired(e => e.CensorTag)
-				.WillCascadeOnDelete(false);
-
 			modelBuilder.Entity<Coupon>()
 				.HasMany(e => e.Orders)
 				.WithRequired(e => e.Coupon)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Creator>()
+				.HasMany(e => e.CreatorFollows)
+				.WithRequired(e => e.Creator)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Creator>()
@@ -224,73 +158,6 @@ namespace iSMusic.Models.EFModels
 			modelBuilder.Entity<Department>()
 				.HasMany(e => e.Admins)
 				.WithRequired(e => e.Department)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ForumArticle>()
-				.HasMany(e => e.Article_Tag_Metadata)
-				.WithRequired(e => e.ForumArticle)
-				.HasForeignKey(e => e.articleId)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ForumArticle>()
-				.HasMany(e => e.CensorArticles)
-				.WithRequired(e => e.ForumArticle)
-				.HasForeignKey(e => e.articleId)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ForumArticle>()
-				.HasMany(e => e.ForumArticleLikes)
-				.WithRequired(e => e.ForumArticle)
-				.HasForeignKey(e => e.articleId)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ForumArticle>()
-				.HasMany(e => e.ForumCollections)
-				.WithRequired(e => e.ForumArticle)
-				.HasForeignKey(e => e.articleId)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ForumArticle>()
-				.HasMany(e => e.ForumComments)
-				.WithRequired(e => e.ForumArticle)
-				.HasForeignKey(e => e.articleId)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ForumCategory>()
-				.HasMany(e => e.ForumArticles)
-				.WithRequired(e => e.ForumCategory)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ForumCategory>()
-				.HasMany(e => e.ForumFollows)
-				.WithRequired(e => e.ForumCategory)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ForumComment>()
-				.HasMany(e => e.CensorComments)
-				.WithRequired(e => e.ForumComment)
-				.HasForeignKey(e => e.commentId)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ForumComment>()
-				.HasMany(e => e.ForumCommentLikes)
-				.WithRequired(e => e.ForumComment)
-				.HasForeignKey(e => e.commentId)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Library>()
-				.HasMany(e => e.Library_Album_Metadata)
-				.WithRequired(e => e.Library)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Library>()
-				.HasMany(e => e.Library_Artist_Metadata)
-				.WithRequired(e => e.Library)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Library>()
-				.HasMany(e => e.Library_PlayList_Metadata)
-				.WithRequired(e => e.Library)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Member>()
@@ -313,11 +180,6 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Member>()
-				.HasMany(e => e.ArticlePunishemts)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
 				.HasMany(e => e.ArtistFollows)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
@@ -328,27 +190,7 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Member>()
-				.HasMany(e => e.CensorArticles)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.CensorComments)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.CensorSongs)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.CensorTags)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.CommentPunishments)
+				.HasMany(e => e.CreatorFollows)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
 
@@ -358,42 +200,17 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Member>()
-				.HasMany(e => e.ForumArticleLikes)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.ForumArticles)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.ForumCollections)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.ForumCommentLikes)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.ForumComments)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.ForumFollows)
-				.WithRequired(e => e.Member)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Member>()
-				.HasMany(e => e.Libraries)
+				.HasMany(e => e.LikedActivities)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Member>()
 				.HasMany(e => e.LikedAlbums)
+				.WithRequired(e => e.Member)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Member>()
+				.HasMany(e => e.LikedPlaylists)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
 
@@ -408,12 +225,22 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Member>()
-				.HasMany(e => e.SubscriptionRecords)
+				.HasMany(e => e.Playlists)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Member>()
-				.HasMany(e => e.TagPunishments)
+				.HasMany(e => e.Queues)
+				.WithRequired(e => e.Member)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Member>()
+				.HasMany(e => e.SongPlayedRecords)
+				.WithRequired(e => e.Member)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Member>()
+				.HasMany(e => e.SubscriptionRecords)
 				.WithRequired(e => e.Member)
 				.WillCascadeOnDelete(false);
 
@@ -431,12 +258,16 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Playlist>()
-				.HasMany(e => e.Library_PlayList_Metadata)
+				.Property(e => e.playlistCoverPath)
+				.IsFixedLength();
+
+			modelBuilder.Entity<Playlist>()
+				.HasMany(e => e.LikedPlaylists)
 				.WithRequired(e => e.Playlist)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Playlist>()
-				.HasMany(e => e.PlayList_Song_Metadata)
+				.HasMany(e => e.Playlist_Song_Metadata)
 				.WithRequired(e => e.Playlist)
 				.WillCascadeOnDelete(false);
 
@@ -482,30 +313,19 @@ namespace iSMusic.Models.EFModels
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Song>()
-				.HasMany(e => e.Album_Song_Metadata)
-				.WithRequired(e => e.Song)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Song>()
-				.HasMany(e => e.CensorSongs)
-				.WithRequired(e => e.Song)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Song>()
 				.HasMany(e => e.LikedSongs)
 				.WithRequired(e => e.Song)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Song>()
-				.HasMany(e => e.PlayList_Song_Metadata)
+				.HasMany(e => e.Playlist_Song_Metadata)
 				.WithRequired(e => e.Song)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Song>()
 				.HasMany(e => e.Queues)
-				.WithRequired(e => e.Song)
-				.HasForeignKey(e => e.currentSongId)
-				.WillCascadeOnDelete(false);
+				.WithOptional(e => e.Song)
+				.HasForeignKey(e => e.currentSongId);
 
 			modelBuilder.Entity<Song>()
 				.HasMany(e => e.Song_Artist_Metadata)
@@ -517,6 +337,11 @@ namespace iSMusic.Models.EFModels
 				.WithRequired(e => e.Song)
 				.WillCascadeOnDelete(false);
 
+			modelBuilder.Entity<Song>()
+				.HasMany(e => e.SongPlayedRecords)
+				.WithRequired(e => e.Song)
+				.WillCascadeOnDelete(false);
+
 			modelBuilder.Entity<SubscriptionPlan>()
 				.Property(e => e.price)
 				.HasPrecision(7, 0);
@@ -524,16 +349,6 @@ namespace iSMusic.Models.EFModels
 			modelBuilder.Entity<SubscriptionPlan>()
 				.HasMany(e => e.SubscriptionRecords)
 				.WithRequired(e => e.SubscriptionPlan)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Tag>()
-				.HasMany(e => e.Article_Tag_Metadata)
-				.WithRequired(e => e.Tag)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Tag>()
-				.HasMany(e => e.CensorTags)
-				.WithRequired(e => e.Tag)
 				.WillCascadeOnDelete(false);
 		}
 	}

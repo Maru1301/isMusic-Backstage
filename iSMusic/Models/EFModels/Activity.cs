@@ -11,7 +11,9 @@ namespace iSMusic.Models.EFModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Activity()
         {
+            Activity_Tag_Metadata = new HashSet<Activity_Tag_Metadata>();
             ActivityFollows = new HashSet<ActivityFollow>();
+            LikedActivities = new HashSet<LikedActivity>();
         }
 
         public int id { get; set; }
@@ -44,6 +46,8 @@ namespace iSMusic.Models.EFModels
 
         public int checkedById { get; set; }
 
+        public DateTime updated { get; set; }
+
         public virtual ActivityType ActivityType { get; set; }
 
         public virtual Admin Admin { get; set; }
@@ -51,6 +55,12 @@ namespace iSMusic.Models.EFModels
         public virtual Member Member { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Activity_Tag_Metadata> Activity_Tag_Metadata { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActivityFollow> ActivityFollows { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LikedActivity> LikedActivities { get; set; }
     }
 }

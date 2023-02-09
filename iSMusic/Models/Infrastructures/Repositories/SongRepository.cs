@@ -136,7 +136,7 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				songCoverPath = x.songCoverPath,
 				songPath = x.songPath,
 				status = x.status,
-				timesOfPlay = x.timesOfPlay,
+				timesOfPlay = x.SongPlayedRecords.Where(record => record.songId == id).Count(),
 			}).SingleOrDefault(x => x.id == id);
 		}
 

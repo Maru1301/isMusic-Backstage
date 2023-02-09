@@ -317,7 +317,7 @@ namespace iSMusic.Controllers
 
 		public class SortInfo : BaseSortInfo<Song>
 		{
-			public override string[] ColumnNames { get=> new string[] { "songName", "SongGenreName", "Language", "released", "duration", "TimesOfPlay"}; }
+			public override string[] ColumnNames { get=> new string[] { "songName", "SongGenreName", "Language", "released", "duration"}; }
 
 			public SortInfo(string columnName, string direction) : base(columnName, direction, "songName")
 			{
@@ -359,10 +359,6 @@ namespace iSMusic.Controllers
 							? data.OrderBy(t => t.duration)
 							: data.OrderByDescending(t => t.duration);
 
-					case EnumColumn.TimesOfPlay:
-						return (IsAsc())
-							? data.OrderBy(t => t.timesOfPlay).ThenByDescending(t=>t.released)
-							: data.OrderByDescending(t => t.timesOfPlay).ThenByDescending(t=>t.released);
 				}
 
 				return data;
@@ -374,7 +370,7 @@ namespace iSMusic.Controllers
 		}
 		public enum EnumColumn
 		{
-			songName, SongGenreName, Language, released, duration, TimesOfPlay
+			songName, SongGenreName, Language, released, duration
 		}
 
 		public class SongIdInfo

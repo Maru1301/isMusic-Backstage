@@ -16,7 +16,7 @@ namespace iSMusic.Models.ViewModels
 		public int typeId { get; set; }
 
 		[Required]
-		[Display(Name = "專輯音樂種類")]
+		[Display(Name = "專輯音樂種類*")]
 		public int albumGenreId { get; set; }
 
 		[Required]
@@ -24,9 +24,6 @@ namespace iSMusic.Models.ViewModels
 		[Display(Name = "專輯名稱*")]
 		public string albumName { get; set; }
 
-		public string albumCoverPath { get; set; }
-
-		[Required]
 		[Display(Name = "音樂封面檔案*")]
 		public HttpPostedFileBase CoverFile { get; set; }
 
@@ -44,10 +41,5 @@ namespace iSMusic.Models.ViewModels
 
 		[Display(Name = "歌曲*")]
 		public List<int> songIdList { get; set; }
-
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<Album_Song_Metadata> Album_Song_Metadata { get; set; }
-
-		public virtual Artist Artist { get; set; }
 	}
 }

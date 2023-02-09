@@ -88,9 +88,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.released)@sortInfo.RenderItem(SongsController.EnumColumn.released)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.timesOfPlay)@sortInfo.RenderItem(SongsController.EnumColumn.TimesOfPlay)
-            </th>
             <th></th>
         </tr>
 
@@ -139,9 +136,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.released, "Date")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.timesOfPlay, "DollarFormat")
                 </td>
                 <td>
                     <a class="btn" style="background-color: #F68657; color: white" href="/Songs/Edit/@item.id">編輯</a>

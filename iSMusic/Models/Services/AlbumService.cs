@@ -1,10 +1,12 @@
 ﻿using iSMusic.Models.DTOs;
+using iSMusic.Models.EFModels;
 using iSMusic.Models.Infrastructures.Repositories;
 using iSMusic.Models.Services.Interfaces;
 using iSMusic.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 
 namespace iSMusic.Models.Services
@@ -49,13 +51,6 @@ namespace iSMusic.Models.Services
 			}
 
 			repository.AddNewAlbum(dto);
-
-			var metadataRepository = new AlbumMetadataRepository();
-			var album = repository.Search(dto);
-			foreach (var songId in dto.songIdList)
-			{
-				metadataRepository.AddNewMetadata(album.id, songId);
-			}
 		}
 
 		public void UpdateAlbum(string coverPath, AlbumDTO dto)
@@ -89,19 +84,7 @@ namespace iSMusic.Models.Services
 
 		public void DeleteAlbum(int id)
 		{
-			DeleteAlbumMetadata(id);
 			repository.DeleteAlbum(id);
-		}
-
-		private void DeleteAlbumMetadata(int albumId)
-		{
-			var metadataRepository = new AlbumMetadataRepository();
-			var data = metadataRepository.GetSongIdList(albumId).ToList();
-
-			foreach (var sondId in data)
-			{
-				metadataRepository.DeleteMetadata(albumId, sondId);
-			}
 		}
 
 		private bool ExistDupSong(List<int> songIdList)
@@ -124,25 +107,29 @@ namespace iSMusic.Models.Services
 
 		private void UpdateAlbumMetadata(int albumId, List<int> newList)
 		{
-			var metadataRepository = new AlbumMetadataRepository();
-			var oldList = metadataRepository.GetSongIdList(albumId).ToList();
+			var _db = new AppDbContext();
 
-			foreach (int id in newList)
+			var oldList = _db.Songs.Where(song => song.albumId == albumId).ToList();
+
+			foreach (Song song in oldList)
 			{
-				if (oldList.Contains(id) == false)
+				if (newList.Contains(song.id) == false)
 				{
-					metadataRepository.AddNewMetadata(albumId, id);
+					song.albumId = null;
 				}
 				else
 				{
-					oldList.Remove(id);
+					newList.Remove(song.id);
 				}
 			}
 
-			foreach (int id in oldList)
+			foreach (int id in newList)
 			{
-				metadataRepository.DeleteMetadata(albumId, id);
+				var song = _db.Songs.Single(s => s.id == id);
+				song.albumId = albumId;
 			}
+
+			_db.SaveChanges();
 		}
 
 		private string GetNewFileName(string path, string fileName)

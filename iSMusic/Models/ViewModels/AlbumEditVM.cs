@@ -47,8 +47,8 @@ namespace iSMusic.Models.ViewModels
 		[Display(Name = "歌曲*")]
 		public List<int> songIdList { get; set; }
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<Album_Song_Metadata> Album_Song_Metadata { get; set; }
+		[Display(Name = "專輯*")]
+		public int? albumId { get; set; }
 
 		public virtual Artist Artist { get; set; }
 	}

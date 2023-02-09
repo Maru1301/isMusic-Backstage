@@ -11,10 +11,9 @@ namespace iSMusic.Models.EFModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Album()
         {
-            Album_Song_Metadata = new HashSet<Album_Song_Metadata>();
-            Library_Album_Metadata = new HashSet<Library_Album_Metadata>();
             LikedAlbums = new HashSet<LikedAlbum>();
             Products = new HashSet<Product>();
+            Songs = new HashSet<Song>();
         }
 
         public int id { get; set; }
@@ -24,7 +23,7 @@ namespace iSMusic.Models.EFModels
         public string albumName { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(200)]
         public string albumCoverPath { get; set; }
 
         public int albumTypeId { get; set; }
@@ -40,8 +39,13 @@ namespace iSMusic.Models.EFModels
 
         public int mainArtistId { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Album_Song_Metadata> Album_Song_Metadata { get; set; }
+        public int? mainCreatorId { get; set; }
+
+        [StringLength(50)]
+        public string albumProducer { get; set; }
+
+        [StringLength(50)]
+        public string albumCompany { get; set; }
 
         public virtual AlbumType AlbumType { get; set; }
 
@@ -50,12 +54,12 @@ namespace iSMusic.Models.EFModels
         public virtual SongGenre SongGenre { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Library_Album_Metadata> Library_Album_Metadata { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LikedAlbum> LikedAlbums { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Song> Songs { get; set; }
     }
 }

@@ -6,15 +6,16 @@ namespace iSMusic.Models.EFModels
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Library_PlayList_Metadata
+    public partial class LikedPlaylist
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
-        public int libraryId { get; set; }
+        public int playlistId { get; set; }
 
-        public int playListId { get; set; }
+        public int memberId { get; set; }
 
-        public virtual Library Library { get; set; }
+        public virtual Member Member { get; set; }
 
         public virtual Playlist Playlist { get; set; }
     }

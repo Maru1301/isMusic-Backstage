@@ -100,7 +100,6 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				songCoverPath = source.songCoverPath,
 				songPath = source.songPath,
 				status = source.status,
-				timesOfPlay = source.timesOfPlay,
 			};
 		}
 

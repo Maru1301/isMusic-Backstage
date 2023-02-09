@@ -14,7 +14,9 @@ namespace iSMusic.Models.EFModels
 
         public int songId { get; set; }
 
-        public int displayOrder { get; set; }
+        public int? nextQueueSong { get; set; }
+
+        public bool fromAlbumOrPlaylist { get; set; }
 
         public virtual Queue Queue { get; set; }
     }

@@ -23,6 +23,15 @@ namespace iSMusic.Models.Infrastructures.Repositories
 		{
 			db.Albums.Add(dto.ToEntity());
 			db.SaveChanges();
+
+			foreach(var songId in dto.songIdList)
+			{
+				var song = db.Songs.Single(s => s.id == songId);
+
+				song.albumId = dto.id;
+			}
+
+			db.SaveChanges();
 		}
 
 		public void DeleteAlbum(int id)
@@ -45,7 +54,7 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				description = a.description,
 				mainArtistId = a.mainArtistId,
 				ArtistName = a.Artist.artistName,
-				songIdList = a.Album_Song_Metadata.Where(m => m.albumId == id).Select(x => x.songId).ToList()
+				songIdList = a.Songs.Where(m => m.albumId == id).Select(x => x.id).ToList()
 			}).SingleOrDefault(x => x.id == id);
 		}
 
