@@ -81,7 +81,7 @@ namespace iSMusic.Models.Services
 
 		public void AddNewSong(string coverPath, string songPath, SongDTO dto)
 		{
-			if (dto.artistIdList == null) throw new Exception("No artist is chosen");
+			if (dto.artistIdList == null) throw new Exception("未選中表演者");
 			if (dupArtist(dto.artistIdList) == true) throw new Exception("表演者重複");
 			//check if the song has existed in the database
 			if (repository.Search(dto) != null) throw new Exception("歌曲已存在");

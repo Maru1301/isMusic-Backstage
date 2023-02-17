@@ -57,6 +57,14 @@
                 </div>
 
                 <div class="form-group row mt-3">
+                    @Html.LabelFor(model => model.albumGenreId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("albumGenreId", null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.albumGenreId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row mt-3">
                     @Html.LabelFor(model => model.released, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.released, "DatePicker")

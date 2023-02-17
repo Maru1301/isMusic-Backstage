@@ -6,16 +6,18 @@ namespace iSMusic.Models.EFModels
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ForumFollow
+    public partial class SongPlayedRecord
     {
         public int id { get; set; }
 
+        public int songId { get; set; }
+
         public int memberId { get; set; }
 
-        public int forumCategoryId { get; set; }
-
-        public virtual ForumCategory ForumCategory { get; set; }
+        public DateTime playedDate { get; set; }
 
         public virtual Member Member { get; set; }
+
+        public virtual Song Song { get; set; }
     }
 }

@@ -59,7 +59,7 @@ namespace iSMusic.Models.Entities
 				lyric = source.lyric,
 				songCoverPath= source.songCoverPath,
 				songPath= source.songPath,
-				timesOfPlay = source.timesOfPlay,
+				timesOfPlay = source.SongPlayedRecords.Select(record => record.ToEntity()).Count(),
 				status = source.status,
 			};
 		}

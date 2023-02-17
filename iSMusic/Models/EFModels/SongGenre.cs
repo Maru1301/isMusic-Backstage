@@ -11,6 +11,7 @@ namespace iSMusic.Models.EFModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SongGenre()
         {
+            Albums = new HashSet<Album>();
             Songs = new HashSet<Song>();
         }
 
@@ -19,6 +20,9 @@ namespace iSMusic.Models.EFModels
         [Required]
         [StringLength(50)]
         public string genreName { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Album> Albums { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Song> Songs { get; set; }

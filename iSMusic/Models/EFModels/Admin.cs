@@ -13,15 +13,9 @@ namespace iSMusic.Models.EFModels
         {
             Activities = new HashSet<Activity>();
             Admin_Role_Metadata = new HashSet<Admin_Role_Metadata>();
-            CensorArticles = new HashSet<CensorArticle>();
-            CensorComments = new HashSet<CensorComment>();
-            CensorSongs = new HashSet<CensorSong>();
-            CensorTags = new HashSet<CensorTag>();
         }
 
-		public static string SALT = "!@#$%^*AWRH()&%^";
-
-		public int id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -40,17 +34,5 @@ namespace iSMusic.Models.EFModels
         public virtual ICollection<Admin_Role_Metadata> Admin_Role_Metadata { get; set; }
 
         public virtual Department Department { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CensorArticle> CensorArticles { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CensorComment> CensorComments { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CensorSong> CensorSongs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CensorTag> CensorTags { get; set; }
     }
 }

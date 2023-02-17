@@ -13,31 +13,21 @@ namespace iSMusic.Models.EFModels
         {
             Activities = new HashSet<Activity>();
             ActivityFollows = new HashSet<ActivityFollow>();
-            ArticlePunishemts = new HashSet<ArticlePunishemt>();
             ArtistFollows = new HashSet<ArtistFollow>();
             Carts = new HashSet<Cart>();
-            CensorArticles = new HashSet<CensorArticle>();
-            CensorComments = new HashSet<CensorComment>();
-            CensorSongs = new HashSet<CensorSong>();
-            CensorTags = new HashSet<CensorTag>();
-            CommentPunishments = new HashSet<CommentPunishment>();
+            CreatorFollows = new HashSet<CreatorFollow>();
             Creators = new HashSet<Creator>();
-            ForumArticleLikes = new HashSet<ForumArticleLike>();
-            ForumArticles = new HashSet<ForumArticle>();
-            ForumCollections = new HashSet<ForumCollection>();
-            ForumCommentLikes = new HashSet<ForumCommentLike>();
-            ForumComments = new HashSet<ForumComment>();
-            ForumFollows = new HashSet<ForumFollow>();
-            Libraries = new HashSet<Library>();
+            LikedActivities = new HashSet<LikedActivity>();
             LikedAlbums = new HashSet<LikedAlbum>();
+            LikedPlaylists = new HashSet<LikedPlaylist>();
             LikedSongs = new HashSet<LikedSong>();
             Orders = new HashSet<Order>();
+            Playlists = new HashSet<Playlist>();
+            Queues = new HashSet<Queue>();
+            SongPlayedRecords = new HashSet<SongPlayedRecord>();
             SubscriptionRecords = new HashSet<SubscriptionRecord>();
-            TagPunishments = new HashSet<TagPunishment>();
-            avatarId = 1;
         }
 
-        [Display(Name ="≠q¡ §H")]
         public int id { get; set; }
 
         [Required]
@@ -65,7 +55,7 @@ namespace iSMusic.Models.EFModels
         [Column(TypeName = "date")]
         public DateTime? memberDateOfBirth { get; set; }
 
-        public int avatarId { get; set; }
+        public int? avatarId { get; set; }
 
         public bool memberReceivedMessage { get; set; }
 
@@ -89,9 +79,6 @@ namespace iSMusic.Models.EFModels
         public virtual ICollection<ActivityFollow> ActivityFollows { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ArticlePunishemt> ArticlePunishemts { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArtistFollow> ArtistFollows { get; set; }
 
         public virtual Avatar Avatar { get; set; }
@@ -100,19 +87,7 @@ namespace iSMusic.Models.EFModels
         public virtual ICollection<Cart> Carts { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CensorArticle> CensorArticles { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CensorComment> CensorComments { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CensorSong> CensorSongs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CensorTag> CensorTags { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CommentPunishment> CommentPunishments { get; set; }
+        public virtual ICollection<CreatorFollow> CreatorFollows { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Creator> Creators { get; set; }
@@ -120,28 +95,13 @@ namespace iSMusic.Models.EFModels
         public virtual CreditCard CreditCard { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ForumArticleLike> ForumArticleLikes { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ForumArticle> ForumArticles { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ForumCollection> ForumCollections { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ForumCommentLike> ForumCommentLikes { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ForumComment> ForumComments { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ForumFollow> ForumFollows { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Library> Libraries { get; set; }
+        public virtual ICollection<LikedActivity> LikedActivities { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LikedAlbum> LikedAlbums { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LikedPlaylist> LikedPlaylists { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LikedSong> LikedSongs { get; set; }
@@ -150,9 +110,15 @@ namespace iSMusic.Models.EFModels
         public virtual ICollection<Order> Orders { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubscriptionRecord> SubscriptionRecords { get; set; }
+        public virtual ICollection<Playlist> Playlists { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TagPunishment> TagPunishments { get; set; }
+        public virtual ICollection<Queue> Queues { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SongPlayedRecord> SongPlayedRecords { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubscriptionRecord> SubscriptionRecords { get; set; }
     }
 }

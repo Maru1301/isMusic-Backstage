@@ -23,6 +23,17 @@ namespace iSMusic.Models.Infrastructures.Repositories
 		{
 			db.Albums.Add(dto.ToEntity());
 			db.SaveChanges();
+
+			var albumId = db.Albums.OrderByDescending(album => album.id).First().id;
+
+			foreach(var songId in dto.songIdList)
+			{
+				var song = db.Songs.Single(s => s.id == songId);
+
+				song.albumId = albumId;
+			}
+
+			db.SaveChanges();
 		}
 
 		public void DeleteAlbum(int id)
@@ -39,12 +50,13 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				id = a.id,
 				typeId = a.albumTypeId,
 				albumName = a.albumName,
+				albumGenreId= a.albumGenreId,
 				albumCoverPath = a.albumCoverPath,
 				released = a.released,
 				description = a.description,
 				mainArtistId = a.mainArtistId,
 				ArtistName = a.Artist.artistName,
-				songIdList = a.Album_Song_Metadata.Where(m => m.albumId == id).Select(x => x.songId).ToList()
+				songIdList = a.Songs.Where(m => m.albumId == id).Select(x => x.id).ToList()
 			}).SingleOrDefault(x => x.id == id);
 		}
 
@@ -69,14 +81,15 @@ namespace iSMusic.Models.Infrastructures.Repositories
 
 		public IQueryable<AlbumIndexVM> GetQuery()
 		{
-			return db.Albums.Include("Artist").Select(a=> new AlbumIndexVM
+			return db.Albums.Include("Artist").Include("SongGenre").Select(a=> new AlbumIndexVM
 			{
 				id = a.id,
 				albumName = a.albumName,
 				released= a.released,
 				mainArtistName = a.Artist.artistName,
 				typeName = a.AlbumType.typeName,
-				albumTypeId = a.albumTypeId
+				albumTypeId = a.albumTypeId,
+				albumGenreName = a.SongGenre.genreName
 			});
 		}
 

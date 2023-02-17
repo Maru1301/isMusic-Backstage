@@ -11,13 +11,12 @@ namespace iSMusic.Models.EFModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Song()
         {
-            Album_Song_Metadata = new HashSet<Album_Song_Metadata>();
-            CensorSongs = new HashSet<CensorSong>();
             LikedSongs = new HashSet<LikedSong>();
-            PlayList_Song_Metadata = new HashSet<PlayList_Song_Metadata>();
+            Playlist_Song_Metadata = new HashSet<Playlist_Song_Metadata>();
             Queues = new HashSet<Queue>();
             Song_Artist_Metadata = new HashSet<Song_Artist_Metadata>();
             Song_Creator_Metadata = new HashSet<Song_Creator_Metadata>();
+            SongPlayedRecords = new HashSet<SongPlayedRecord>();
         }
 
         public int id { get; set; }
@@ -54,21 +53,17 @@ namespace iSMusic.Models.EFModels
         [StringLength(200)]
         public string songPath { get; set; }
 
-        public int timesOfPlay { get; set; }
-
         public bool status { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Album_Song_Metadata> Album_Song_Metadata { get; set; }
+        public int? albumId { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CensorSong> CensorSongs { get; set; }
+        public virtual Album Album { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LikedSong> LikedSongs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlayList_Song_Metadata> PlayList_Song_Metadata { get; set; }
+        public virtual ICollection<Playlist_Song_Metadata> Playlist_Song_Metadata { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Queue> Queues { get; set; }
@@ -80,5 +75,8 @@ namespace iSMusic.Models.EFModels
         public virtual ICollection<Song_Creator_Metadata> Song_Creator_Metadata { get; set; }
 
         public virtual SongGenre SongGenre { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SongPlayedRecord> SongPlayedRecords { get; set; }
     }
 }

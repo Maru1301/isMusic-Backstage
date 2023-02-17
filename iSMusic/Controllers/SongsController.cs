@@ -206,6 +206,7 @@ namespace iSMusic.Controllers
 		[HttpPost]
 		public ActionResult Edit(SongEditVM model)
 		{
+			
 			var service = new SongService(repository);
 			try
 			{
@@ -241,8 +242,8 @@ namespace iSMusic.Controllers
 
 		// POST: Songs/Delete/5
 		[HttpPost]
-		public ActionResult Delete(SongEditVM model)
-		{
+		public ActionResult Delete(SongDeleteVM model)
+		{			
 			var service = new SongService(repository);
 			try
 			{
@@ -316,7 +317,7 @@ namespace iSMusic.Controllers
 
 		public class SortInfo : BaseSortInfo<Song>
 		{
-			public override string[] ColumnNames { get=> new string[] { "songName", "SongGenreName", "Language", "released", "duration", "TimesOfPlay"}; }
+			public override string[] ColumnNames { get=> new string[] { "songName", "SongGenreName", "Language", "released", "duration"}; }
 
 			public SortInfo(string columnName, string direction) : base(columnName, direction, "songName")
 			{
@@ -358,10 +359,6 @@ namespace iSMusic.Controllers
 							? data.OrderBy(t => t.duration)
 							: data.OrderByDescending(t => t.duration);
 
-					case EnumColumn.TimesOfPlay:
-						return (IsAsc())
-							? data.OrderBy(t => t.timesOfPlay).ThenByDescending(t=>t.released)
-							: data.OrderByDescending(t => t.timesOfPlay).ThenByDescending(t=>t.released);
 				}
 
 				return data;
@@ -373,7 +370,7 @@ namespace iSMusic.Controllers
 		}
 		public enum EnumColumn
 		{
-			songName, SongGenreName, Language, released, duration, TimesOfPlay
+			songName, SongGenreName, Language, released, duration
 		}
 
 		public class SongIdInfo

@@ -6,7 +6,7 @@ namespace iSMusic.Models.EFModels
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class PlayList_Song_Metadata
+    public partial class Playlist_Song_Metadata
     {
         public int id { get; set; }
 
@@ -15,6 +15,9 @@ namespace iSMusic.Models.EFModels
         public int songId { get; set; }
 
         public int displayOrder { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime addedTime { get; set; }
 
         public virtual Song Song { get; set; }
 

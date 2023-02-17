@@ -6,18 +6,16 @@ namespace iSMusic.Models.EFModels
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ForumArticleLike
+    public partial class Activity_Tag_Metadata
     {
         public int id { get; set; }
 
-        public int articleId { get; set; }
+        public int activityId { get; set; }
 
-        public int memberId { get; set; }
+        public int tagId { get; set; }
 
-        public bool isLiked { get; set; }
+        public virtual Activity Activity { get; set; }
 
-        public virtual ForumArticle ForumArticle { get; set; }
-
-        public virtual Member Member { get; set; }
+        public virtual ActivityTag ActivityTag { get; set; }
     }
 }

@@ -16,16 +16,17 @@ namespace iSMusic.Models.EFModels
 
         public int id { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string memberAccount { get; set; }
+        public int memberId { get; set; }
 
-        public int currentSongId { get; set; }
+        public int? currentSongId { get; set; }
 
-        [Column(TypeName = "timestamp")]
-        [MaxLength(8)]
-        [Timestamp]
-        public byte[] currentSongTime { get; set; }
+        public int? currentSongTime { get; set; }
+
+        public bool isShuffle { get; set; }
+
+        public bool? isRepeat { get; set; }
+
+        public virtual Member Member { get; set; }
 
         public virtual Song Song { get; set; }
 

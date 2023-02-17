@@ -45,6 +45,9 @@
             @Html.DisplayNameFor(model => model.albumName)@sortInfo.RenderItem(AlbumsController.EnumColumn.albumName)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.albumGenreName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.released)@sortInfo.RenderItem(AlbumsController.EnumColumn.released)
         </th>
         <th>
@@ -61,6 +64,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.albumName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.albumGenreName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.released)
