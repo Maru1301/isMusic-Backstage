@@ -13,6 +13,7 @@ namespace iSMusic.Models.EFModels
         {
             LikedPlaylists = new HashSet<LikedPlaylist>();
             Playlist_Song_Metadata = new HashSet<Playlist_Song_Metadata>();
+            Queues = new HashSet<Queue>();
         }
 
         public int id { get; set; }
@@ -31,6 +32,8 @@ namespace iSMusic.Models.EFModels
 
         public bool isPublic { get; set; }
 
+        public DateTime created { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LikedPlaylist> LikedPlaylists { get; set; }
 
@@ -38,5 +41,8 @@ namespace iSMusic.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Playlist_Song_Metadata> Playlist_Song_Metadata { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Queue> Queues { get; set; }
     }
 }

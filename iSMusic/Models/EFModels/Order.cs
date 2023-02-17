@@ -15,7 +15,7 @@ namespace iSMusic.Models.EFModels
         }
 		public string[] PaymentList = { "apple pay", "Line pay" };
 
-		public int id { get; set; }
+        public int id { get; set; }
 
         public int memberId { get; set; }
 

@@ -13,6 +13,7 @@ namespace iSMusic.Models.EFModels
         {
             LikedAlbums = new HashSet<LikedAlbum>();
             Products = new HashSet<Product>();
+            Queues = new HashSet<Queue>();
             Songs = new HashSet<Song>();
         }
 
@@ -37,7 +38,7 @@ namespace iSMusic.Models.EFModels
         [StringLength(3000)]
         public string description { get; set; }
 
-        public int mainArtistId { get; set; }
+        public int? mainArtistId { get; set; }
 
         public int? mainCreatorId { get; set; }
 
@@ -51,6 +52,8 @@ namespace iSMusic.Models.EFModels
 
         public virtual Artist Artist { get; set; }
 
+        public virtual Creator Creator { get; set; }
+
         public virtual SongGenre SongGenre { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -58,6 +61,9 @@ namespace iSMusic.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Queue> Queues { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Song> Songs { get; set; }

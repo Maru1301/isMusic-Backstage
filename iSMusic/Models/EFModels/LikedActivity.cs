@@ -14,6 +14,8 @@ namespace iSMusic.Models.EFModels
 
         public int activityId { get; set; }
 
+        public DateTime created { get; set; }
+
         public virtual Activity Activity { get; set; }
 
         public virtual Member Member { get; set; }

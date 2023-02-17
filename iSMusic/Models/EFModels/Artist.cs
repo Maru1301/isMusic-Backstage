@@ -13,6 +13,7 @@ namespace iSMusic.Models.EFModels
         {
             Albums = new HashSet<Album>();
             ArtistFollows = new HashSet<ArtistFollow>();
+            Queues = new HashSet<Queue>();
             Song_Artist_Metadata = new HashSet<Song_Artist_Metadata>();
         }
 
@@ -39,6 +40,9 @@ namespace iSMusic.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArtistFollow> ArtistFollows { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Queue> Queues { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Song_Artist_Metadata> Song_Artist_Metadata { get; set; }

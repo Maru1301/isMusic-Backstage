@@ -26,7 +26,19 @@ namespace iSMusic.Models.EFModels
 
         public bool? isRepeat { get; set; }
 
+        public int? albumId { get; set; }
+
+        public int? playlistId { get; set; }
+
+        public int? artistId { get; set; }
+
+        public virtual Album Album { get; set; }
+
+        public virtual Artist Artist { get; set; }
+
         public virtual Member Member { get; set; }
+
+        public virtual Playlist Playlist { get; set; }
 
         public virtual Song Song { get; set; }
 

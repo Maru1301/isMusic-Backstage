@@ -11,6 +11,7 @@ namespace iSMusic.Models.EFModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Creator()
         {
+            Albums = new HashSet<Album>();
             CreatorFollows = new HashSet<CreatorFollow>();
             Song_Creator_Metadata = new HashSet<Song_Creator_Metadata>();
         }
@@ -36,6 +37,9 @@ namespace iSMusic.Models.EFModels
 
         [StringLength(100)]
         public string creatorCoverPath { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Album> Albums { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CreatorFollow> CreatorFollows { get; set; }

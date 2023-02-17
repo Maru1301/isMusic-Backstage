@@ -15,6 +15,8 @@ namespace iSMusic.Models.EFModels
 
         public int memberId { get; set; }
 
+        public DateTime created { get; set; }
+
         public virtual Member Member { get; set; }
 
         public virtual Playlist Playlist { get; set; }
