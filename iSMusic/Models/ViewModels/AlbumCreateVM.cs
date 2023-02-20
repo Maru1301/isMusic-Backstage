@@ -41,5 +41,11 @@ namespace iSMusic.Models.ViewModels
 
 		[Display(Name = "歌曲*")]
 		public List<int> songIdList { get; set; }
-	}
+
+        [Display(Name = "製作人*")]
+        public string albumProducer { get; set; }
+
+        [Display(Name = "發行公司*")]
+        public string albumCompany { get; set; }
+    }
 }

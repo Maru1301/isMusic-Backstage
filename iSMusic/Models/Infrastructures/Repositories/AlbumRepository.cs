@@ -54,7 +54,7 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				albumCoverPath = a.albumCoverPath,
 				released = a.released,
 				description = a.description,
-				mainArtistId = a.mainArtistId,
+				mainArtistId = a.mainArtistId.Value,
 				ArtistName = a.Artist.artistName,
 				songIdList = a.Songs.Where(m => m.albumId == id).Select(x => x.id).ToList()
 			}).SingleOrDefault(x => x.id == id);
@@ -66,7 +66,7 @@ namespace iSMusic.Models.Infrastructures.Repositories
 			{
 				a.id,
 				a.albumName,
-				typeName = a.AlbumType.typeName,
+                a.AlbumType.typeName,
 				a.released,
 				mainArtistName = a.Artist.artistName,
 			}).Select(a => new AlbumIndexVM

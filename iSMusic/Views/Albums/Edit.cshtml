@@ -87,6 +87,22 @@
                     </div>
                 </div>
 
+                <div class="form-group row mt-3">
+                    @Html.LabelFor(model => model.albumProducer, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.albumProducer, new { @class = "form-control col-md-7" })
+                        @Html.ValidationMessageFor(model => model.albumProducer, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row mt-3">
+                    @Html.LabelFor(model => model.albumCompany, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.albumCompany, new { @class = "form-control col-md-7" })
+                        @Html.ValidationMessageFor(model => model.albumCompany, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
                 <div class="form-group row mt-3" id="songList">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
