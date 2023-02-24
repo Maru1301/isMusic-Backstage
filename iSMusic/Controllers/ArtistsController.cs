@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using iSMusic.Models.Infrastructures.Extensions;
 using iSMusic.Models.Infrastructures;
+using iSMusic.Models.ViewModels;
 
 namespace iSMusic.Controllers
 {
@@ -104,11 +105,13 @@ namespace iSMusic.Controllers
 
 		// POST: Artists/Create
 		[HttpPost]
-		public ActionResult Create(Artist model)
+		public ActionResult Create(ArtistVM model)
 		{
 			try
 			{
-				service.Create(model.ToDTO());
+                string coverPath = Server.MapPath("/Uploads/Covers");
+
+                service.Create(model.ToDTO(), coverPath);
 			}
 			catch (Exception ex)
 			{
@@ -127,17 +130,20 @@ namespace iSMusic.Controllers
 		public ActionResult Edit(int id)
 		{
 			var data = service.FindById(id);
+			data.artistPicPath = "/Uploads/Covers/" + data.artistPicPath;
 
-			return View(data);
+			return View(data.ToVM());
 		}
 
 		// POST: Artists/Edit/5
 		[HttpPost]
-		public ActionResult Edit(Artist model)
+		public ActionResult Edit(ArtistVM model)
 		{
 			try
 			{
-				service.Edit(model.ToDTO());
+                string coverPath = Server.MapPath("/Uploads/Covers");
+
+                service.Edit(model.ToDTO(), coverPath);
 			}
 			catch (Exception ex)
 			{
@@ -174,12 +180,7 @@ namespace iSMusic.Controllers
 				ModelState.AddModelError(string.Empty, "刪除失敗," + ex.Message);
 			}
 
-			if (ModelState.IsValid)
-			{
-				return RedirectToAction("Index");
-			}
-
-			return View();
+			return RedirectToAction("Index");
 		}
 	}
 }

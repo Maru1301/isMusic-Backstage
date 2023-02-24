@@ -10,6 +10,7 @@ using iSMusic.Models.ViewModels;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -107,7 +108,7 @@ namespace iSMusic.Controllers
 				string coverPath = Server.MapPath("/Uploads/Covers");
 				string songPath = Server.MapPath("/Uploads/Songs");
 
-				service.AddNewSong(coverPath, songPath, model.ToDTO());
+                service.AddNewSong(coverPath, songPath, model.ToDTO());
 			}
 			catch (Exception ex)
 			{
@@ -183,7 +184,7 @@ namespace iSMusic.Controllers
 				data = repository.FindById(id);
 
 				data.songCoverPath = "/Uploads/Covers/" + data.songCoverPath;
-				data.songPath = "\\Uploads\\Songs\\" + data.songPath;
+				data.songPath = "/Uploads/Songs/" + data.songPath;
 
 				ViewBag.ArtistList = GetArtistList();
 				ViewBag.GenreList = GetGenreList();
@@ -213,7 +214,7 @@ namespace iSMusic.Controllers
 				string coverPath = Server.MapPath("/Uploads/Covers");
 				string songPath = Server.MapPath("/Uploads/Songs");
 
-				service.EditSong(coverPath, songPath, model.ToDTO());
+                service.EditSong(coverPath, songPath, model.ToDTO());
 			}
 			catch (Exception ex)
 			{

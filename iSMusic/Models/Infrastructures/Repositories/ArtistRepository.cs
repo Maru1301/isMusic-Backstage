@@ -48,7 +48,9 @@ namespace iSMusic.Models.Infrastructures.Repositories
 
 		public void Delete(ArtistDTO dto)
 		{
-			db.Entry(dto.ToEntity()).State = EntityState.Deleted;
+			var artist = db.Artists.Find(dto.id);
+
+			db.Artists.Remove(artist);
 			db.SaveChanges();
 		}
 

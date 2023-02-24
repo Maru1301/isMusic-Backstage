@@ -23,6 +23,10 @@ namespace iSMusic.Models.DTOs
 
 		public string artistAbout { get; set; }
 
-		public virtual ICollection<Song_Artist_Metadata> Song_Artist_Metadata { get; set; }
+        public string artistPicPath { get; set; }
+
+        public HttpPostedFileBase CoverFile { get; set; }
+
+        public virtual ICollection<Song_Artist_Metadata> Song_Artist_Metadata { get; set; }
 	}
 }

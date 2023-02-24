@@ -58,6 +58,8 @@ namespace iSMusic.Models.EFModels
 
         public int? albumId { get; set; }
 
+        public int? displayOrderInAlbum { get; set; }
+
         public virtual Album Album { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

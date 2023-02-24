@@ -1,4 +1,4 @@
-﻿@model iSMusic.Models.EFModels.Artist
+﻿@model iSMusic.Models.ViewModels.ArtistVM
 
 @{
     ViewBag.Title = "Create";
@@ -7,7 +7,7 @@
 <h2>新增表演者</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Artists", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -17,7 +17,19 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row d-flex justify-content-center">
             <div class="col-md-6">
-                <div class="form-group col-md-12 row m-auto">
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.CoverFile, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input class="form-control" data-val="true" data-val-required="請選一張圖片" type="file" name="CoverFile" id="myImg" accept="image/gif, image/jpeg, image/png" />
+                        @Html.ValidationMessageFor(model => model.CoverFile, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-2"></div>
+                    <img id="preview" style="max-width:250px; max-height: 250px" />
+                </div>
+
+                <div class="form-group col-md-12 row m-auto  mt-3">
                     @Html.LabelFor(model => model.artistName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.artistName, new { htmlAttributes = new { @class = "form-control" } })
@@ -100,6 +112,13 @@
                 }
             })
         }
+        $(document).ready(function () {
+            $("#myImg").on("change", function (e) {
+                const file = this.files[0];
+                const objectURL = URL.createObjectURL(file);
+                $("#preview").attr("src", objectURL);
+            })
+        });
     </script>
 }
 

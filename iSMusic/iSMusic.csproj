@@ -290,6 +290,7 @@
     <Compile Include="Models\ViewModels\AlbumCreateVM.cs" />
     <Compile Include="Models\ViewModels\AlbumEditVM.cs" />
     <Compile Include="Models\ViewModels\AlbumIndexVM.cs" />
+    <Compile Include="Models\ViewModels\ArtistVM.cs" />
     <Compile Include="Models\ViewModels\EditProfileVM.cs" />
     <Compile Include="Models\ViewModels\LoginVM.cs" />
     <Compile Include="Models\ViewModels\MemberPermissionsVM.cs" />
