@@ -221,26 +221,6 @@
             $("#audio_player")[0].src = file;
 
         })
-        console.log($("#artistIdList").val());
-
-
-        function validate(form) {
-
-            // validation code here ...
-            let artistIdList = $("#artistIdList").val();
-            let valid = false;
-
-            if (!valid) {
-                alert('Please correct the errors in the form!');
-                return false;
-            }
-            else {
-                return confirm('Do you really want to submit the form?');
-            }
-        }
-        $("form").on("submit", function () {
-            validate();
-        });
     })
 </script>
 }

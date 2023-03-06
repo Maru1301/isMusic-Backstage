@@ -117,16 +117,14 @@ namespace iSMusic.Models.Services
 				{
 					song.albumId = null;
 				}
-				else
-				{
-					newList.Remove(song.id);
-				}
 			}
 
+			int order = 0;
 			foreach (int id in newList)
 			{
 				var song = _db.Songs.Single(s => s.id == id);
 				song.albumId = albumId;
+				song.displayOrderInAlbum = order++;
 			}
 
 			_db.SaveChanges();

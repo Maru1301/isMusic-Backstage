@@ -26,11 +26,13 @@ namespace iSMusic.Models.Infrastructures.Repositories
 
 			var albumId = db.Albums.OrderByDescending(album => album.id).First().id;
 
+			int order = 0;
 			foreach(var songId in dto.songIdList)
 			{
 				var song = db.Songs.Single(s => s.id == songId);
 
 				song.albumId = albumId;
+				song.displayOrderInAlbum = order++;
 			}
 
 			db.SaveChanges();
@@ -106,7 +108,15 @@ namespace iSMusic.Models.Infrastructures.Repositories
 		public void UpdateAlbum(AlbumDTO dto)
 		{
 			db.Entry(dto.ToEntity()).State = System.Data.Entity.EntityState.Modified;
-			db.SaveChanges();
+
+            int order = 0;
+            foreach (var songId in dto.songIdList)
+            {
+                var song = db.Songs.Single(s => s.id == songId);
+                song.displayOrderInAlbum = order++;
+            }
+
+            db.SaveChanges();
 		}
 	}
 }
