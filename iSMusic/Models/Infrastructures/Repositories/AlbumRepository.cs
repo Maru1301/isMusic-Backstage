@@ -58,7 +58,9 @@ namespace iSMusic.Models.Infrastructures.Repositories
 				description = a.description,
 				mainArtistId = a.mainArtistId.Value,
 				ArtistName = a.Artist.artistName,
-				songIdList = a.Songs.Where(m => m.albumId == id).Select(x => x.id).ToList()
+				songIdList = a.Songs.Where(m => m.albumId == id).Select(x => x.id).ToList(),
+				albumCompany = a.albumCompany,
+				albumProducer = a.albumProducer,
 			}).SingleOrDefault(x => x.id == id);
 		}
 
