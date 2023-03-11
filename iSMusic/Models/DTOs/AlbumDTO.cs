@@ -26,7 +26,11 @@ namespace iSMusic.Models.DTOs
 
 		public int mainArtistId { get; set; }
 
-		public List<int> songIdList { get; set; }
+        public string albumProducer { get; set; }
+
+        public string albumCompany { get; set; }
+
+        public List<int> songIdList { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
     }

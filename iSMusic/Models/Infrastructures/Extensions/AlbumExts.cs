@@ -36,6 +36,8 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				songIdList = source.songIdList,
 				description = source.description,
 				mainArtistId = source.mainArtistId,
+				albumCompany = source.albumCompany,
+				albumProducer = source.albumProducer,
 				released = source.released,
 				CoverFile = source.CoverFile,
 			};
@@ -53,6 +55,8 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				released = source.released,
 				description = source.description,
 				mainArtistId = source.mainArtistId,
+				albumCompany = source.albumCompany,
+				albumProducer = source.albumProducer,
 			};
 		}
 	}
