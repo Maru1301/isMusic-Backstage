@@ -22,6 +22,8 @@ namespace iSMusic.Models.Infrastructures.Extensions
 				mainArtistId = source.mainArtistId,
 				released = source.released,
 				CoverFile = source.CoverFile,
+				albumProducer = source.albumProducer,
+				albumCompany = source.albumCompany,
 			};
 		}
 
