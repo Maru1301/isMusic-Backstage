@@ -177,7 +177,7 @@ namespace iSMusic.Controllers
 		// GET: Songs/Edit/5
 		public ActionResult Edit(int id)
 		{
-			SongEditVM data = null;
+			SongDTO data = null;
 			try
 			{
 				data = repository.FindById(id);
@@ -196,7 +196,7 @@ namespace iSMusic.Controllers
 
 			if (ModelState.IsValid)
 			{
-				return View(data);
+				return View(data.ToEditVM());
 			}
 
 			return RedirectToAction("Index"); ;
@@ -236,7 +236,7 @@ namespace iSMusic.Controllers
 		{
 			var data = repository.FindById(id);
 
-			return View(data);
+			return View(data.ToDeleteVM());
 		}
 
 		// POST: Songs/Delete/5
@@ -316,7 +316,7 @@ namespace iSMusic.Controllers
 
 		public class SortInfo : BaseSortInfo<Song>
 		{
-			public override string[] ColumnNames { get=> new string[] { "songName", "SongGenreName", "Language", "released", "duration", "TimesOfPlay "}; }
+			public override string[] ColumnNames { get=> new string[] { "songName", "SongGenreName", "Language", "released", "duration", "TimesOfPlay"}; }
 
 			public SortInfo(string columnName, string direction) : base(columnName, direction, "songName")
 			{
@@ -338,15 +338,30 @@ namespace iSMusic.Controllers
 							? data.OrderBy(t => t.songName).ThenBy(t => t.released)
 							: data.OrderByDescending(t => t.songName).ThenBy(t => t.released);
 
+					case EnumColumn.SongGenreName:
+						return (IsAsc())
+							? data.OrderBy(t => t.SongGenre.genreName).ThenByDescending(t => t.released)
+							: data.OrderByDescending(t => t.SongGenre.genreName).ThenByDescending(t => t.released);
+
 					case EnumColumn.released:
 						return (IsAsc())
 							? data.OrderBy(t => t.released).ThenBy(t => t.songName)
 							: data.OrderByDescending(t => t.released).ThenBy(t => t.songName);
 
-					case EnumColumn.SongGenreName:
+					case EnumColumn.Language:
 						return (IsAsc())
-							? data.OrderBy(t => t.SongGenre.genreName)
-							: data.OrderByDescending(t => t.SongGenre.genreName);
+							? data.OrderBy(t => t.language)
+							: data.OrderByDescending(t => t.language);
+
+					case EnumColumn.duration:
+						return (IsAsc())
+							? data.OrderBy(t => t.duration)
+							: data.OrderByDescending(t => t.duration);
+
+					case EnumColumn.TimesOfPlay:
+						return (IsAsc())
+							? data.OrderBy(t => t.timesOfPlay).ThenByDescending(t=>t.released)
+							: data.OrderByDescending(t => t.timesOfPlay).ThenByDescending(t=>t.released);
 				}
 
 				return data;

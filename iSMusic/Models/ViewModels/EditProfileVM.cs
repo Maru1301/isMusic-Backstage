@@ -27,6 +27,10 @@ namespace iSMusic.Models.ViewModels
 
 		[Display(Name = "行動電話")]
 		public string Cellphone { get; set; }
+		[Display(Name = "生日")]
+		public DateTime? DateOfBirth { get; set; }
+		[Display(Name = "驗證狀態")]
+		public bool isConfirmed { get; set; }
 
 
 	}

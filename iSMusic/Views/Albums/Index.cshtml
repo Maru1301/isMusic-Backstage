@@ -10,30 +10,31 @@
     var criteria = (AlbumsController.AlbumCriteria)ViewBag.Criteria;
     var typeList = (IEnumerable<SelectListItem>)ViewBag.TypeList;
 }
+<div class="container">
+    <div class="row d-flex">
+        <h1>專輯目錄</h1>
+    </div>
+</div>
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-<form method="get">
+<form method="get" class="mt-3">
     @sortInfo.RenderHiddenInfo()
     <div class="row">
         <div class="col-xs-12">
             <div class="caption">
-                <h3>Search</h3>
                 <div class="row">
-                    <div class="col-md-4">專輯類型:@Html.DropDownList("albumTypeId", typeList, new { @class = "form-control" })</div>
-                    <div class="col-md-4">專輯名稱:<input type="text" name="input" class="form-control" value="@criteria.input"></div>
+                    <div class="col-md-3">專輯類型:@Html.DropDownList("albumTypeId", typeList, new { @class = "form-control" })</div>
+                    <div class="col-md-3">專輯名稱:<input type="text" name="input" class="form-control" value="@criteria.input"></div>
+                    <div class="col-md-4 d-flex">
+                        <input type="submit" class="btn btn-dark mt-4 col-md-3" value="搜尋" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding-left: 15px;">
-        <input type="submit" class="btn btn-primary" value="Search" />
-    </div>
 </form>
+<div>
+    <a class="btn btn-dark col-md-1 mt-4" href="/Albums/Create">新增</a>
+</div>
 
 <table class="table">
     <tr>
@@ -68,23 +69,24 @@
                 @Html.DisplayFor(modelItem => item.mainArtistName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a class="btn" style="background-color: #F68657; color: white" href="/Albums/Edit/@item.id">編輯</a>
             </td>
         </tr>
     }
 
 </table>
-@pagedInfo.RenderPager(page => "/Albums/Index?PageNumber=" + page + "&" + sortInfo.GetQueryString() + "&" + criteria.GetQueryString())
+<div class="d-flex justify-content-center">
+    @pagedInfo.RenderPager(page => "/Albums/Index?PageNumber=" + page + "&" + sortInfo.GetQueryString() + "&" + criteria.GetQueryString())
+</div>
 
 @section Scripts
 {
     <script>
-        $(document).ready(function () {
-        @if (criteria.AlbumTypeId.HasValue)
-            {
-                @:$("#albumTypeId").val("@criteria.AlbumTypeId")
-            }
-        })
+$(document).ready(function () {
+@if (criteria.AlbumTypeId.HasValue)
+    {
+        @:$("#albumTypeId").val("@criteria.AlbumTypeId")
+    }
+})
     </script>
 }
