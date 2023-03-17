@@ -10,7 +10,7 @@
 <h1>建立活動</h1>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Activities", FormMethod.Post, new { enctype = "multipart/form-data" })) //要改 第一個是action 第二個是控制向
 {
     @Html.AntiForgeryToken()
   
@@ -79,10 +79,11 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.activityImagePath, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
+                    @Html.LabelFor(model => model.File, htmlAttributes: new { @class = "control-label  mt-4 fs-4 fw-bold" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.activityImagePath, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.activityImagePath, "", new { @class = "text-danger" })
+                        <input class="form-control" data-val="true" data-val-required="請選擇一張圖" type="file" name="File" id="myFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                        @*@Html.EditorFor(model => model.Path, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger" })
                     </div>
                 </div>
 

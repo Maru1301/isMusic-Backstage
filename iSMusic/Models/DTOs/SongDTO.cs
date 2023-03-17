@@ -53,5 +53,7 @@ namespace iSMusic.Models.DTOs
 		public virtual ICollection<Song_Artist_Metadata> Song_Artist_Metadata { get; set; }
 
 		public virtual SongGenre SongGenre { get; set; }
+		
+
 	}
 }

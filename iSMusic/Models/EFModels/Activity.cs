@@ -13,7 +13,7 @@ namespace iSMusic.Models.EFModels
         {
             Activity_Tag_Metadata = new HashSet<Activity_Tag_Metadata>();
             ActivityFollows = new HashSet<ActivityFollow>();
-            LikedActivities = new HashSet<LikedActivity>();
+            //LikedActivities = new HashSet<LikedActivity>();
         }
 
         public int id { get; set; }
