@@ -63,8 +63,8 @@ namespace isMusic.Controllers
                 ViewBag.activityType = new SelectList(db.ActivityTypes, "id", "typeName");
                 ViewBag.checkedById = new SelectList(db.Admins, "id", "adminAccount");
                 ViewBag.activityOrganizerId = new SelectList(db.Members, "id", "memberAccount");
-
-                activityService.Create(model.ToActivityCreateDTO());
+				string coverPath = Server.MapPath("/Uploads/Covers");
+				activityService.Create(coverPath,model.ToActivityCreateDTO());
             }
             catch (Exception ex)
             {

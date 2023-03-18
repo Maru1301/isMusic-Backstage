@@ -27,7 +27,9 @@ namespace isMusic.Models.DTOs
         public bool publishedStatus { get; set; }
 
         public int checkedById { get; set; }
-    }
+		public string Path { get; set; }
+		public HttpPostedFileBase File { get; set; }
+	}
 
     public static class ActivityCreateDTOExts
     {
@@ -42,11 +44,11 @@ namespace isMusic.Models.DTOs
                 activityEndTime = source.activityEndTime,
                 activityLocation = source.activityLocation,
                 activityTypeId = source.activityTypeId,
-                activityInfo = source.activityInfo,
-                activityImagePath = source.activityImagePath,
+                activityInfo = source.activityInfo,                
                 activityOrganizerId = source.activityOrganizerId,
                 publishedStatus = source.publishedStatus,
                 checkedById = source.checkedById,
+                File=source.File,                
             };
         }
     }

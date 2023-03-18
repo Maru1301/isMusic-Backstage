@@ -31,12 +31,13 @@ namespace isMusic.Infrastructures.Extensions
                 activityTypeId = source.activityTypeId,
                 activityInfo = source.activityInfo,
                 activityOrganizerId = source.activityOrganizerId,
-                activityImagePath = source.activityImagePath,
+                activityImagePath = source.Path,
                 publishedStatus = source.publishedStatus,
                 checkedById = source.checkedById,
-            };
+                updated = DateTime.UtcNow,
+			};
         }
-
+            
         public static Activity ToActivityEntityForEdit(this ActivityEditDTO source)
         {
 
@@ -67,11 +68,11 @@ namespace isMusic.Infrastructures.Extensions
                 activityEndTime = source.activityEndTime,
                 activityLocation = source.activityLocation,
                 activityTypeId = source.activityTypeId,
-                activityInfo = source.activityInfo,
-                activityImagePath = source.activityImagePath,
+                activityInfo = source.activityInfo,                
                 activityOrganizerId = source.activityOrganizerId,
                 publishedStatus = source.publishedStatus,
                 checkedById = source.checkedById,
+                File = source.File,
             };
         }
 

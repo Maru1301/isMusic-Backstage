@@ -42,25 +42,28 @@ namespace isMusic.Models.ViewModels
         public int activityOrganizerId { get; set; }
 
 
-        [Display(Name = "活動照片")]
-
-        [Required]
-        [StringLength(50)]
-        public string activityImagePath { get; set; }
+        //[Display(Name = "活動照片")]
+        //[Required]
+        //[StringLength(50)]
+        //public string activityImagePath { get; set; }
 
         [Display(Name = "審核完成")]
         public bool publishedStatus { get; set; }
 
         [Display(Name = "審核者")]
         public int checkedById { get; set; }
+		[Required]
+		[Display(Name = "活動封面檔案*")]
+		public HttpPostedFileBase File { get; set; }
 
-        //public virtual ActivityType ActivityType { get; set; }
 
-        //public virtual Admin Admin { get; set; }
+		//public virtual ActivityType ActivityType { get; set; }
 
-        //public virtual Member Member { get; set; }
+		//public virtual Admin Admin { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+		//public virtual Member Member { get; set; }
+
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActivityFollow> ActivityFollows { get; set; }
     }
 
@@ -78,10 +81,11 @@ namespace isMusic.Models.ViewModels
                 activityLocation = source.activityLocation,
                 activityTypeId = source.activityType.id,
                 activityInfo = source.activityInfo,
-                activityImagePath = source.activityImagePath,
+                //activityImagePath = source.activityImagePath,
                 activityOrganizerId = source.member.id,
                 publishedStatus = source.publishedStatus,
                 checkedById = source.admin.id,
+                
             };
         }
     }
